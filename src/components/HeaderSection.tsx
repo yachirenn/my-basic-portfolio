@@ -1,11 +1,12 @@
+"use client";
 import React from 'react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react'
 import { navigationItems } from '../../constants/navigation';
 import { personalInfo } from '../../constants/personalInfo';
-import MobileNavigation from '../common/MobileNavigation';
+import MobileNavigation from './MobileNavigation';
 
 interface HeaderSection {
     title: string;
