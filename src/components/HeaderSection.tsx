@@ -3,10 +3,10 @@ import React from 'react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { motion } from 'motion/react'
-import { navigationItems } from '../../constants/navigation';
-import { personalInfo } from '../../constants/personalInfo';
-import MobileNavigation from './MobileNavigation';
+// import { motion } from 'motion/react'
+// import { navigationItems } from '../../constants/navigation';
+// import { personalInfo } from '../../constants/personalInfo';
+// import MobileNavigation from './MobileNavigation';
 
 interface HeaderSection {
     title: string;
@@ -23,12 +23,12 @@ const HeaderSection: React.FC<HeaderSection> = ({ title, subtitle }) => {
                     {/* Logo or Brand */}
                     <Link href="/" className="flex items-center space-x-2">
                         <div className="w-8 h-8 flex items-center justify-center bg-terminal-accent text-white rounded-md">
-                            <img src="" alt="" className="w-8 h-8" style={{ filter: 'invert(64%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(109%)' }} />
+                            {/* <img src="" alt="" className="w-8 h-8" style={{ filter: 'invert(64%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(109%)' }} /> */}
                         </div>
                     </Link>
 
                     {/* Navigation Links */}
-                    <nav className="hidden md:flex items-center space-x-1">
+                    {/* <nav className="hidden md:flex items-center space-x-1">
                         {navigationItems.map((item) => (
                             <Link
                                 key={item.name}
@@ -45,10 +45,9 @@ const HeaderSection: React.FC<HeaderSection> = ({ title, subtitle }) => {
                                 {item.name}
                             </Link>
                         ))}
-                    </nav>
+                    </nav> */}
 
                     {/* Mobile Navigation */}
-                    <MobileNavigation />
                 </div>
             </div>
         </header>

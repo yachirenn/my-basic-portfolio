@@ -31,3 +31,45 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.desktop-windows {
+  width: 90vh;
+  height: 85vh;
+  background: rgba(18, 22, 48, .84);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, .12);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  padding: 1.3rem;
+}
+
+.desktop-content {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 1.2rem;
+}
+
+.desktop-grid-placeholder {
+  border: 1px dashed rgba(255, 255, 255, .2);
+  border-radius: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .6;
+}
+
+.terminal-placeholder {
+  background: #0b0e1a;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, .12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+}
+
+.desktop-icon {
+  
+}
