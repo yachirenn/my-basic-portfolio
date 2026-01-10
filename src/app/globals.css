@@ -24,3 +24,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+.app-root {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+}

@@ -25,6 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body
         className={`${yujiBokuSans.variable} ${yujiBokuMono.variable} antialiased`}
       >
+        <main className="app-root"></main>
         {children}
       </body>
     </html>
