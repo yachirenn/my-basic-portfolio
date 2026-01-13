@@ -1,13 +1,26 @@
+"use client";
+
+import { useState } from "react";
 import DesktopGrid from "./DesktopGrid";
-import TerminalWindow from "./TerminalWindows";
+import TerminalModal from "../terminal/TerminalModal";
 
 export default function DesktopLayout() {
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+
   return (
-    <section className="desktop-window">
-      <div className="desktop-content">
-        <DesktopGrid />
-        <TerminalWindow />
-      </div>
-    </section>
+    <>
+      <DesktopGrid
+        onIconClick={(action) => {
+          if (action === "terminal") {
+            setIsTerminalOpen(true);
+          }
+        }}
+      />
+
+      <TerminalModal
+        open={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+      />
+    </>
   );
 }

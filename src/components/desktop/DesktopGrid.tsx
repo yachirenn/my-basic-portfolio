@@ -1,7 +1,11 @@
 import DesktopIcon from "./DesktopIcon";
 import { navigationItems } from "@/constants/navigation";
 
-export default function DesktopGrid() {
+interface DesktopGridProps {
+  onOpenTerminal: () => void;
+}
+
+export default function DesktopGrid({onOpenTerminal} : DesktopGridProps) {
   return (
     <div className="desktop-grid">
       {navigationItems.map((item) => (
@@ -9,6 +13,7 @@ export default function DesktopGrid() {
           key={item.id}
           icon={item.icon}
           label={item.label}
+          onClick={onOpenTerminal}
         />
       ))}
     </div>

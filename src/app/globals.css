@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-yuji-boku-sans);
-  --font-mono: var(--font-yuji-boku-mono);
+  --font-sans: var(--font-roboto-sans);
+  --font-mono: var(--font-roboto-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,7 +22,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-roboto-mono), sans-serif;
 }
 
 .app-root {
@@ -32,6 +32,7 @@ body {
   justify-content: center;
 }
 
+/* Desktop Section Style */
 .desktop-windows {
   width: 90vh;
   height: 85vh;
@@ -60,16 +61,82 @@ body {
   opacity: .6;
 }
 
-.terminal-placeholder {
+.desktop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  padding: 1rem;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.desktop-icon-box {
+  width: 72px;
+  height: 72px;
+  border-radius: .8rem;
+  background: rgba(255, 255, 255, .12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, .15);
+  transition: background .2s ease, transform .2s ease;
+}
+
+.desktop-icon-box:hover, .desktop-icon-box {
+  background: rgba(255, 255, 255, .15);
+  transform: translateY(-2px);
+}
+
+.desktop-icon-label {
+  font-size: .9rem;
+  text-align: center;
+  opacity: .6;
+}
+
+
+/* Terminal Section Style */
+.terminal-window {
   background: #0b0e1a;
   border-radius: 1.2rem;
   border: 1px solid rgba(255, 255, 255, .12);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   font-family: var(--font-mono);
+  animation: fadeIn .2s ease-out;
 }
 
-.desktop-icon {
-  
+.terminal-header {
+  padding: 10px 14px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+
+.terminal-body {
+  padding: 8px 14px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.terminal-commad {
+  color: #6cf;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

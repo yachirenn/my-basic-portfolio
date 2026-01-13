@@ -1,16 +1,16 @@
-import { Yuji_Boku } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 
-const yujiBokuSans = Yuji_Boku({
+const robotoSans = Roboto_Mono({
   weight: "400",
-  variable: "--font-yuji-boku-sans",
+  variable: "--font-roboto-sans",
   subsets: ["latin"],
 });
 
-const yujiBokuMono = Yuji_Boku({
+const robotoMono = Roboto_Mono({
   weight: "400",
-  variable: "--font-yuji-boku-mono",
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 });
 
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${yujiBokuSans.variable} ${yujiBokuMono.variable} antialiased`}
+        className={`${robotoMono.variable} ${robotoSans.variable} antialiased`}
       >
         <main className="app-root">
           {children}
