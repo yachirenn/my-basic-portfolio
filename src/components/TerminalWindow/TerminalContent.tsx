@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { TerminalCommand } from "@/app/lib/TerminalCommand"
 
 export default function TerminalContent() {
@@ -17,7 +17,7 @@ export default function TerminalContent() {
     const cmd = commands.trim().toLowerCase();
 
     // cleaning the terminal
-    if (cmd === "clear" && "cls") {
+    if (cmd === "clear" || cmd === "cls") {
       setHistory([]);
       return;
     }
@@ -26,18 +26,14 @@ export default function TerminalContent() {
 
     if (!found) {
       setHistory((prev) => [...prev, `command not found: ${cmd}`]);
-      return;
+    return;
     }
 
-    // show option first (opsional)
-    if (found.route) {
+    if (found.output) {
       setHistory((prev) => [...prev, found.output.trim()]);
     }
 
-    // navigation
     if (found.route) {
-      setHistory((prev) => [...prev, `opening ${found.route}...`]);
-
       setTimeout(() => {
         router.push(found.route!);
       }, 300);
@@ -55,7 +51,7 @@ export default function TerminalContent() {
   }
 
   return (
-    <div className="flex flex-colls h-full p-4 font-mono text-sm text-green-400">
+    <div className="grid flex-row h-full p-4 font-mono text-sm text-green-400">
       {/* Output */}
       <div className="flex-1 space-y overflow-y-auto">
         {history.map((line, i) => (

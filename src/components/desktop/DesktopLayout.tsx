@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import DesktopGrid from "./DesktopGrid";
-import TerminalModal from "../terminal/TerminalModal";
+import TerminalModal from "../TerminalWindow/TerminalModal";
 
 export default function DesktopLayout() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);

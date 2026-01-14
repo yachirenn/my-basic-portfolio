@@ -1,10 +1,22 @@
-import DesktopLayout from "@/components/desktop/DesktopLayout";
+"use client";
 
-export default function Page() {
+import { useState } from "react";
+import DesktopIcon from "../components/desktop/DesktopIcon";
+import TerminalWindow from "../components/TerminalWindow/TerminalWindows";
+
+export default function Home() {
+  const [terminalOpen, setTerminalOpen] = useState(false);
+
   return (
     <>
-      {/* <HeaderSection title="Welcome to My App" subtitle="This is a sample subtitle." /> */}
-      <DesktopLayout />
+      <DesktopIcon
+        label="credit.exe"
+        onOpen={() => setTerminalOpen(true)}
+      />
+
+      {terminalOpen && (
+        <TerminalWindow onClose={() => setTerminalOpen(false)} />
+      )}
     </>
   );
 }
