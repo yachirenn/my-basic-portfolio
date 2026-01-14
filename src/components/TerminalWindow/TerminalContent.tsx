@@ -1,17 +1,47 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { TerminalCommand } from "@/app/lib/TerminalCommand"
 
 export default function TerminalContent() {
   const router = useRouter();
 
+  const [tabIndex, setTabIndex] = useState(0);
+  const [matches, setMatches] = useState<string[]>([]);
+
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([
     "Portfolio OS@v.1.0 Demo",
     "Type '/help' to see avaliable commands.",
   ]);
+
+  function handleTab(e: React.KeyboardEvent<HTMLElement>) {
+    if (e.key !== "Tab") return;
+    e.preventDefault();
+
+    const value = input.trim().toLowerCase();
+
+    if (!value.startsWith("/")) return;
+
+    const cmds = Object.keys(TerminalCommand).map((c) => `/${c}`);
+    const filtered = cmds.filter((cmd) => cmd.startsWith(value));
+
+    if (filtered.length === 0) return;
+
+    // first click TAB
+    if (matches.length === 0) {
+      setMatches(filtered);
+      setTabIndex(0);
+      setInput(filtered[0]);
+      return;
+    }
+
+    // cycling
+    const nextIndex = (tabIndex + 1) % matches.length;
+    setTabIndex(nextIndex);
+    setInput(matches[nextIndex]);
+  }
 
   function handleCommand(commands: string) {
     const cmd = commands.trim().toLowerCase();

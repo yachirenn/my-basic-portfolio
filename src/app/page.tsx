@@ -9,14 +9,7 @@ export default function Home() {
 
   return (
     <>
-      <DesktopIcon
-        label="credit.exe"
-        onOpen={() => setTerminalOpen(true)}
-      />
-
-      {terminalOpen && (
-        <TerminalWindow onClose={() => setTerminalOpen(false)} />
-      )}
+    <TerminalWindow />
     </>
   );
 }
