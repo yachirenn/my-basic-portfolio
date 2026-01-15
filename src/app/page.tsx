@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import DesktopIcon from "../components/desktop/DesktopIcon";
-import TerminalWindow from "../components/TerminalWindow/TerminalWindows";
+import DesktopGrid from "@/components/desktop/DesktopGrid"
+import DesktopIcon from "@/components/desktop/DesktopIcon"
 
-export default function Home() {
-  const [terminalOpen, setTerminalOpen] = useState(false);
-
+export default function HomePage() {
   return (
-    <>
-    </>
-  );
+    <DesktopGrid>
+      <DesktopIcon app="terminal" label="command.exe" />
+      <DesktopIcon app="mem" label="mem.exe" />
+      <DesktopIcon app="about" label="about.exe" />
+    </DesktopGrid>
+  )
 }

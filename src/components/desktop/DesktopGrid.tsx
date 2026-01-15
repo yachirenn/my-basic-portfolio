@@ -1,21 +1,21 @@
 import DesktopIcon from "./DesktopIcon";
 import { navigationItems } from "@/constants/navigation";
 
-interface DesktopGridProps {
-  onOpenTerminal: () => void;
+type DesktopGridProps ={
+  children?: React.ReactNode;
 }
 
-export default function DesktopGrid({onOpenTerminal} : DesktopGridProps) {
+export default function DesktopGrid({children} : DesktopGridProps) {
   return (
     <div className="desktop-grid">
       {navigationItems.map((item) => (
         <DesktopIcon
           key={item.id}
-          icon={item.icon}
           label={item.label}
-          onClick={onOpenTerminal}
+          app={item.app}
         />
       ))}
+      {children}
     </div>
   );
 }

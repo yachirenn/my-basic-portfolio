@@ -1,41 +1,33 @@
-import React, { useState, useEffect, use } from 'react';
-import FileExplorer from '../windows/FileExplorer'
-import  '../../assets/css/animation.css'; // Importing animation styles
+"use client"
 
-const WindowsContainer = ({ windows, closeWindows, fileSystem, findItemById, onExeClick }: any) => {
-  const [closingWindows, setClosingWindows] = useState(windows || []);
+import { useState } from "react"
+import TerminalWindow from "@/components/TerminalWindow/TerminalWindows"
+import { AppType } from "@/app/lib/app"
 
-  const handleClose = (id: string) => {
-    setClosingWindows([...closingWindows, id]);
-    setTimeout(() => closeWindows(id), 300);      // Delay closing the window to allow animation to complete
-  };
+let openFn: (app: AppType) => void
 
-  useEffect(() => {
-    // remove closed windows from the list after they are closed
-    if (windows.length < closingWindows.length) {
-      setClosingWindows(closingWindows.filter((id: string) => !windows.find((win: any) => win.id === id)));
-    }
-  }, [windows, closingWindows]);
+export function openWindow(app: AppType) {
+  openFn?.(app)
+}
+
+export default function WindowsContainer() {
+  const [windows, setWindows] = useState<AppType[]>([])
+
+  openFn = (app) => {
+    setWindows((prev) =>
+      prev.includes(app) ? prev : [...prev, app]
+    )
+  }
+
+  const closeWindow = (app: AppType) => {
+    setWindows((prev) => prev.filter((w) => w !== app))
+  }
 
   return (
     <>
-      {windows.map((window: any) => (
-        <div
-          key={window.id}
-          className={`window-container ${closingWindows.includes(window.id) ? 'fade-out' : 'fade-in'}`}
-        >
-          <div className="window-content">
-            <FileExplorer
-              isExeWindow={window.type === 'exe'}
-              onExeClick={onExeClick}
-              {...window}
-              fileSystem={fileSystem}
-              findItemById={findItemById}
-              closeWindow={() => handleClose(window.id)}
-            />
-          </div>
-        </div>
-      ))}
+      {windows.includes("terminal") && (
+        <TerminalWindow onClose={() => closeWindow("terminal")} />
+      )}
     </>
-  );
-};
+  )
+}

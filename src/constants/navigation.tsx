@@ -1,32 +1,25 @@
-export const navigationItems = [
+import { AppType } from "@/app/lib/app"
+
+export type NavigationItem = {
+  id: number
+  label: string
+  app: AppType
+}
+
+export const navigationItems: NavigationItem[] = [
   {
-    id: "about",
-    label: "About Me.exe",
-    icon: "👤",
+    id: 1,
+    label: "command.exe",
+    app: "terminal",
   },
   {
-    id: "projects",
-    label: "Projects.exe",
-    icon: "📁",
+    id: 2,
+    label: "mem.exe",
+    app: "mem",
   },
   {
-    id: "skills",
-    label: "Skills.exe",
-    icon: "🛠️",
+    id: 3,
+    label: "about.exe",
+    app: "about",
   },
-  {
-    id: "experience",
-    label: "Experience.exe",
-    icon: "📜",
-  },
-  {
-    id: "contact",
-    label: "Contact.exe",
-    icon: "✉️",
-  },
-  {
-    id: "credits",
-    label: "Credits.exe",
-    icon: "⭐",
-  },
-];
+]

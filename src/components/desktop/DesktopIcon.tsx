@@ -1,14 +1,24 @@
-interface DesktopIconsProps {
-  icon: string;
-  label: string;
-  onClick: () => void;
+"use client"
+
+import { openWindow } from "@/components/container/WindowsContainer"
+import { AppType } from "@/app/lib/app"
+
+type Props = {
+  label: string
+  app: AppType
+  icon?: React.ReactNode
 }
 
-export default function DesktopIconsProps({ icon, label, onClick }: DesktopIconsProps) {
+export default function DesktopIcon({ label, app, icon }: Props) {
   return (
-    <div className="desktop-icon" onClick={onClick}>
-      <div className="desktop-icon-box">{icon}</div>
-      <span className="desktop-icon-label">{label}</span>
+    <div
+      className="app-icon"
+      onClick={() => openWindow(app)}
+    >
+      <div className="app-icon-image">
+        {icon ?? "⌘"}
+      </div>
+      <div className="app-icon-label">{label}</div>
     </div>
-  );
+  )
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import React, { createContext, useState, useCallback } from "react"
 import { navigationItems } from "@/constants/navigation";
 import { personalInfo } from "@/constants/personalInfo"
@@ -5,6 +7,14 @@ import { useRouter } from "next/navigation"
 import { TerminalCommand } from "@/app/lib/TerminalCommand"
 import { callbackify } from "util";
 import { Command } from "lucide-react";
+
+
+import { useContext, KeyboardEvent } from "react"
+import { TerminalContext } from "@/components/TerminalWindow/TerminalContext"
+
+export default function TerminalView() {
+  const terminal = useContext(TerminalContext)
+  if (!terminal) return null
 
 interface TerminalLine {
   id: string;
@@ -49,7 +59,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
     },
   ]);
 
-  const [currentInput, setCurrentinput] = useState('');
+  const [currentInput, setCurrentInput] = useState('')
   const [isTerminalFocused, setTerminalFocused] = useState(false);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -81,7 +91,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
       command: command,
       output: `${personalInfo.name.toLowerCase().replace(' ', '')}@portfolio:~$ ${command}`,
       type: 'command',
-    });
+    },[addLine, clearHistory, history]);
 
     // Eksekusi command
     switch (trimmedCommand) {
