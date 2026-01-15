@@ -1,6 +1,6 @@
 "use client";
 
-import TerminalContent from '@/components/TerminalWindow/TerminalContent';
+import { TerminalContent } from '@/components/TerminalWindow/TerminalContent';
 
 export default function TerminalWindow({ onClose }: { onClose: () => void }) {
   return (
@@ -10,7 +10,6 @@ export default function TerminalWindow({ onClose }: { onClose: () => void }) {
           <span>Terminal</span>
           <button onClick={onClose}>X</button>
         </div>
-        <TerminalContent />
       </div>
     </div>
   );

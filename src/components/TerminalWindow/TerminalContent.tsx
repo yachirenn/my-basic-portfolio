@@ -14,14 +14,14 @@ interface TerminalLine {
   timestamp: Date;
 }
 
-interface TerminalCommandType {
+interface TerminalContentType {
   history: TerminalLine[];
   currentInput: string;
-  setCurrentinput: (input: string) => void;
+  setCurrentInput: (input: string) => void;
   executeCommand: (command: string) => void;
   clearHistory: () => void;
   isTerminalFocused: boolean;
-  setTerminalFocus: (focused: boolean) => void;
+  setTerminalFocused: (focused: boolean) => void;
   navigateHistory: (direction: 'up' | 'down') => void;
 }
 
@@ -79,8 +79,8 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
     // add command to terminal history
     addLine({
       command: command,
-      output: ${personalInfo.name.toLowerCase().replace(' ', '')}@portfolio:~$ ${command},
-      type: command,
+      output: `${personalInfo.name.toLowerCase().replace(' ', '')}@portfolio:~$ ${command}`,
+      type: 'command',
     });
 
     // Eksekusi command
@@ -103,7 +103,6 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
             '  email                  - Open email client\n' +
             '\nFun Commands:\n' +
             '  ascii                  - Show ASCII art\n' +
-            '  joke                   - Get a programming joke\n' +
             '  quote                  - Get an inspirational quote',
           type: 'output'
         });
@@ -219,6 +218,74 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
           type: 'output'
         });
         break;
+
+      case 'qoute':
+        const qoutes = [
+          "Teknologi adalah upaya manusia untuk menulis ulang hukum alam—tetapi semakin dalam kita mengukir,\nsemakin jelas terlihat: kita hanya menorehkan tanda tanya di atas takdir yang sudah tertulis..",
+          "Kematian bukanlah kegagalan manusia terhadap hukum alam,\nmelainkan tanda bahwa hidup adalah hadiah yang diberi batas—dan justru dalam batas itulah makna ditemukan.",
+          "Manusia bukan hanya makhluk individu, tapi juga bagian dari masyarakat dan hukum alam.\nKebahagiaan pribadi tidak bisa mengabaikan tanggung jawab terhadap keturunan dan norma sosial.",
+          'Kita membangun peradaban di atas keyakinan bahwa hukum alam bisa direvisi—hingga suatu hari,\nbanjir besar datang mengingatkan:\n"yang kita ubah hanyalah diri kita sendiri, bukan aturan semesta."',
+          "Kita menyebutnya 'inovasi' ketika mencoba membekukan waktu, menghidupkan yang mati, atau menciptakan surga di bumi\npadahal itu hanyalah cara lain untuk berlari di tempat, sambil langit menertawakan drama kita.",
+          "Kita adalah cara alam mengenali dirinya sendiri—dan ketika kita memberontak,\nitu hanyalah alam yang sedang menari dengan gerakan yang kita sebut 'kemajuan'.",
+          'Kita tidak pernah benar-benar "menang" melawan hukum alam karena hukum alam bukanlah musuh yang bisa dikalahkan, melainkan fondasi eksistensi itu sendiri. '
+        ];
+        addLine({
+          output: qoutes[Math.floor(Math.random() * qoutes.length)],
+          type: 'output'
+        });
+        break;
+
+      default:
+        if(trimmedCommand.startsWith('echo')) {
+          const message = trimmedCommand.slice(5);
+          addLine({
+            output: message,
+            type: 'output'
+          });
+        } else {
+          addLine({
+            output: `Command not found ${trimmedCommand}\n\nDid You mean these?\n${
+              navigationItems.map(item => ` • ${item.command}`).join('\n')
+            }\n\nType "/help" for a complete list of available commands.`,
+            type: 'error',
+          });
+        }
     }
-  })
-}
+  },
+
+  const navigateHistory = useCallback((dir: 'up' | 'down') => {
+    if (commandHistory.length === 0) return;
+
+    let next = historyIndex;
+
+    if (dir === 'up') {
+      next = historyIndex === -1
+        ? commandHistory.length - 1
+        : Math.max(0, historyIndex - 1);
+    } else {
+      next = historyIndex >= commandHistory.length - 1
+        ? -1
+        : historyIndex + 1;
+    }
+
+    setHistoryIndex(next);
+    setCurrentinput(next === -1 ? '' : commandHistory[next]);
+  }, [commandHistory, historyIndex]);
+
+  return (
+    <TerminalContent.Provider 
+      value={{
+        history,
+        currentInput,
+        setCurrentInput,
+        executeCommand,
+        clearHistory,
+        isTerminalFocused,
+        setTerminalFocused,
+        navigateHistory
+      }}
+    >
+      {children}
+    </TerminalContent.Provider>
+  );
+};
