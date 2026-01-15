@@ -1,6 +1,6 @@
 "use client";
 
-import TerminalContent from "./TerminalContent";
+import TerminalContent from '@/components/TerminalWindow/TerminalContent';
 
 export default function TerminalWindow({ onClose }: { onClose: () => void }) {
   return (
