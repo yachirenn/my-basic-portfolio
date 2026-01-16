@@ -183,6 +183,10 @@ html, body {
   color: #6cf;
 }
 
+input {
+  caret-color: var(--foreground);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

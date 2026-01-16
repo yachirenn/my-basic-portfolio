@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useState, useCallback } from "react"
+import { createContext, useState, useCallback, ReactNode } from "react"
 import { navigationItems } from "@/constants/navigation";
 import { personalInfo } from "@/constants/personalInfo";
 
@@ -11,28 +11,36 @@ export default function TerminalView() {
   if (!terminal) return null
 }
 
+export type TerminalLineType = 'command' | 'output' | 'error' | 'success' | 'info';
+
 interface TerminalLine {
   id: string;
   command?: string;
   output: string;
-  type: 'command' | 'output' | 'error' | 'success' | 'info';
+  type: TerminalLineType;
   timestamp: Date;
 }
 
-export interface TerminalContentType {
+export interface TerminalContextType {
   history: TerminalLine[];
   currentInput: string;
-  setCurrentInput: (input: string) => void;
-  executeCommand: (command: string) => void;
+  setCurrentInput: (v: string) => void;
+  executeCommand: (cmd: string) => void;
   clearHistory: () => void;
   isTerminalFocused: boolean;
-  setTerminalFocused: (focused: boolean) => void;
-  navigateHistory: (direction: 'up' | 'down') => void;
+  setTerminalFocused: (v: boolean) => void;
+  navigateHistory: (dir: 'up' | 'down') => void;
 }
 
-export const TerminalContext = createContext<TerminalContentType | undefined>(undefined);
+export const TerminalContext = createContext<TerminalContextType | undefined>(undefined);
 
 export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
+  const [currentInput, setCurrentInput] = useState('')
+  const [isTerminalFocused, setTerminalFocused] = useState(false);
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [lineCounter, setLineCounter] = useState(4);
+  
   const [history, setHistory] = useState<TerminalLine[]>([
     {
       id: '1',
@@ -53,12 +61,6 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
       timestamp: new Date()
     },
   ]);
-
-  const [currentInput, setCurrentInput] = useState('')
-  const [isTerminalFocused, setTerminalFocused] = useState(false);
-  const [commandHistory, setCommandHistory] = useState<string[]>([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
-  const [lineCounter, setLineCounter] = useState(4); 
 
   const addLine = useCallback((line: Omit<TerminalLine, 'id' | 'timestamp'>) => {
     const newLine: TerminalLine = {
@@ -259,24 +261,26 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
     }
   }, [addLine, clearHistory, history]);
 
-  const navigateHistory = useCallback((dir: 'up' | 'down') => {
+  const navigateHistory = (dir: "up" | "down") => {
     if (commandHistory.length === 0) return;
 
-    let next = historyIndex;
-
-    if (dir === 'up') {
-      next = historyIndex === -1
-        ? commandHistory.length - 1
-        : Math.max(0, historyIndex - 1);
-    } else {
-      next = historyIndex >= commandHistory.length - 1
-        ? -1
-        : historyIndex + 1;
+    if (dir === "up") {
+      const next = Math.min(
+        historyIndex + 1,
+        commandHistory.length - 1
+      );
+      setHistoryIndex(next);
+      setCurrentInput(commandHistory[commandHistory.length - 1 - next]);
     }
 
-    setHistoryIndex(next);
-    setCurrentInput(next === -1 ? '' : commandHistory[next]);
-  }, [commandHistory, historyIndex]);
+    if (dir === "down") {
+      const next = Math.max(historyIndex - 1, -1);
+      setHistoryIndex(next);
+      setCurrentInput(
+        next === -1 ? "" : commandHistory[commandHistory.length - 1 - next]
+      );
+    }
+  };
 
   return (
     <TerminalContext.Provider 

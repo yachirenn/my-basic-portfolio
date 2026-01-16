@@ -7,10 +7,10 @@ import Taskbar from "@/components/layout/Taskbar"
 
 export default function HomePage() {
   return (
-    <main className="w-full h-full relative">
-      <WindowsContainer />
-      <DesktopGrid />
-      <Taskbar />
+    <main className="w-screen h-screen relative">
+        <DesktopIcon />
+        <WindowsContainer />
+        <Taskbar />
     </main>
   )
 }

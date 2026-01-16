@@ -1,33 +1,27 @@
-"use client"
+"use client";
 
-import { useContext, KeyboardEvent } from "react"
-import { TerminalContext } from "./TerminalContext"
+import { useContext, useEffect, useRef } from "react";
+import { TerminalContext } from "./TerminalContent";
+import TerminalInput from "./TerminalInput";
 
 export default function TerminalView() {
-  const terminal = useContext(TerminalContext)
-  if (!terminal) return null
+  const terminal = useContext(TerminalContext);
+  console.log("TerminalView render", terminal);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
-  const {
-    history,
-    currentInput,
-    setCurrentInput,
-    executeCommand,
-    navigateHistory
-  } = terminal
+  if (!terminal) return null;
 
-  function handleKey(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") {
-      executeCommand(currentInput)
-      setCurrentInput("")
-    }
-    if (e.key === "ArrowUp") navigateHistory("up")
-    if (e.key === "ArrowDown") navigateHistory("down")
-  }
+  const { history } = terminal;
+
+  // auto scroll ke bawah
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [history]);
 
   return (
     <div className="flex-1 p-4 font-mono text-sm text-white/90 overflow-y-auto">
-      {terminal.history.map(line => (
-        <div key={line.id} className="whitespace-pre-wrap">
+      {history.map(line => (
+        <div key={line.id} className="whitespace-pre-wrap mb-1">
           {line.type === "command" && (
             <span className="text-green-400">{line.output}</span>
           )}
@@ -45,6 +39,11 @@ export default function TerminalView() {
           )}
         </div>
       ))}
+
+      {/* INPUT BAR */}
+      <TerminalInput />
+
+      <div ref={bottomRef} />
     </div>
   );
 }

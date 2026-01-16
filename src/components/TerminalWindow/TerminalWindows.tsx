@@ -1,8 +1,7 @@
 "use client"
 
 import TerminalHeader from "./TerminalHeader";
-import { TerminalContext } from "./TerminalContext";
-import TerminalContent from "./TerminalContent";
+import { TerminalProvider } from "./TerminalContext";
 import TerminalView from "./TerminalContent";
 
 type TerminalWindowProps = {
@@ -11,12 +10,13 @@ type TerminalWindowProps = {
 
 export default function TerminalWindow({ onClose }: TerminalWindowProps) {
   return (
-    <div className="absolute top-24 left-24 w-180 h-120 bg-gray-800 rounded-xl border border-white/15 shadow-2xl flex flex-col animate-fadeIn">
-      <TerminalHeader onClose={onClose} />
-      <TerminalContext.Provider value={undefined}>
-        <TerminalView />
-        <TerminalContent />
-      </TerminalContext.Provider>
+    <div className="absolute top-24 left-24 z-50">
+      <div className="w-180 h-105 bg-[#0b0e1a] rounded-xl border border-white/8 flex flex-col" tabIndex={-1}>
+        <TerminalHeader onClose={onClose} />
+        <TerminalProvider>
+          <TerminalView />
+        </TerminalProvider>
+      </div>
     </div>
   );
 }
