@@ -1,21 +1,29 @@
 "use client"
 
-import TerminalView from "./TerminalView"
-import { TerminalProvider } from "@/components/TerminalWindow/TerminalContext"
+import { TerminalProvider } from "@/components/TerminalWindow/TerminalContext";
+import TerminalView from "@/components/TerminalWindow/TerminalView";
+
+type TerminalWindowProps = {
+  onClose: () => void;
+};
 
 export default function TerminalWindow({ onClose }: { onClose: () => void }) {
   return (
-    <div className="terminal-overlay">
-      <div className="terminal-window">
-        <div className="terminal-header">
-          <span>Terminal</span>
-          <button onClick={onClose}>X</button>
-        </div>
+    <div className="terminal-window">
 
-        <TerminalProvider>
-          <TerminalView />
-        </TerminalProvider>
+      {/* Terminal Header */}
+      <div className="terminal-header">
+        <div className="terminal-control">
+          <span className="dot red" onClick={onClose}></span>
+          <span className="dot yellow"></span>
+          <span className="dot green"></span>
+        </div>
+        <span>yachirenn@portfolio:~root#</span>
       </div>
+
+      <TerminalProvider>
+        <TerminalView />
+      </TerminalProvider>
     </div>
   );
 }

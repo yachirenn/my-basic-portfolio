@@ -1,14 +1,16 @@
 "use client"
 
+import WindowsContainer from "@/components/container/WindowsContainer"
 import DesktopGrid from "@/components/desktop/DesktopGrid"
 import DesktopIcon from "@/components/desktop/DesktopIcon"
+import Taskbar from "@/components/layout/Taskbar"
 
 export default function HomePage() {
   return (
-    <DesktopGrid>
-      <DesktopIcon app="terminal" label="command.exe" />
-      <DesktopIcon app="mem" label="mem.exe" />
-      <DesktopIcon app="about" label="about.exe" />
-    </DesktopGrid>
+    <main className="w-full h-full relative">
+      <WindowsContainer />
+      <DesktopGrid />
+      <Taskbar />
+    </main>
   )
 }

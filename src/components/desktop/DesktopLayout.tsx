@@ -3,5 +3,5 @@ export default function DesktopLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <div className="appp-root">{children}</div>
+  return <div className="desktop-root">{children}</div>
 }

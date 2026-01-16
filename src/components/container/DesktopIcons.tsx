@@ -5,7 +5,6 @@ import exeIconSrc from '../../assets/icons/exeIcon.png'
 import mdIconSrc from '../../assets/icons/mdIcon.png'
 import linkIconSrc from '../../assets/icons/linkIcon.png'
 import FileExplorerIcons from '../../assets/icons/file-explorer.png'
-import DesktopIconSrc from '../icon/Desktopicon'
 import '../../assets/css/animation.css'
 import './DesktopIcons.css';
 
@@ -22,22 +21,12 @@ interface DesktopIconsProps {
 
 const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
   return (
-    <div className="desktop-container">
-      <DesktopIcon 
-        className="desktop-icons-appear transition05" 
-        name="The Journey" iconSrc={FileExplorerIcons} 
-        onDoubleClick={() => openWindows("The Journey", 1, null, [1], true)} 
-        delay={.1}
-      />
-      {FileSystem.map((item, index) => (
-        <DesktopIcon
-          key={item.id}
-          className="desktop-icon-appear transition05"
-          name={item.name}
-          iconSrc={getIconSrc(item)}
-          onDoubleClick={() => onFileClick(item.id)}
-          delay={(index + 1) * 50 }
-        />
+    <div className="desktop-icons-container">
+      {icons.map((icon) => (
+        <div key={icon.id} className="desktop-icon" onClick={icon.onClick}>
+          <img src={icon.icon} alt={icon.label} className="desktop-icon-image" />
+          <span className="desktop-icon-label">{icon.label}</span>
+        </div>
       ))}
     </div>
   );
