@@ -2,17 +2,12 @@
 
 import { useState } from "react";
 import DesktopGrid from "./DesktopGrid";
-import TerminalWindow from "../TerminalWindow/TerminalWindows";
 import WindowsContainer from "../container/WindowsContainer";
-import DesktopIcons from "../container/DesktopIcons";
-import app from "next/app";
-
-interface DesktopIconsProps {
-  onOpen: (app: "terminal") => void;
-};
+import DesktopIcons from "../desktop/DesktopIcon";
+import { AppType } from "@/app/lib/app";
 
 export default function Desktop() {
-  const [activeWindow, setActiveWindow] = useState<null | "terminal">(null);
+  const [activeWindow, setActiveWindow] = useState<AppType | null>(null);
 
   return (
     <div className="w-screen h-screen relative bg-cover bg-center">

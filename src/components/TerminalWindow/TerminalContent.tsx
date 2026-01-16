@@ -3,16 +3,11 @@
 import React, { createContext, useState, useCallback } from "react"
 import { navigationItems } from "@/constants/navigation";
 import { personalInfo } from "@/constants/personalInfo";
-import { useRouter } from "next/navigation"
-import { TerminalCommand } from "@/app/lib/TerminalCommand"
-import { callbackify } from "util";
-import { Command } from "lucide-react";
-
 
 import { useContext, KeyboardEvent } from "react"
 
 export default function TerminalView() {
-  const terminal = useContext(TerminalContent)
+  const terminal = useContext(TerminalContext)
   if (!terminal) return null
 }
 
@@ -35,7 +30,7 @@ export interface TerminalContentType {
   navigateHistory: (direction: 'up' | 'down') => void;
 }
 
-export const TerminalContent = createContext<TerminalContentType | undefined>(undefined);
+export const TerminalContext = createContext<TerminalContentType | undefined>(undefined);
 
 export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
   const [history, setHistory] = useState<TerminalLine[]>([
@@ -77,7 +72,8 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
 
   const clearHistory = useCallback(() => {
     setHistory([]);
-  },[]);
+    setLineCounter(1);
+  }, []);
 
   const executeCommand = useCallback((command: string) => {
     const trimmedCommand = command.trim().toLowerCase();
@@ -229,7 +225,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
         });
         break;
 
-      case 'qoute':
+      case 'quote':
         const qoutes = [
           "Teknologi adalah upaya manusia untuk menulis ulang hukum alam—tetapi semakin dalam kita mengukir,\nsemakin jelas terlihat: kita hanya menorehkan tanda tanya di atas takdir yang sudah tertulis..",
           "Kematian bukanlah kegagalan manusia terhadap hukum alam,\nmelainkan tanda bahwa hidup adalah hadiah yang diberi batas—dan justru dalam batas itulah makna ditemukan.",
@@ -283,7 +279,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
   }, [commandHistory, historyIndex]);
 
   return (
-    <TerminalContent.Provider 
+    <TerminalContext.Provider 
       value={{
         history,
         currentInput,
@@ -296,6 +292,6 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
       }}
     >
       {children}
-    </TerminalContent.Provider>
+    </TerminalContext.Provider>
   );
 };

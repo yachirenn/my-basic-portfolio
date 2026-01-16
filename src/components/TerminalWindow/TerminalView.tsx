@@ -5,9 +5,7 @@ import { TerminalContext } from "./TerminalContext"
 
 export default function TerminalView() {
   const terminal = useContext(TerminalContext)
-  if (!terminal) {
-    throw new Error("TerminalContext must be used inside TerminalProvider")
-  }
+  if (!terminal) return null
 
   const {
     history,
@@ -27,22 +25,26 @@ export default function TerminalView() {
   }
 
   return (
-    <div className="terminal-content">
-      {history.map((line: any) => (
-        <pre key={line.id} className={`line ${line.type}`}>
-          {line.output}
-        </pre>
+    <div className="flex-1 p-4 font-mono text-sm text-white/90 overflow-y-auto">
+      {terminal.history.map(line => (
+        <div key={line.id} className="whitespace-pre-wrap">
+          {line.type === "command" && (
+            <span className="text-green-400">{line.output}</span>
+          )}
+          {line.type === "output" && (
+            <span className="text-white/80">{line.output}</span>
+          )}
+          {line.type === "error" && (
+            <span className="text-red-400">{line.output}</span>
+          )}
+          {line.type === "success" && (
+            <span className="text-emerald-400">{line.output}</span>
+          )}
+          {line.type === "info" && (
+            <span className="text-sky-400">{line.output}</span>
+          )}
+        </div>
       ))}
-
-      <div className="terminal-input">
-        <span>$</span>
-        <input
-          value={currentInput}
-          onChange={e => setCurrentInput(e.target.value)}
-          onKeyDown={handleKey}
-          autoFocus
-        />
-      </div>
     </div>
-  )
+  );
 }
