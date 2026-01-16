@@ -5,7 +5,9 @@ import { TerminalContext } from "./TerminalContext"
 
 export default function TerminalView() {
   const terminal = useContext(TerminalContext)
-  if (!terminal) return null
+  if (!terminal) {
+    throw new Error("TerminalContext must be used inside TerminalProvider")
+  }
 
   const {
     history,
@@ -26,7 +28,7 @@ export default function TerminalView() {
 
   return (
     <div className="terminal-content">
-      {history.map(line => (
+      {history.map((line: any) => (
         <pre key={line.id} className={`line ${line.type}`}>
           {line.output}
         </pre>

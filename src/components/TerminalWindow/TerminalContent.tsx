@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, useCallback } from "react"
 import { navigationItems } from "@/constants/navigation";
-import { personalInfo } from "@/constants/personalInfo"
+import { personalInfo } from "@/constants/personalInfo";
 import { useRouter } from "next/navigation"
 import { TerminalCommand } from "@/app/lib/TerminalCommand"
 import { callbackify } from "util";
@@ -10,11 +10,11 @@ import { Command } from "lucide-react";
 
 
 import { useContext, KeyboardEvent } from "react"
-import { TerminalContext } from "@/components/TerminalWindow/TerminalContext"
 
 export default function TerminalView() {
-  const terminal = useContext(TerminalContext)
+  const terminal = useContext(TerminalContent)
   if (!terminal) return null
+}
 
 interface TerminalLine {
   id: string;
@@ -24,7 +24,7 @@ interface TerminalLine {
   timestamp: Date;
 }
 
-interface TerminalContentType {
+export interface TerminalContentType {
   history: TerminalLine[];
   currentInput: string;
   setCurrentInput: (input: string) => void;
@@ -91,7 +91,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
       command: command,
       output: `${personalInfo.name.toLowerCase().replace(' ', '')}@portfolio:~$ ${command}`,
       type: 'command',
-    },[addLine, clearHistory, history]);
+    },);
 
     // Eksekusi command
     switch (trimmedCommand) {
@@ -100,7 +100,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
           output: 'Available commands:\n\n' +
             'Navigation:\n' +
             navigationItems.map(item => 
-              `  ${item.command.padEnd(18)} - ${item.description}`
+              `  ${item.command} - ${item.label}`
             ).join('\n') +
             '\n\nSystem Commands:\n' +
             '  clear                  - Clear terminal screen\n' +
@@ -189,7 +189,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
         break;
 
       case 'github':
-        window.open(personalInfo.github, '_blank');
+        window.open(personalInfo.Github, '_blank');
         addLine({
           output: 'Opening GitHub profile in new tab...',
           type: 'success'
@@ -197,7 +197,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
         break;
 
       case 'linkedin':
-        window.open(personalInfo.linkedin, '_blank');
+        window.open(personalInfo.Linkedin, '_blank');
         addLine({
           output: 'Opening LinkedIn profile in new tab...',
           type: 'success'
@@ -261,7 +261,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
           });
         }
     }
-  },
+  }, [addLine, clearHistory, history]);
 
   const navigateHistory = useCallback((dir: 'up' | 'down') => {
     if (commandHistory.length === 0) return;
@@ -279,7 +279,7 @@ export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({child
     }
 
     setHistoryIndex(next);
-    setCurrentinput(next === -1 ? '' : commandHistory[next]);
+    setCurrentInput(next === -1 ? '' : commandHistory[next]);
   }, [commandHistory, historyIndex]);
 
   return (
