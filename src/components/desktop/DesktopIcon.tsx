@@ -1,16 +1,10 @@
 "use client"
 
-import { openWindow } from "@/components/container/WindowsContainer";
-import { AppType } from "@/app/lib/app"
-
-type DesktopIconsProps = {
-  label?: string
-  app?: AppType
-  icon?: React.ReactNode
-  openWindow?: (app: AppType) => void
-}
+import { useWindows } from "@/components/container/WindowsContext"
 
 export default function DesktopIcons() {
+  const { openWindow } = useWindows(); // ⬅️ HARUS DI SINI
+
   return (
     <div className="p-6">
       <button
