@@ -1,49 +1,55 @@
-"use client";
+"use client"
 
-import { useContext, useEffect, useRef } from "react";
-import { TerminalContext } from "./TerminalContent";
-import TerminalInput from "./TerminalInput";
+import { useContext, KeyboardEvent } from "react"
+import { TerminalContext } from "./TerminalContent" // pastikan path sesuai
+import { personalInfo } from "@/constants/personalInfo"
 
 export default function TerminalView() {
-  const terminal = useContext(TerminalContext);
-  console.log("TerminalView render", terminal);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const terminal = useContext(TerminalContext)
+  if (!terminal) return null
 
-  if (!terminal) return null;
+  const {
+    history,
+    currentInput,
+    setCurrentInput,
+    executeCommand,
+    isTerminalFocused,
+    setTerminalFocused,
+    navigateHistory
+  } = terminal
 
-  const { history } = terminal;
-
-  // auto scroll ke bawah
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [history]);
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      executeCommand(currentInput)
+      setCurrentInput("")
+    } else if (e.key === "ArrowUp") {
+      navigateHistory("up")
+    } else if (e.key === "ArrowDown") {
+      navigateHistory("down")
+    }
+  }
 
   return (
-    <div className="flex-1 p-4 font-mono text-sm text-white/90 overflow-y-auto">
+    <div className="bg-black text-green-400 font-mono p-4 rounded-md h-full overflow-y-auto">
       {history.map(line => (
-        <div key={line.id} className="whitespace-pre-wrap mb-1">
-          {line.type === "command" && (
-            <span className="text-green-400">{line.output}</span>
-          )}
-          {line.type === "output" && (
-            <span className="text-white/80">{line.output}</span>
-          )}
-          {line.type === "error" && (
-            <span className="text-red-400">{line.output}</span>
-          )}
-          {line.type === "success" && (
-            <span className="text-emerald-400">{line.output}</span>
-          )}
-          {line.type === "info" && (
-            <span className="text-sky-400">{line.output}</span>
-          )}
+        <div key={line.id} className={`mb-1 text-${line.type}`}>
+          {line.output}
         </div>
       ))}
 
-      {/* INPUT BAR */}
-      <TerminalInput />
-
-      <div ref={bottomRef} />
+      <div className="flex items-center mt-2">
+        <span className="mr-2">{personalInfo.name.toLowerCase().replace(' ', '')}@portfolio:~$</span>
+        <input
+          type="text"
+          value={currentInput}
+          onChange={e => setCurrentInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="bg-transparent border-none outline-none text-green-300 w-full"
+          autoFocus={isTerminalFocused}
+          onFocus={() => setTerminalFocused(true)}
+          onBlur={() => setTerminalFocused(false)}
+        />
+      </div>
     </div>
-  );
+  )
 }

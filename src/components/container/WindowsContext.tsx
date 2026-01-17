@@ -1,6 +1,7 @@
-"use client";
+"use client"
 import { createContext, useContext, useState } from "react";
-import { AppType } from "@/app/lib/app";
+
+export type AppType = "terminal"; // kalau cuma terminal dulu
 
 type WindowContextType = {
   windows: AppType[];
