@@ -19,7 +19,7 @@ export const navigationItems: NavigationItems[] = [
   },
   {
     id: 2,
-    label: "About",
+    label: "My Background & Experience",
     command: "about",
     description: "Learn more about this OS",
     app: "about",
@@ -33,7 +33,7 @@ export const navigationItems: NavigationItems[] = [
   },
   {
     id: 4,
-    label: "Memory",
+    label: "Get in Touch with Me",
     command: "mem",
     description: "View system memory usage",
     app: "mem",

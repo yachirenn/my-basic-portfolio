@@ -4,7 +4,7 @@ type Props = {
 
 export default function TerminalHeader({onClose}: Props) {
   return (
-    <div className="flex items-center justify-between px-4 h-10 border-b border-white/10">
+    <div className="flex items-center justify-between px-4 h-10 border-b border-white/10 bg-gray-900/80">
       <div className="flex gap-2">
         <button
           tabIndex={-1} 
@@ -18,6 +18,7 @@ export default function TerminalHeader({onClose}: Props) {
       </div>
 
       <span className="ml-4 text-sm text-white/80">yachirenn@portfolio:~root#</span>
+      <div className="w-20"></div>
     </div>
   )
 }

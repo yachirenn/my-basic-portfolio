@@ -14,6 +14,7 @@ export default function TerminalInput() {
     setCurrentInput,
     executeCommand,
     navigateHistory,
+    isTerminalFocused,
     setTerminalFocused,
   } = terminal;
 
@@ -44,21 +45,18 @@ export default function TerminalInput() {
   return (
     <div className="flex items-center gap-2">
       <span className="text-green-400">
-        mugniadji@portfolio
+        yachirenn@portfolio:~$ 
       </span>
-      <span className="text-sky-400">:~$</span>
 
       <input
-        ref={inputRef}
+        type="text"
         value={currentInput}
-        autoFocus
-        onChange={(e) => setCurrentInput(e.target.value)}
+        onChange={e => setCurrentInput(e.target.value)}
         onKeyDown={handleKeyDown}
+        className="bg-transparent border-none outline-none text-green-300 w-full blinking-cursor"
+        autoFocus={isTerminalFocused}
         onFocus={() => setTerminalFocused(true)}
         onBlur={() => setTerminalFocused(false)}
-        className="
-          flex-1 bg-red-500 text-white/90 font-mono text-sm
-        "
       />
     </div>
   );

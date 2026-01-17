@@ -30,9 +30,12 @@ export default function TerminalView() {
   }
 
   return (
-    <div className="bg-black text-green-400 font-mono p-4 rounded-md h-full overflow-y-auto">
+    <div className="bg-black text-green-400 font-mono p-4 h-96 overflow-y-auto text-sm">
       {history.map(line => (
-        <div key={line.id} className={`mb-1 text-${line.type}`}>
+        <div
+          key={line.id}
+          className={`mb-1 text-${line.type} whitespace-pre-wrap font-mono text-sm`}
+        >
           {line.output}
         </div>
       ))}
@@ -44,11 +47,12 @@ export default function TerminalView() {
           value={currentInput}
           onChange={e => setCurrentInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="bg-transparent border-none outline-none text-green-300 w-full"
+          className="flex-1 bg-transparent outline-none text-terminal-text caret-terminal-green w-full blinking-cursor"
           autoFocus={isTerminalFocused}
           onFocus={() => setTerminalFocused(true)}
           onBlur={() => setTerminalFocused(false)}
         />
+        <span className="text-terminal-green animate-blink">|</span>
       </div>
     </div>
   )

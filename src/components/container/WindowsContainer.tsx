@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useWindows } from "./WindowsContext";
 import TerminalWindow from "../TerminalWindow/TerminalWindows";
 
@@ -7,17 +7,11 @@ export default function WindowsContainer() {
 
   return (
     <>
-      {windows.map((app) => {
-        if (app === "terminal") {
-          return (
-            <TerminalWindow
-              key="terminal"
-              onClose={() => closeWindow("terminal")}
-            />
-          );
-        }
-        return null;
-      })}
+      {windows.map(app =>
+        app === "terminal" ? (
+          <TerminalWindow key="terminal" onClose={() => closeWindow("terminal")} />
+        ) : null
+      )}
     </>
   );
 }
