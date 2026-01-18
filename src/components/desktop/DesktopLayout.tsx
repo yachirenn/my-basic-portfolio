@@ -4,22 +4,10 @@
 import { useState } from "react";
 import TerminalModal from "@/components/TerminalWindow/TerminalModal";
 
-export default function DesktopUI({ children }: { children: React.ReactNode }) {
-  const [terminalOpen, setTerminalOpen] = useState(false);
-
+export default function DesktopLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      {/* Icon di desktop */}
-      <div >🖥️ Terminal Icon</div>
-
-      {/* Terminal Modal */}
-      <TerminalModal
-        open={terminalOpen}
-        onClose={() => setTerminalOpen(false)}
-      />
-
-      {/* Konten halaman */}
+    <div className="relative w-full h-screen overflow-hidden">
       {children}
-    </>
+    </div>
   );
 }

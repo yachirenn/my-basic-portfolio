@@ -3,7 +3,7 @@ import { useWindows } from "../container/WindowsContext";
 
 interface IconData {
   id: string;
-  label: string;
+  label: string | React.ReactNode;
   icon: string;
   onClick?: () => void;
 }

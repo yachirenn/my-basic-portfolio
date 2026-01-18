@@ -1,16 +1,17 @@
-"use client"
+"use client";
 
-import DesktopIconsContainer from "@/components/container/DesktopIconContiner"
-import WindowsContainer from "@/components/container/WindowsContainer"
+import DesktopLayout from "@/components/desktop/DesktopLayout";
+import DesktopGrid from "@/components/desktop/DesktopGrid";
+import WindowsContainer from "@/components/container/WindowsContainer";
 import { WindowsProvider } from "@/components/container/WindowsContext";
 
 export default function HomePage() {
   return (
     <WindowsProvider>
-      <div className="relative w-full h-full">
-        <DesktopIconsContainer />
+      <DesktopLayout>
+        <DesktopGrid />
         <WindowsContainer />
-      </div>
+      </DesktopLayout>
     </WindowsProvider>
   );
 }
