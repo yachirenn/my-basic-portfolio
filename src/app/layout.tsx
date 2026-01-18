@@ -1,7 +1,7 @@
 import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
-import DesktopLayout from "@/components/desktop/DesktopLayout";
+import DesktopUI from "@/components/desktop/DesktopLayout";
 import { WindowsProvider } from "@/components/container/WindowsContext";
 
 const robotoSans = Roboto_Mono({
@@ -28,13 +28,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${robotoMono.variable} ${robotoSans.variable} antialiased`}
       >
         <main className="app-root">
-          <DesktopLayout>
+          <DesktopUI>
             <WindowsProvider>
-              <div className="app-content">
-                {children}
-              </div>
+              <div className="app-content">{children}</div>
             </WindowsProvider>
-          </DesktopLayout>
+          </DesktopUI>
         </main>
       </body>
     </html>

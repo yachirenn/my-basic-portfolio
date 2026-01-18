@@ -1,4 +1,4 @@
-import DesktopIcon from "./DesktopIconType";
+import DesktopIcon from "@/components/desktop/DesktopIconType";
 import { navigationItems } from "@/constants/navigation";
 
 type DesktopGridProps ={
