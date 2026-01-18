@@ -1,12 +1,5 @@
 import { createContext, useState, useCallback } from "react";
-
-interface TerminalLine {
-  id: string;
-  command?: string;
-  output: string;
-  type: 'command' | 'output' | 'error' | 'success' | 'info';
-  timestamp: Date;
-}
+import { TerminalLine } from "@/components/lib/types/terimnal";
 
 export interface TerminalContentType {
   history: TerminalLine[];

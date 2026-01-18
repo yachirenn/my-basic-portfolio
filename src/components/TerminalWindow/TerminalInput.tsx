@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useRef, useEffect, KeyboardEvent } from "react";
-import { TerminalContext } from "./TerminalContent";
+import { TerminalContext } from "./TerminalContext";
 
 export default function TerminalInput() {
   const terminal = useContext(TerminalContext);

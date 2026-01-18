@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext, KeyboardEvent } from "react"
-import { TerminalContext } from "./TerminalContent" // pastikan path sesuai
+import { TerminalContext } from "@/components/TerminalWindow/TerminalContext"
 import { personalInfo } from "@/constants/personalInfo"
 
 export default function TerminalView() {
