@@ -17,7 +17,7 @@ export default function TerminalHeader({onClose}: Props) {
         <button tabIndex={-1} onMouseDown={(e) => e.preventDefault()} className="w-3 h-3 rounded-full bg-green-600"/>
       </div>
 
-      <span className="ml-4 text-sm text-white/80">yachirenn@portfolio:~root#</span>
+      <span className="ml-4 text-sm text-white/80">rendysulistyawan@portfolio:~root#</span>
       <div className="w-20"></div>
     </div>
   )

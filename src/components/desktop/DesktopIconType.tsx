@@ -6,24 +6,15 @@ type WindowsContextType = {
   openWindow: (id: string) => void;
   closeWindow: () => void;
 };
-
 const WindowsContext = createContext<WindowsContextType | undefined>(undefined);
 
 export const WindowsProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
-
   const openWindow = (id: string) => setActiveWindow(id);
   const closeWindow = () => setActiveWindow(null);
-
   return (
     <WindowsContext.Provider value={{ activeWindow, openWindow, closeWindow }}>
       {children}
     </WindowsContext.Provider>
   );
-};
-
-export const useWindows = () => {
-  const ctx = useContext(WindowsContext);
-  if (!ctx) throw new Error("useWindows must be used inside WindowsProvider");
-  return ctx;
-};
+}
