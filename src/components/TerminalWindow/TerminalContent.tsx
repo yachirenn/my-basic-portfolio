@@ -34,16 +34,18 @@ export default function TerminalContent() {
   };
 
   return (
-    <div className="p-4 font-mono text-sm text-gray-200 w-full h-full overflow-y-auto">
-      {history.map(line => (
-        <div
-          key={line.id}
-          className={`mb-1 ${getLineClass(line.type)}`}
-          dangerouslySetInnerHTML={{ __html: line.output }}
-        />
-      ))}
+    <div className="font-mono text-sm text-gray-200 w-full h-full">
+      <div className="space-y-1">
+        {history.map(line => (
+          <div
+            key={line.id}
+            className={getLineClass(line.type)}
+            dangerouslySetInnerHTML={{ __html: line.output }}
+          />
+        ))}
+      </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center mt-4">
         <span className="text-green-400">user@portfolio:~$&nbsp;</span>
         <input
           type="text"

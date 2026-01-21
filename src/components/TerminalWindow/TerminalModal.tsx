@@ -46,10 +46,15 @@ export default function TerminalModal({ open, onClose }: TerminalModal) {
               bounds="window"
               dragHandleClassName="terminal-drag-handle"
             >
-              <div className="w-full h-full bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl overflow-hidden">
+              <div className="flex flex-col w-full h-full bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl">
                 <TerminalProvider>
+                  {/* Header */}
                   <TerminalHeader onClose={onClose} />
-                  <TerminalContent />
+
+                  {/* Content wrapper dengan padding */}
+                  <div className="flex-1 p-4 overflow-y-auto">
+                    <TerminalContent />
+                  </div>
                 </TerminalProvider>
               </div>
             </Rnd>
