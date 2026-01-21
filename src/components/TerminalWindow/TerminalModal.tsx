@@ -9,6 +9,7 @@ import { Rnd } from 'react-rnd';
 interface TerminalModal {
   open: boolean;
   onClose: () => void;
+  content: string;
 }
 
 export default function TerminalModal({ open, onClose }: TerminalModal) {
@@ -18,7 +19,7 @@ export default function TerminalModal({ open, onClose }: TerminalModal) {
         <>
           {/* Overlay */}
           <motion.div 
-            className='fixed inset-0 bg-black/50 z-40'
+            className='fixed inset-0 bg-black/50 z-50'
             initial={{opacity: 0}}
             animate={{opacity: 1}}
             exit={{opacity: 0}}
@@ -28,11 +29,10 @@ export default function TerminalModal({ open, onClose }: TerminalModal) {
 
           {/* Terminal Window */}
           <motion.div 
-            className='fixed z-50 top-1/2 left-1/2 w-130 h-80 bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl overflow-hidden'
+            className='fixed z-50'
             initial={{ opacity: 0, scale: .83, y: -20}}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: .85, y: 20 }}
-            onClick={onClose}
           >
             <Rnd
               default={{
@@ -44,9 +44,9 @@ export default function TerminalModal({ open, onClose }: TerminalModal) {
               minWidth={600}
               minHeight={300}
               bounds="window"
-              className="terminal-drag-handle"
+              dragHandleClassName="terminal-drag-handle"
             >
-              <div className="w-full h-full bg-linear-to-br from-[#0b1020] to-[#050812]">
+              <div className="w-full h-full bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl overflow-hidden">
                 <TerminalProvider>
                   <TerminalHeader onClose={onClose} />
                   <TerminalContent />

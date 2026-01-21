@@ -1,7 +1,6 @@
+"use client";
 import { useContext, KeyboardEvent } from "react";
 import { TerminalContext } from "@/components/TerminalWindow/TerminalContext";
-import { TerminalLine } from "@/components/lib/types/terimnal";
-import { defaultCommands } from "@/constants/commands";
 
 export default function TerminalContent() {
   const terminal = useContext(TerminalContext);
@@ -20,13 +19,30 @@ export default function TerminalContent() {
     }
   };
 
+  // mapping warna berdasarkan type
+  const getLineClass = (type: string) => {
+    switch (type) {
+      case "error":
+        return "text-red-400";
+      case "success":
+        return "text-green-400";
+      case "info":
+        return "text-blue-400";
+      default:
+        return "text-gray-200";
+    }
+  };
+
   return (
-    <div className="p-4 font-mono text-sm">
+    <div className="p-4 font-mono text-sm text-gray-200 w-full h-full overflow-y-auto">
       {history.map(line => (
-        <div key={line.id} className={`mb-1 text-${line.type}`}>
-          {line.output}
-        </div>
+        <div
+          key={line.id}
+          className={`mb-1 ${getLineClass(line.type)}`}
+          dangerouslySetInnerHTML={{ __html: line.output }}
+        />
       ))}
+
       <div className="flex items-center">
         <span className="text-green-400">user@portfolio:~$&nbsp;</span>
         <input

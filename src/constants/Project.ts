@@ -1,11 +1,13 @@
 const projects = [
   {
-    name: "Portfolio Website",
-    description:
-      "A personal portfolio website to showcase my projects and skills. Built with React and Tailwind CSS.",
-    link: "",
-    github: "",
-    tags: ["React", "Tailwind CSS", "JavaScript"],
+    title: "Projects",
+    terminal: `
+  > Portfolio Website
+    ↳ <a href="https://github.com/yachirenn/portfolio" target="_blank">github.com/yachirenn/portfolio</a>
+
+  > Crypto Simulator
+    ↳ <a href="https://github.com/yachirenn/crypto-sim" target="_blank">github.com/yachirenn/crypto-sim</a>
+  `
   },
   {
     name: "E-commerce Platform",

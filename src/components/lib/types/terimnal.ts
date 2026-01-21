@@ -3,7 +3,7 @@ export type TerminalLineType = 'command' | 'output' | 'error' | 'success' | 'inf
 export interface TerminalLine {
   id: string;
   command?: string;
-  output: string | React.ReactNode;
+  output: string;
   type: TerminalLineType;
-  timestamp: Date;
+  timestamp: number;
 }
