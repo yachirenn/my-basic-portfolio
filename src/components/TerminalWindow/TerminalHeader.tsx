@@ -4,7 +4,7 @@ type Props = {
 
 export default function TerminalHeader({ onClose }: Props) {
   return (
-    <div className="terminal-drag-handle flex items-center justify-between px-4 py-2 cursor-move border-b border-white/10 bg-gray-900/80">
+    <div className="terminal-drag-handle flex items-center rounded-t-2xl justify-between px-4 py-2 cursor-move bg-gray-800 border-terminal-border">
       <div className="flex gap-2">
         <button
           tabIndex={-1}

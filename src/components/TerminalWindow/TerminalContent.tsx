@@ -46,7 +46,7 @@ export default function TerminalContent() {
       </div>
 
       <div className="flex items-center mt-4">
-        <span className="text-green-400">user@portfolio:~$&nbsp;</span>
+        <span className="text-green-400">yachirenn@portfolio:~$&nbsp;</span>
         <input
           type="text"
           value={currentInput}
