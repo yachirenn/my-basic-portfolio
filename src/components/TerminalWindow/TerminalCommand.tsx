@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { TerminalLine } from "@/components/lib/types/terimnal";
-import aboutme from "@/constants/About";
+import { personalInfo } from "@/constants/personalInfo";
 import projects from "@/constants/Project";
 
 export function runCommand(command: string): TerminalLine {
@@ -17,7 +17,7 @@ export function runCommand(command: string): TerminalLine {
     return {
       id: nanoid(),
       type: "info",
-      output: aboutme.description,
+      output: personalInfo.bio,
       timestamp: Date.now(),
     };
   }

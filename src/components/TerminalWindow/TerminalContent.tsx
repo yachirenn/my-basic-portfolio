@@ -1,6 +1,14 @@
 "use client";
 import { useContext, KeyboardEvent } from "react";
 import { TerminalContext } from "@/components/TerminalWindow/TerminalContext";
+import { useState, useEffect } from "react";
+
+const fulltext = `
+Hello I'm Rendy Sulistyawan, commonly known as Rendy.
+I am a student majoring in System Information, Network, and Application at SMKN 2 YOGYAKARTA
+with a particular interest in Web Development.
+I enjoy creating...!
+`;
 
 export default function TerminalContent() {
   const terminal = useContext(TerminalContext);
@@ -35,16 +43,6 @@ export default function TerminalContent() {
 
   return (
     <div className="font-mono text-sm text-gray-200 w-full h-full">
-      <div className="space-y-1">
-        {history.map(line => (
-          <div
-            key={line.id}
-            className={getLineClass(line.type)}
-            dangerouslySetInnerHTML={{ __html: line.output }}
-          />
-        ))}
-      </div>
-
       <div className="flex items-center mt-4">
         <span className="text-green-400">yachirenn@portfolio:~$&nbsp;</span>
         <input

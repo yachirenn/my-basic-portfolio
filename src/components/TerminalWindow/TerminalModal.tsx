@@ -48,10 +48,7 @@ export default function TerminalModal({ open, onClose }: TerminalModal) {
             >
               <div className="flex flex-col w-full h-full bg-terminal-bg rounded-xl shadow-2xl">
                 <TerminalProvider>
-                  {/* Header */}
                   <TerminalHeader onClose={onClose} />
-
-                  {/* Content wrapper dengan padding */}
                   <div className="flex-1 p-4 overflow-y-auto">
                     <TerminalContent />
                   </div>

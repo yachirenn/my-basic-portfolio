@@ -1,8 +1,14 @@
-import { Github, Linkedin } from "lucide-react";
+import { Instagram } from "lucide-react";
 
 export const personalInfo = {
-  name: "yachirennn",
-  Github: "https://github.com/yachirenn",
-  Linkedin: "https://www.linkedin.com/in/rendysulistyawan/",
-  email: "rendysulistyawan11@gmail.com"
-}
+  name: 'Rendy Sulistyawan',
+  title: 'FrontEnd Developer',
+  bio: 'Passionate frontend developer who loves building a user interface.',
+  location: 'Yogyakarta, Indonesia',
+  email: 'rendysulistyawan11@gmail.com',
+  github: 'https://github.com/yachirennn',
+  linkedin: 'https://linkedin.com/in/rendysulistyawan',
+  Instagram: 'https://instagram.com/yachirenn',
+};
+
+export const terminalPrompt = `${personalInfo.name.toLowerCase().replace(' ', '')}@portfolio:~$`;
