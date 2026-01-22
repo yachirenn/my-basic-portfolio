@@ -1,11 +1,6 @@
 import { personalInfo } from "./personalInfo";
 
-export const bioCode = `/**
- * About : ${personalInfo.name}
- * Role  : FrontEnd Developer
- */
-
-class Developer {
+export const bioCode = ` $class Developer {
   constructor() {
     this.name = "${personalInfo.name}";
     this.role = "${personalInfo.title}";
@@ -30,15 +25,6 @@ class Developer {
       "Learing database structures with MongoDB, MySQL, and Firebase",
       "Prompt enjiner",
     ];
-  }
-
-  getValues() {
-    return {
-      code_quality: "make it clean and maintainable,",
-      continuous_learning: "Always exploring new technologies",
-      collaboration: "I usually work alone, also team if i have",
-      user_focus: "Learning a latest thecnologies"
-    };
   }
 }
 

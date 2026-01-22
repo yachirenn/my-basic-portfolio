@@ -36,22 +36,21 @@ export default function TerminalModal({ open, onClose }: TerminalModal) {
           >
             <Rnd
               default={{
-                x: window.innerWidth / 2 - 890 / 2,
-                y: window.innerHeight / 2 - 550 / 2,
+                x: window.innerWidth / 2 - 350,
+                y: window.innerHeight / 2 - 250,
                 width: 800,
                 height: 500,
               }}
               minWidth={600}
-              minHeight={300}
               bounds="window"
               dragHandleClassName="terminal-drag-handle"
             >
-              <div className="flex flex-col w-full h-full bg-terminal-bg rounded-xl shadow-2xl">
+              <div className="flex flex-col bg-terminal-bg rounded-xl shadow-2xl">
                 <TerminalProvider>
                   <TerminalHeader onClose={onClose} />
-                  <div className="flex-1 p-4 overflow-y-auto">
-                    <TerminalContent />
-                  </div>
+                    <div className="flex-1 overflow-y-auto px-4 pt-2 pb-4 font-mono text-base text-gray-200 leading-tight">
+                      <TerminalContent />
+                    </div>
                 </TerminalProvider>
               </div>
             </Rnd>
