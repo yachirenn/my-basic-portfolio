@@ -23,7 +23,7 @@ export default function AppModal({ title, children, onClose }: AppModalProps) {
         </div>
 
         {/* Body */}
-        <div className="p-4 text-gray-700 rounded-b-md">
+        <div className=" text-gray-700 rounded-b-md">
           {children}
         </div>
       </div>

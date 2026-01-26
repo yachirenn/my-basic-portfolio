@@ -1,4 +1,4 @@
-const skillsData = [
+export const skillsData = [
   {
     name: "JavaScript",
     level: "Advanced",
@@ -49,8 +49,3 @@ const skillsData = [
     tags: ["Git", "GitHub", "Version Control"],
   },
 ];
-
-export default {
-  title: "Skills",
-  items: skillsData.map((skill) => skill.name),
-};

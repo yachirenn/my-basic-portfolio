@@ -20,7 +20,7 @@ export default function CodeBlock({
   code,
   language = "javascript",
   autoTyping = false,
-  typingSpeed = 20,
+  typingSpeed = 10,
 }: CodeBlockProps) {
   const [typedText, setTypedText] = useState(autoTyping ? "" : code);
 
@@ -43,9 +43,8 @@ export default function CodeBlock({
         wrapLongLines={true}
         customStyle={{
           background: "transparent",
-          padding: "0.75rem",
           margin: "0",
-          fontSize: "1.175rem",
+          fontSize: "1.185rem",
           fontFamily: "Roboto Mono, monospace",
         }}
       >

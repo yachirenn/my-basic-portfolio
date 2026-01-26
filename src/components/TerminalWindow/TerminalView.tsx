@@ -30,7 +30,7 @@ export default function TerminalView() {
   }
 
   return (
-    <div className="bg-black text-green-400 font-mono p-4 h-96 overflow-y-auto text-sm">
+    <div className="bg-black text-green-400 font-mono p-2 h-96 overflow-y-auto text-sm">
       {history.map(line => (
         <div
           key={line.id}

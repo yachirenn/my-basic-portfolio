@@ -1,11 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react";
 import { useWindows } from "./WindowsContext";
 import TerminalModal from "../TerminalWindow/TerminalModal";
 import FolderModal from "@/components/common/FolderModals";
-import { bioCode } from "@/constants/About";
 import AboutContent from "@/components/common/FolderWindows/AboutModal";
+import SkillsContent from "@/components/common/FolderWindows/SkillModal";
+import ProjectsContent from "@/components/common/FolderWindows/AboutModal";
+import CertificatesContent from "@/components/common/FolderWindows/AboutModal";
+import ContactContent from "@/components/common/FolderWindows/AboutModal";
+import TerminalContent from "@/components/common/FolderWindows/AboutModal";
 import { TerminalProvider } from "../TerminalWindow/TerminalContext";
 import TerminalHeader from "../TerminalWindow/TerminalHeader";
 
@@ -30,6 +33,26 @@ export default function WindowsContainer() {
       {activeWindow === "about" && (
         <FolderModal open={activeWindow === "about"} onClose={closeWindow} title="About">
           <AboutContent />
+        </FolderModal>
+      )}
+      {activeWindow === "skills" && (
+        <FolderModal open={activeWindow === "skills"} onClose={closeWindow} title="Skills">
+          <SkillsContent />
+        </FolderModal>
+      )}
+      {activeWindow === "projects" && (
+        <FolderModal open={activeWindow === "projects"} onClose={closeWindow} title="Projects">
+          <ProjectsContent />
+        </FolderModal>
+      )}
+      {activeWindow === "certificates" && (
+        <FolderModal open={activeWindow === "certificates"} onClose={closeWindow} title="Certificates">
+          <CertificatesContent />
+        </FolderModal>
+      )}
+      {activeWindow === "contact" && (
+        <FolderModal open={activeWindow === "contact"} onClose={closeWindow} title="Contact">
+          <ContactContent />
         </FolderModal>
       )}
     </>

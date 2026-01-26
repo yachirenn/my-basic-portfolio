@@ -1,7 +1,7 @@
 "use client"
 import DesktopGrid from "./DesktopGrid";
 import WindowsContainer from "../container/WindowsContainer";
-import DesktopIcons from "./DesktopIconType";
+import DesktopIcons from "@/components/desktop/DesktopIconType";
 
 export default function Desktop() {
   return (

@@ -48,7 +48,7 @@ export default function TerminalModal({ open, onClose }: TerminalModal) {
               <div className="flex flex-col bg-terminal-bg rounded-xl shadow-2xl">
                 <TerminalProvider>
                   <TerminalHeader onClose={onClose} />
-                    <div className="flex-1 overflow-y-auto px-4 pt-2 pb-4 font-mono text-base text-gray-200 leading-tight">
+                    <div className="flex-1 overflow-y-auto font-mono text-base text-gray-200 leading-tight">
                       <TerminalContent />
                     </div>
                 </TerminalProvider>

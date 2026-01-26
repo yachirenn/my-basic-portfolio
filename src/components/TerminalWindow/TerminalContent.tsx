@@ -43,7 +43,7 @@ export default function TerminalContent() {
 
   return (
     <div className="font-mono text-sm text-gray-200 w-full h-full">
-      <div className="flex items-center mt-4">
+      <div className="flex items-center">
         <span className="text-green-400">yachirenn@portfolio:~$&nbsp;</span>
         <input
           type="text"

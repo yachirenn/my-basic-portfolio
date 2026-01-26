@@ -49,7 +49,7 @@ export default function FolderModal({
                 {open && (
                   <div className="flex flex-col w-full max-h-[80vh] bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl overflow-hidden">
                     <TerminalHeader onClose={onClose} />
-                      <div className="flex-1 overflow-y-auto px-4 pt-2 pb-4 font-mono text-base text-gray-200 leading-tight scroll-smooth">
+                      <div className="flex-1 overflow-y-auto font-mono text-base text-gray-200 leading-tight scroll-smooth">
                         {children}
                       </div>
                   </div>
