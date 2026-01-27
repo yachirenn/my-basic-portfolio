@@ -81,6 +81,15 @@ export const createSkillCategories = (categoryConfig: { name: string; icon: stri
 // Skills page categories (curated for actual development stack)
 export const skillCategories: SkillCategory[] = [
   {
+    name: 'Frontend Development',
+    icon: '',
+    skills: [
+      { name: 'HTML', level: 95, category: 'markup', yearsOfExperience: 1 },
+      { name: 'CSS', level: 70, category: 'markup styling', yearsOfExperience: 1 },
+      { name: 'Bootstrap', level: 10, category: 'styling', yearsOfExperience: 1 }
+    ]
+  },
+  {
     name: 'Backend Development',
     icon: '',
     skills: [
@@ -90,15 +99,6 @@ export const skillCategories: SkillCategory[] = [
       { name: 'MySQL', level: 70, category: 'database', yearsOfExperience: 1 },
       { name: 'MongoDB', level: 50, category: 'database', yearsOfExperience: 1 },
       { name: 'Redis', level: 30, category: 'caching', yearsOfExperience: 1 }
-    ]
-  },
-  {
-    name: 'Frontend Development',
-    icon: '',
-    skills: [
-      { name: 'HTML', level: 95, category: 'markup', yearsOfExperience: 1 },
-      { name: 'CSS', level: 70, category: 'markup styling', yearsOfExperience: 1 },
-      { name: 'Bootstrap', level: 10, category: 'styling', yearsOfExperience: 1 }
     ]
   },
   {
