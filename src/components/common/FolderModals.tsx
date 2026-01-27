@@ -38,7 +38,7 @@ export default function FolderModal({
               <Rnd
                 default={{
                   x: window.innerWidth / 2 - 420,
-                  y: window.innerHeight / 2 - 250,
+                  y: window.innerHeight / 2 - 310,
                   width: "auto",
                   height: 500,
                 }}

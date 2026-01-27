@@ -11,6 +11,7 @@ import ContactContent from "@/components/common/FolderWindows/AboutModal";
 import TerminalContent from "@/components/common/FolderWindows/AboutModal";
 import { TerminalProvider } from "../TerminalWindow/TerminalContext";
 import TerminalHeader from "../TerminalWindow/TerminalHeader";
+import SkillModal from "@/components/common/FolderWindows/SkillModal";
 
 export default function WindowsContainer() {
   const { activeWindow, closeWindow } = useWindows();
@@ -36,9 +37,7 @@ export default function WindowsContainer() {
         </FolderModal>
       )}
       {activeWindow === "skills" && (
-        <FolderModal open={activeWindow === "skills"} onClose={closeWindow} title="Skills">
-          <SkillsContent />
-        </FolderModal>
+        <SkillModal open={true} onClose={closeWindow} />
       )}
       {activeWindow === "projects" && (
         <FolderModal open={activeWindow === "projects"} onClose={closeWindow} title="Projects">
