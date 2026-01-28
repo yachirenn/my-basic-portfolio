@@ -41,7 +41,7 @@ export default function SkillModal({ open, onClose }: { open: boolean; onClose: 
               className="w-full tw-full p-4 flex items-center justify-between hover:bg-gray-800 transition-colors text-left font-semibold text-lg mb-2 hover:underline"
             >
               <span className="flex items-center gap-3">
-                <svg xmlns="http://wwww.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+                <svg xmlns="http://wwww.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none" stroke="currentColor" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
                   <polyline points="16 18 22 12 16 6"></polyline>
                   <polyline points="8 6 2 12 8 18"></polyline>
                 </svg>
@@ -71,38 +71,39 @@ export default function SkillModal({ open, onClose }: { open: boolean; onClose: 
                     {/* label row */}
                     <div className="flex justify-between text-sm pb-2 text-gray-200">
                       <div className="flex item-center gap-2">
-                        <img src="" alt="" />
+                        {/* <img src="" alt="" /> */}
                         <span className="font-semibold">{skill.name}</span>
                       </div>
-                      <span className="text-yellow-300 font-mono text-sm">
+                      <span className="text-yellow-200 font-mono text-sm">
                         {skill.level}%
                       </span>
                     </div>
 
                     {/* level bar row */}
                     <div className="w-full bg-gray-700 rounded-full h-2 mb-2 overflow-hidden">
-                      <div
-                        className="h-2 bg-linear-to-r from-terminal-green to-terminal-blue bg-blue-500 rounded-full transition-all duration-500 ease-out"
-                        style={{ width: `${fillLevel[skill.name] || 0}%` }}
-                      />
+                      <div className="w-full bg-gray-700 rounded-full h-2 mb-2 overflow-hidden">
+                        <motion.div
+                          className="h-2 bg-linear-to-r from-green-300 to-blue-400 rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${fillLevel[skill.name] || 0}%` }}
+                          transition={{ delay: index * 0.2 + 0.5, duration: 0.95, ease: "easeOut" }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between text-xs text-gray-400 pt-2">
+                      <span>{skill.category} • [{skill.level}/100]</span>
+                      {skill.yearsOfExperience && (
+                        <span className="text-gray-300">{skill.yearsOfExperience} year</span>
+                      )}
                     </div>
 
                     {/* hover info */}
-                    {hovered === skill.name && (
-                      <>
-                        <div className="flex justify-between text-xs text-gray-400 pt-2">
-                          <span>{skill.category} • [{skill.level}/100]</span>
-                          {skill.yearsOfExperience && (
-                            <span className="text-gray-300">{skill.yearsOfExperience} year</span>
-                          )}
-                        </div>
-                        <div className="pt-2 font-mono text-xs text-green-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                          {'█'.repeat(Math.floor(skill.level / 5))}          
-                          {'+'.repeat(20 - Math.floor(skill.level / 5))}
-                          <span className="ml-2 text-terminal-yellow">[{skill.level}/100]</span>
-                      </div>
-                      </>
-                    )}
+                    <div className="pt-2 font-mono text-xs text-green-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                      {'█'.repeat(Math.floor(skill.level / 5))}          
+                      {'+'.repeat(20 - Math.floor(skill.level / 5))}
+                      <span className="pl-2 text-yellow-200">[{skill.level}/100]</span>
+                    </div>
                   </motion.div>
                 ))}
               </div>
