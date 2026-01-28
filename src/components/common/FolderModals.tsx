@@ -40,9 +40,10 @@ export default function FolderModal({
                   x: window.innerWidth / 2 - 420,
                   y: window.innerHeight / 2 - 310,
                   width: "auto",
-                  height: 500,
+                  height: 600,
                 }}
-                minWidth={600}
+                minWidth={700}
+                minHeight={750}
                 bounds="window"
                 dragHandleClassName="terminal-drag-handle"
               >
