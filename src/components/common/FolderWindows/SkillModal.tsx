@@ -31,7 +31,7 @@ export default function SkillModal({ open, onClose }: { open: boolean; onClose: 
   return (
     <FolderModal open={open} onClose={onClose} title="Skills">
       {/* === INI CHILDREN === */}
-      <div className="max-h-[70vh] overflow-y-auto p-4 scroll-smooth">
+      <div className="p-4">
         <div className="flex flex-col gap-4">
           {skillCategories.map((category) => (
             <div key={category.name} className="border border-gray-500/30 rounded-lg overflow-hidden bg-gray-900">
