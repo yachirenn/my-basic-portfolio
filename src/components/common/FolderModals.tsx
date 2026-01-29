@@ -43,8 +43,6 @@ export default function FolderModal({
                   height: 600,
                 }}
                 minWidth={700}
-                minHeight={750}
-                bounds="window"
                 dragHandleClassName="terminal-drag-handle"
               >
                 {open && (

@@ -41,7 +41,7 @@ export default function SkillModal({ open, onClose }: { open: boolean; onClose: 
               className="w-full tw-full p-4 flex items-center justify-between hover:bg-gray-800 transition-colors text-left font-semibold text-lg mb-2 hover:underline"
             >
               <span className="flex items-center gap-3">
-                <svg xmlns="http://wwww.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none" stroke="currentColor" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+                <svg xmlns="http://wwww.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
                   <polyline points="16 18 22 12 16 6"></polyline>
                   <polyline points="8 6 2 12 8 18"></polyline>
                 </svg>
