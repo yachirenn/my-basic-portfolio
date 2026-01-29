@@ -66,6 +66,14 @@
   background-color: transparent; /* Warna lebih gelap saat hover */
 }
 
+.rnd-resize-wrapper {
+  pointer-events: auto;
+  z-index: 50;
+}
+
+.react-rnd-resize-handle {
+  z-index: 50;
+}
 
 * {
   box-sizing: border-box;

@@ -39,14 +39,39 @@ export default function FolderModal({
                 default={{
                   x: window.innerWidth / 2 - 420,
                   y: window.innerHeight / 2 - 310,
-                  width: "auto",
+                  width: 800,
                   height: 600,
                 }}
-                minWidth={700}
+                minWidth={600}
+                minHeight={400}
                 dragHandleClassName="terminal-drag-handle"
+
+                enableResizing={{
+                  top:true,
+                  right:true,
+                  bottom:true,
+                  left:true,
+                  topRight:true,
+                  bottomRight:true,
+                  bottomLeft:true,
+                  topLeft:true
+                }}
+                resizeHandleWrapperClass="rnd-resize-wrapper"
+                resizeHandleStyles={{
+                  bottom: {
+                    height: "8px",
+                    cursor: "ns-resize",
+                    bottom: "-4px",
+                  },
+                  top: {
+                    height: "8px",
+                    cursor: "ns-resize",
+                    top: "-4px",
+                  },
+                }}
               >
                 {open && (
-                  <div className="flex flex-col w-full max-h-[80vh] bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl overflow-hidden">
+                  <div className="flex flex-col w-full h-full bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl overflow-hidden">
                     <TerminalHeader onClose={onClose} />
                       <div className="flex-1 overflow-y-auto font-mono text-base text-gray-200 leading-tight scroll-smooth">
                         {children}
