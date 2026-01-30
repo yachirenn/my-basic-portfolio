@@ -1,4 +1,4 @@
-const certificates = [
+export const certificates = [
   {
     name: "Frontend Development Certification",
     issuer: "FreeCodeCamp",
@@ -45,8 +45,3 @@ const certificates = [
     tags: ["Full-Stack", "React", "Node.js", "MongoDB"],
   },
 ];
-
-export default {
-  title: "Certificates",
-  items: certificates,
-};

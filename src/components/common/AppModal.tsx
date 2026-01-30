@@ -9,6 +9,6 @@ interface AppModalProps {
 
 export default function AppModal({ title, children, onClose }: AppModalProps) {
   return (
-    
+    <></>
   );
 }
