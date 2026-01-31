@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { certificates } from "@/constants/certificates";
+import CertfModal from "@/components/common/FolderWindows/certfModal"
 
 export default function CertifPages() {
   
@@ -10,7 +11,7 @@ export default function CertifPages() {
       <div className="min-h-screen px-10 py-8 text-gray-200 overscroll-contain scroll-smooth">
 
         {/* Header */}
-        <div className="mb-10">
+        <div className="pb-10">
           <h1 className="text-3xl font-semibold text-green-400">Certificate Achivement</h1>
           <p className="text-gray-200 mt-1">Collection of Learning achivement</p>
         </div>
