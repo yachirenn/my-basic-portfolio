@@ -27,10 +27,23 @@ export default function CertifPages() {
             >
 
               {/* Image/assets Picture */}
-              <div className="aspect-square bg-black/25">
-                <img src={cert.link} alt={cert.name} className="w-full h-full object-cover group-hover:scale-125 transition-transform" />
+              <div className="aspect-video bg-black/25">
+                <img src={cert.imageUrl} alt={cert.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
               </div>
               
+              {/* Info */}
+              <div className="p-4">
+                <h3 className="font-semibold text-green-400">
+                  {cert.name}
+                </h3>
+                <p className="text-xs text-gray-400 mt-1">
+                  {cert.issuer}
+                </p>
+              </div>
+
+              {/* Hover Glowed */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity ring-1 ring-green-400/25 rounded-xl" />
+
             </motion.div>
           ))}
         </div>
