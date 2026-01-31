@@ -19,7 +19,7 @@ export default function CertifPages() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {certificates.map((cert, index) => (
             <motion.div
-              key={cert.tags}
+              key={cert.id}
               initial={{opacity: 0, y: 20}}
               animate={{opacity: 1, y:0}}
               transition={{delay: index * .08}}
