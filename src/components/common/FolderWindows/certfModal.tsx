@@ -79,7 +79,42 @@ export default function CertfModal() {
                         CLick to enlarge
                       </div>
                     </div>
+                  ) : (
+                    <div className="h-64 flex flex-col items-center justify-center bg-gray-500">
+                      <div className="text-6xl mb-4">🎓</div>
+                      <p className="text-gray-400">Certificate Image</p>
+                      <p className="text-sm text-gray-500 mt-1">No image available</p>
+                    </div>
                   )}
+                </div>
+
+                {/* Certificates Info Grid  */}
+                <div className="grid grid-cols-1 md-grid-cols-2 gap-6">
+                  {/* Basic Info */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-yellow-200 mb-2">Certificates Details</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-400">Issuer:</span>
+                        <span className="text-blue-300 font-medium">{selectedCertificate.issuer}</span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-400">Issue Date:</span>
+                        <span className="text-left font-medium">{selectedCertificate.issueDate}</span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-400">Status:</span>
+                        <span className={`flex text-center gap-1 ${getStatusColor(selectedCertificate.status)}`}>
+                          {getStatusColor(selectedCertificate.status)} {selectedCertificate.status.charAt(0).toUpperCase() + selectedCertificate.status.slice(1)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
 
