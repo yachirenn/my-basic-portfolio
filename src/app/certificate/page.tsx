@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from "react";
-import { motion } from "motion/react";
-import { certificates } from "@/constants/certificates";
+import { motion } from "framer-motion";
+import { certificates, certificateCategories, type Certificate, getCertificateStats } from '@/constants/certificates';
 import CertfModal from "@/components/common/FolderWindows/certfModal"
 
 export default function CertifPages() {
@@ -24,7 +24,6 @@ export default function CertifPages() {
           {certificates.map((cert, index) => (
             <motion.div
               key={cert.id}
-              onClick={() => setSelectedCertificate(cert)}
               initial={{opacity: 0, y: 20}}
               animate={{opacity: 1, y:0}}
               transition={{delay: index * .08}}
@@ -47,18 +46,20 @@ export default function CertifPages() {
               </div>
 
               {/* Hover Glowed */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity ring-1 ring-green-400/25 rounded-xl" />
+              <div onClick={() => setSelectedCertificate(cert)} className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity ring-1 ring-green-400/25 rounded-xl" />
 
-              {/* Modal Detail */}
-              {selectedCertificate && (
-                <CertfModal
-                  certificate={selectedCertificate}
-                  onClose={() => setSelectedCertificate(null)}
-              )}
             </motion.div>
           ))}
         </div>
       </div>
+
+      {/* Modal Detail */}
+      {selectedCertificate && (
+        <CertfModal
+          certificate={selectedCertificate}
+          onClose={() => setSelectedCertificate(null)}
+        />
+      )}
     </>
   )
 }

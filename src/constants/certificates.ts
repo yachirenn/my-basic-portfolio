@@ -51,22 +51,22 @@ export interface Certificate {
   verificationUrl?: string;
   description?: string; 
   skills?: string[];
-  categories: ('backend' | 'frontend' | 'devops' | 'cloud' | 'general')[];
+  categories: ('general' | 'frontend' | 'backend' | 'devops' | 'cloud')[];
   featured: boolean;
   expiryDate?: string;
   status: 'active' | 'expired' | 'lifetime';
 }
 
-export const certificates = [
+export const certificates: Certificate[] = [
   {
     id: '1',
     name: 'Minecraft Designer',
     issuer: 'Code.org',
     issueDate: 'July 2025',
-    credentialId: 'xxx-xxx-xxx',
     imageUrl: '/assets/certificates/minecraft-designer-codeorg.jpg',
-    description: 'Just FUN!!!.',
-    categories: ['Blockly', 'Javascript'],
+    description: 'Just FUN!!!',
+    categories: ['frontend'],
+    skills: ['Blockly', 'JavaScript'],
     featured: true,
     status: 'lifetime',
   },
@@ -79,7 +79,7 @@ export const certificates = [
     imageUrl: '/assets/certificates/UIUX_competition_certificate.png',
     description: 'Award as a UI/UX Competition.',
     skills: ['Design', 'team work', 'Problem Solving'],
-    categories: ['Figma'],
+    categories: ['frontend'],
     featured: true,
     status: 'lifetime'
   },
@@ -99,11 +99,11 @@ export const certificates = [
 
 export const certificateCategories = [
   { id: 'all', name: 'All Certificates', icon: '', count: certificates.length },
-  { id: 'backend', name: 'Backend', icon: '', count: certificates.filter(c => c.categories.includes('backend')).length },
-  { id: 'cloud', name: 'Cloud', icon: '', count: certificates.filter(c => c.categories.includes('cloud')).length },
-  { id: 'devops', name: 'DevOps', icon: '', count: certificates.filter(c => c.categories.includes('devops')).length },
+  { id: 'general', name: 'General', icon: '', count: certificates.filter(c => c.categories.includes('general')).length },
   { id: 'frontend', name: 'Frontend', icon: '', count: certificates.filter(c => c.categories.includes('frontend')).length },
-  { id: 'general', name: 'General', icon: '', count: certificates.filter(c => c.categories.includes('general')).length }
+  { id: 'backend', name: 'Backend', icon: '', count: certificates.filter(c => c.categories.includes('backend')).length },
+  { id: 'devops', name: 'DevOps', icon: '', count: certificates.filter(c => c.categories.includes('devops')).length },
+  { id: 'cloud', name: 'Cloud', icon: '', count: certificates.filter(c => c.categories.includes('cloud')).length },
 ];
 
 export const getCertificateStats = () => {
