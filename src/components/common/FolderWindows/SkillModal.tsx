@@ -58,14 +58,14 @@ export default function SkillModal({ open, onClose }: { open: boolean; onClose: 
               </button>
 
               {activeCategory === category.name && (
-                <div className="space-y-4 p-4">
+                <div className="flex flex-col p-4 gap-3">
                   {category.skills.map((skill, index) => (
                     <motion.div 
                       key={skill.name} 
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="bg-gray-800 border border-gray-300/10 p-4 hover:border-gray-400/65 group space-y-1 rounded-md hover:bg-gray-800 transform-none transition-colors duration-300"
+                      className="bg-gray-800 border border-gray-300/10 p-4 hover:border-gray-400/65 group mb-2 rounded-md hover:bg-gray-800 transform-none transition-colors duration-300"
                       onMouseEnter={() => setHovered(skill.name)}
                       onMouseLeave={() => setHovered(null)}
                     >

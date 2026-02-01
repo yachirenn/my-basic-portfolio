@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Eye } from "lucide-react";
+import { Copy, X, Eye } from "lucide-react";
 import { Certificate, certificateCategories } from "@/constants/certificates";
 
 type Props = {
@@ -11,6 +12,78 @@ type Props = {
 
 export default function CertfModal({ certificate, onClose }: Props) {
   if (!certificate) return null;
+
+  const [selectedCertificate, setSelectedCertificate] = useState<Certificate| null>(null);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
+  const [imageZoom, setImageZoom] = useState<number>(1);
+  const [imagePan, setImagePan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleImageZoom = (delta: number) => {
+    setImageZoom(prev => {
+      const newZoom = prev + delta;
+      const clampedZoom = Math.max(0.5, Math.min(2.5, newZoom)); // Reduced max zoom
+      
+      // Reset pan when zooming to prevent overflow
+      if (clampedZoom !== prev) {
+        setImagePan({ x: 0, y: 0 });
+      }
+      
+      return clampedZoom;
+    });
+  };
+
+  const handleWheel = (e: WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.1 : 0.1;
+    handleImageZoom(delta);
+  };
+
+  // Handle ESC key for closing modals
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        if (enlargedImage) {
+          setEnlargedImage(null);
+          resetImageControls();
+        } else if (selectedCertificate) {
+          setSelectedCertificate(null);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+    return () => document.removeEventListener('keydown', handleEscKey);
+  }, [enlargedImage, selectedCertificate]);
+
+  // Handle wheel event for image zoom with non-passive listener
+  useEffect(() => {
+    const container = imageContainerRef.current;
+    if (container && enlargedImage) {
+      container.addEventListener('wheel', handleWheel, { passive: false });
+      return () => {
+        container.removeEventListener('wheel', handleWheel);
+      };
+    }
+  }, [enlargedImage]);
+
+  const resetImageControls = () => {
+    setImageZoom(1);
+    setImagePan({ x: 0, y: 0 });
+    setIsDragging(false);
+  };
+
+  const copyToClipboard = async (text: string, field: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -55,6 +128,12 @@ export default function CertfModal({ certificate, onClose }: Props) {
                     src={certificate.imageUrl}
                     alt={certificate.name}
                     className="w-full h-64 object-contain cursor-pointer hover:opacity-90"
+                    onClick={(e) => {
+                      if(!certificate.imageUrl) return;
+                      e.stopPropagation();
+                      setEnlargedImage(certificate.imageUrl);
+                      resetImageControls();
+                    }}
                   />
                   <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
                     <Eye className="w-3 h-3" />
