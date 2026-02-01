@@ -1,12 +1,107 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import FolderModal from "@/components/common/FolderModals";
-import {  } from "@/constants/skills";
+import { certificateCategories, type certificates, Certificate, getCertificateStats } from '@/constants/certificates';
 import { AnimatePresence, motion } from "motion/react";
-import { X } from "lucide-react";
+import { Copy, Check, X, Eye } from 'lucide-react';
+import TechIcon from '@/components/ui/TechIcon';
 
-export default function CertfModal() {
+export default function CertfModal({ certificate, onClose } : { certificate: Certificate; onClose: () => void}) {
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'backend' | 'frontend' | 'devops' | 'cloud' | 'general'>('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
+  const [imageZoom, setImageZoom] = useState<number>(1);
+  const [imagePan, setImagePan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+
+  // Handle ESC key for closing modals
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        if (enlargedImage) {
+          setEnlargedImage(null);
+          resetImageControls();
+        } else if (selectedCertificate) {
+          setSelectedCertificate(null);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+    return () => document.removeEventListener('keydown', handleEscKey);
+  }, [enlargedImage, selectedCertificate]);
+
+  // Handle wheel event for image zoom with non-passive listener
+  useEffect(() => {
+    const container = imageContainerRef.current;
+    if (container && enlargedImage) {
+      container.addEventListener('wheel', handleWheel, { passive: false });
+      return () => {
+        container.removeEventListener('wheel', handleWheel);
+      };
+    }
+  }, [enlargedImage]);
+
+  const resetImageControls = () => {
+    setImageZoom(1);
+    setImagePan({ x: 0, y: 0 });
+    setIsDragging(false);
+  };
+
+  const handleImageZoom = (delta: number) => {
+    setImageZoom(prev => {
+      const newZoom = prev + delta;
+      const clampedZoom = Math.max(0.5, Math.min(2.5, newZoom)); // Reduced max zoom
+      
+      // Reset pan when zooming to prevent overflow
+      if (clampedZoom !== prev) {
+        setImagePan({ x: 0, y: 0 });
+      }
+      
+      return clampedZoom;
+    });
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active': return 'text-green-400';
+      case 'expired': return 'text-red-400';
+      case 'lifetime': return 'text-blue-400';
+      default: return 'text-gray-400';
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'active': return '✅';
+      case 'expired': return '❌';
+      case 'lifetime': return '♾️';
+      default: return '❓';
+    }
+  };
+
+  const copyToClipboard = async (text: string, field: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long'
+    });
+  };
+
   return 
   <>
     <motion.div
@@ -112,14 +207,84 @@ export default function CertfModal() {
                           {getStatusColor(selectedCertificate.status)} {selectedCertificate.status.charAt(0).toUpperCase() + selectedCertificate.status.slice(1)}
                         </span>
                       </div>
+
+                      {selectedCertificate.expiryDate && (
+                        <div className="flex items-center justify-between">
+                          <span className="text-white"></span>
+                          <span className="text-yellow-100">{FormData(selectedCertificate.expiryDate)}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
+                  {selectedCertificate.credentialId && (
+                    <div className="">
+                      <h4 className="text-yellow-100 font-semibold mb-2">Credential ID:</h4>
+                      <div className="flex items-center gap-2 p-3 bg-gray-400 rounded font-mono text-sm">
+                        <span className="flex-1">{selectedCertificate.credentialId}</span>
+                        <button
+                          onClick={() => copyToClipboard(selectedCertificate.credentialId!, 'credential')}
+                          className="p-1 hover:bg-gray-700 rounded transition-colors"
+                        >
+                          {copiedField = 'credential' ? (
+                            <Check className="w-4 h-4 text-green-300" />
+                          ) : (
+                            <Copy className="w-4 h-4 text-gray-300" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Skill Descriptiion */}
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-terminal-yellow font-semibold mb-2">Description</h4>
+                    <p className="text-gray-300 leading-relaxed text-sm">
+                      {selectedCertificate.description || 'No description available'}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-terminal-yellow font-semibold mb-2">Categories</h4>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {selectedCertificate.categories.map((category) => {
+                        const categoryInfo = certificateCategories.find(c => c.id === category);
+                        return (
+                          <span
+                            key={category}
+                            className="px-3 py-1 bg-gray-800 text-sm rounded font-mono text-gray-300 flex items-center gap-1"
+                          >
+                            {categoryInfo?.icon} {categoryInfo?.name}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-terminal-yellow font-semibold mb-2">Skills Covered</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedCertificate.skills && selectedCertificate.skills.length > 0 ? (
+                        selectedCertificate.skills.map((skill) => (
+                          <span
+                            key={skill}
+                            className="px-3 py-1 bg-terminal-border rounded-full text-sm font-mono text-terminal-blue"
+                          >
+                            {skill}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="px-3 py-1 bg-gray-700 rounded-full text-sm font-mono text-gray-400">
+                          No skills listed
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
-
             </motion.div>
-
           </motion.div>
         )}
       >

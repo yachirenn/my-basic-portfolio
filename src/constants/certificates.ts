@@ -41,21 +41,21 @@
 //   },
 // ];
 
-// export interface Certificate {
-//   id: string;
-//   name: string;
-//   issuer: string;
-//   issueDate: string;
-//   credentialId?: string; 
-//   imageUrl?: string;
-//   verificationUrl?: string;
-//   description?: string; 
-//   skills?: string[];
-//   categories: ('backend' | 'frontend' | 'devops' | 'cloud' | 'general')[];
-//   featured: boolean;
-//   expiryDate?: string;
-//   status: 'active' | 'expired' | 'lifetime';
-// }
+export interface Certificate {
+  id: string;
+  name: string;
+  issuer: string;
+  issueDate: string;
+  credentialId?: string; 
+  imageUrl?: string;
+  verificationUrl?: string;
+  description?: string; 
+  skills?: string[];
+  categories: ('backend' | 'frontend' | 'devops' | 'cloud' | 'general')[];
+  featured: boolean;
+  expiryDate?: string;
+  status: 'active' | 'expired' | 'lifetime';
+}
 
 export const certificates = [
   {
