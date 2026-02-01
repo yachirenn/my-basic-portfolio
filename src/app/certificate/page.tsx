@@ -46,7 +46,7 @@ export default function CertifPages() {
               </div>
 
               {/* Hover Glowed */}
-              <div onClick={() => setSelectedCertificate(cert)} className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity ring-1 ring-green-400/25 rounded-xl" />
+              <div onClick={() => setSelectedCertificate(cert)} className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity ring-1 ring-green-400/25 rounded-xl" />
 
             </motion.div>
           ))}
