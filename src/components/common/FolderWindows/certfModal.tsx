@@ -2,21 +2,17 @@
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import FolderModal from "@/components/common/FolderModals";
-import { certificateCategories, type certificates, Certificate, getCertificateStats } from '@/constants/certificates';
-import { AnimatePresence, motion } from "motion/react";
+import { certificateCategories, type certificates, Certificate } from '@/constants/certificates';
+import { AnimatePresence, motion } from "framer-motion";
 import { Copy, Check, X, Eye } from 'lucide-react';
 import TechIcon from '@/components/ui/TechIcon';
 
 export default function CertfModal({ certificate, onClose } : { certificate: Certificate; onClose: () => void}) {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'backend' | 'frontend' | 'devops' | 'cloud' | 'general'>('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
   const [imageZoom, setImageZoom] = useState<number>(1);
   const [imagePan, setImagePan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const imageContainerRef = useRef<HTMLDivElement>(null);
 
   // Handle ESC key for closing modals
@@ -26,15 +22,15 @@ export default function CertfModal({ certificate, onClose } : { certificate: Cer
         if (enlargedImage) {
           setEnlargedImage(null);
           resetImageControls();
-        } else if (selectedCertificate) {
-          setSelectedCertificate(null);
+        } else if (certificate) {
+          onClose();
         }
       }
     };
 
     document.addEventListener('keydown', handleEscKey);
     return () => document.removeEventListener('keydown', handleEscKey);
-  }, [enlargedImage, selectedCertificate]);
+  }, [enlargedImage, certificate]);
 
   // Handle wheel event for image zoom with non-passive listener
   useEffect(() => {
@@ -102,9 +98,9 @@ export default function CertfModal({ certificate, onClose } : { certificate: Cer
     });
   };
 
-  function stopPropagation(): void {
-    throw new Error('Function not implemented.');
-  }
+  const stopPropagation = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
 
   return (
     <>
@@ -115,27 +111,27 @@ export default function CertfModal({ certificate, onClose } : { certificate: Cer
         className="container mx-auto px-4 py-8 max-w-7xl"
       >
         <AnimatePresence>
-          {selectedCertificate && (
+          {certificate && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50"
-              onClick={() => setSelectedCertificate(null)}
+              className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-999"
+              onClick={() => onClose()}
             >
               <motion.div
                 initial={{ scale: .885, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: .885, opacity: 0 }}
                 className="bg-gray-900 border border-gray-400/10 rounded-lg max-w-4xl w-full overflow-y-auto"
-                onClick={() => stopPropagation()}
+                onClick={stopPropagation}
               >
                 {/* Modal Header for Detail */}
                 <div className="sticky top-0 bg-gray-800 p-4 border border-gray-400/10 flex items-center justify-between">
                   <h2 className="text-xl font-bold text-green-500 flex items-center gap-2">
-                    🏆 {selectedCertificate.name}
+                    🏆 {certificate.name}
                   </h2>
-                  <button onClick={() =>  setSelectedCertificate(null)} className="text-gray-400 hover:text-white text-2xl">
+                  <button onClick={() =>  onClose()} className="text-gray-400 hover:text-white text-2xl">
                     <X className="w-6 h-6" />
                   </button>
                 </div>
@@ -144,15 +140,15 @@ export default function CertfModal({ certificate, onClose } : { certificate: Cer
                 <div className="p-6 space-y-6">
                   {/* Certificate Images */}
                   <div className="bg-gray-400 border border-gray-400/10 rounded-lg overflow-hidden">
-                    {selectedCertificate.imageUrl ? (
+                    {certificate.imageUrl ? (
                       <div className="relative">
                         <img 
-                          src={selectedCertificate.imageUrl} 
-                          alt={selectedCertificate.name} 
-                          className="w-full h-64 object-contaim bg-gray-400 cursor-pointer hover:opacity-80 transition-opacity" 
+                          src={certificate.imageUrl} 
+                          alt={certificate.name} 
+                          className="w-full h-64 object-contain bg-gray-400 cursor-pointer hover:opacity-80 transition-opacity" 
                           onClick={(e) => {
                             e.stopPropagation();
-                            setEnlargedImage(selectedCertificate.imageUrl!);
+                            setEnlargedImage(certificate.imageUrl!);
                             resetImageControls();
                           }}
 
@@ -166,7 +162,7 @@ export default function CertfModal({ certificate, onClose } : { certificate: Cer
                                 <div class="h-64 flex flex-col items-center justify-center bg-gray-900">
                                   <div class="text-6xl mb-4">🎓</div>
                                   <p class="text-gray-400">Certificate Image</p>
-                                  <p class="text-sm text-gray-500 mt-1">${selectedCertificate.imageUrl}</p>
+                                  <p class="text-sm text-gray-500 mt-1">${certificate.imageUrl}</p>
                                 </div>
                               `;
                             }
@@ -195,39 +191,39 @@ export default function CertfModal({ certificate, onClose } : { certificate: Cer
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
                           <span className="text-gray-400">Issuer:</span>
-                          <span className="text-blue-300 font-medium">{selectedCertificate.issuer}</span>
+                          <span className="text-blue-300 font-medium">{certificate.issuer}</span>
                         </div>
                       </div>
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
                           <span className="text-gray-400">Issue Date:</span>
-                          <span className="text-left font-medium">{selectedCertificate.issueDate}</span>
+                          <span className="text-left font-medium">{certificate.issueDate}</span>
                         </div>
                       </div>
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
                           <span className="text-gray-400">Status:</span>
-                          <span className={`flex text-center gap-1 ${getStatusColor(selectedCertificate.status)}`}>
-                            {getStatusColor(selectedCertificate.status)} {selectedCertificate.status.charAt(0).toUpperCase() + selectedCertificate.status.slice(1)}
+                          <span className={`flex text-center gap-1 ${getStatusColor(certificate.status)}`}>
+                            {getStatusColor(certificate.status)} {certificate.status.charAt(0).toUpperCase() + certificate.status.slice(1)}
                           </span>
                         </div>
 
-                        {selectedCertificate.expiryDate && (
+                        {certificate.expiryDate && (
                           <div className="flex items-center justify-between">
                             <span className="text-white"></span>
-                            <span className="text-yellow-100">{formatDate(selectedCertificate.expiryDate)}</span>
+                            <span className="text-yellow-100">{formatDate(certificate.expiryDate)}</span>
                           </div>
                         )}
                       </div>
                     </div>
 
-                    {selectedCertificate.credentialId && (
+                    {certificate.credentialId && (
                       <div className="">
                         <h4 className="text-yellow-100 font-semibold mb-2">Credential ID:</h4>
                         <div className="flex items-center gap-2 p-3 bg-gray-400 rounded font-mono text-sm">
-                          <span className="flex-1">{selectedCertificate.credentialId}</span>
+                          <span className="flex-1">{certificate.credentialId}</span>
                           <button
-                            onClick={() => copyToClipboard(selectedCertificate.credentialId!, 'credential')}
+                            onClick={() => copyToClipboard(certificate.credentialId!, 'credential')}
                             className="p-1 hover:bg-gray-700 rounded transition-colors"
                           >
                             {copiedField === 'credential' ? (
@@ -246,14 +242,14 @@ export default function CertfModal({ certificate, onClose } : { certificate: Cer
                     <div>
                       <h4 className="text-terminal-yellow font-semibold mb-2">Description</h4>
                       <p className="text-gray-300 leading-relaxed text-sm">
-                        {selectedCertificate.description || 'No description available'}
+                        {certificate.description || 'No description available'}
                       </p>
                     </div>
 
                     <div>
                       <h4 className="text-terminal-yellow font-semibold mb-2">Categories</h4>
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {selectedCertificate.categories.map((category) => {
+                        {certificate.categories.map((category) => {
                           const categoryInfo = certificateCategories.find(c => c.id === category);
                           return (
                             <span
@@ -270,8 +266,8 @@ export default function CertfModal({ certificate, onClose } : { certificate: Cer
                     <div>
                       <h4 className="text-terminal-yellow font-semibold mb-2">Skills Covered</h4>
                       <div className="flex flex-wrap gap-2">
-                        {selectedCertificate.skills && selectedCertificate.skills.length > 0 ? (
-                          selectedCertificate.skills.map((skill) => (
+                        {certificate.skills && certificate.skills.length > 0 ? (
+                          certificate.skills.map((skill) => (
                             <span
                               key={skill}
                               className="px-3 py-1 bg-terminal-border rounded-full text-sm font-mono text-terminal-blue"

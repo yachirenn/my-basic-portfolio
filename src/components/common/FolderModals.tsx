@@ -1,6 +1,6 @@
 import TerminalHeader from "../TerminalWindow/TerminalHeader";
 import { Rnd } from "react-rnd";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 
 export default function FolderModal({
@@ -34,7 +34,7 @@ export default function FolderModal({
           <>
             {/* Overlay */}
             <motion.div 
-              className='fixed inset-0 bg-black/50 z-50'
+              className='fixed inset-0 bg-black/50 z-40'
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               exit={{opacity: 0}}
@@ -44,7 +44,7 @@ export default function FolderModal({
 
             {/* Terminal Window */}
             <motion.div 
-              className='fixed z-50'
+              className='fixed z-50 pointer-events-auto'
               initial={{ opacity: 0, scale: .83, y: -20}}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: .85, y: 20 }}
