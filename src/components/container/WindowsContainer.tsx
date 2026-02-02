@@ -39,16 +39,11 @@ export default function WindowsContainer() {
       {activeWindow === "skills" && (
         <SkillModal open={true} onClose={closeWindow} />
       )}
-      {activeWindow === "projects" && (
+      {/* {activeWindow === "projects" && (
         <FolderModal open={activeWindow === "projects"} onClose={closeWindow} title="Projects">
           <ProjectsContent />
         </FolderModal>
-      )}
-      {activeWindow === "certificates" && (
-        <FolderModal open={activeWindow === "certificates"} onClose={closeWindow} title="Certificates">
-          <CertificatesContent />
-        </FolderModal>
-      )}
+      )} */}
       {activeWindow === "contact" && (
         <FolderModal open={activeWindow === "contact"} onClose={closeWindow} title="Contact">
           <ContactContent />
