@@ -1,13 +1,12 @@
 'use client'
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { project, projects } from "@/constants/Project";
-import ProjectModal from "@/components/common/FolderWindows/ProjectModal";
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { projects, projectCategories, type Project } from '@/constants/Project'
+import ProjectModal from "@/components/common/FolderWindows/ProjectModal"
 
 export default function ProjectPage() {
-
-  const [selectedProject, setSelectedProject] = useState<project | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   return (
     <>
@@ -28,6 +27,7 @@ export default function ProjectPage() {
               animate={{opacity: 1, y:0}}
               transition={{delay: index * .08}}
               className="group relative rounded-xl bg-gray-800 border border-gray-400/10 hover:border-green-400/15 transition-all overflow-hidden"
+              onClick={() => setSelectedProject(project)}
             >
               {/* Image/assets Picture */}
               <div className="aspect-video bg-black/25">
@@ -51,7 +51,7 @@ export default function ProjectPage() {
       {/* Modal Detail */}
       {selectedProject && (
         <ProjectModal
-          project={selectedProject}
+          projects={selectedProject}
           onClose={() => setSelectedProject(null)}
         />
       )}
