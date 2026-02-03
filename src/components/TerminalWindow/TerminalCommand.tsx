@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { TerminalLine } from "@/components/lib/types/terimnal";
 import { personalInfo } from "@/constants/personalInfo";
-import projects from "@/constants/Project";
+import { projects } from "@/constants/Project";
 
 export function runCommand(command: string): TerminalLine {
   if (command === "help") {
@@ -26,7 +26,7 @@ export function runCommand(command: string): TerminalLine {
     return {
       id: nanoid(),
       type: "info",
-      output: projects.title,
+      output: projects.map((project) => `- ${project.title}`).join("/n"),
       timestamp: Date.now(),
     };
   }
