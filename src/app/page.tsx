@@ -5,6 +5,7 @@ import DesktopGrid from "@/components/desktop/DesktopGrid";
 import WindowsContainer from "@/components/container/WindowsContainer";
 import { WindowsProvider } from "@/components/container/WindowsContext";
 import ResponsiveLayout from "@/components/layout/responsiveLayout";
+import MobileLayout from "@/components/mobile/MobileView";
 
 export default function HomePage() {
   return (
@@ -29,7 +30,8 @@ export default function HomePage() {
 
       mobile={
         <div className="p-4">
-          MOBILE VIEW (isi nanti sesuai desain mobile)
+          {/* MOBILE VIEW (isi nanti sesuai desain mobile) */}
+          <MobileLayout />
         </div>
       }
     />
