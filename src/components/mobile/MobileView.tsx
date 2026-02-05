@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import BottomNavbars from "./BottomNavbar";
 
 import AboutContent from "@/components/common/FolderWindows/AboutModal";
 import SkillModal from "@/components/common/FolderWindows/SkillModal";
@@ -8,80 +9,81 @@ import ProjectsContent from "@/components/common/FolderWindows/AboutModal";
 import CertificatesContent from "@/components/common/FolderWindows/AboutModal";
 import ContactContent from "@/components/common/FolderWindows/AboutModal";
 
-type TabType =
+import TerminalModal from "@/components/TerminalWindow/TerminalModal";
+
+type Tab =
   | "about"
   | "skills"
   | "projects"
   | "certificates"
-  | "contact";
+  | "contact"
+  | "terminal";
 
 export default function MobileLayout() {
 
-  const [activeTab, setActiveTab] = useState<TabType>("about");
+  const [activeTab, setActiveTab] = useState<Tab>("about");
+  const [openTerminal, setOpenTerminal] = useState(false);
 
-  const renderContent = () => {
+  const refs = {
+    about: useRef<HTMLDivElement>(null),
+    skills: useRef<HTMLDivElement>(null),
+    projects: useRef<HTMLDivElement>(null),
+    certificates: useRef<HTMLDivElement>(null),
+    contact: useRef<HTMLDivElement>(null),
+  };
 
-    switch (activeTab) {
+  const scrollTo = (tab: Tab) => {
 
-      case "about":
-        return <AboutContent />;
-
-      case "skills":
-        return <SkillModal open={true} onClose={() => {}} />;
-
-      case "projects":
-        return <ProjectsContent />;
-
-      case "certificates":
-        return <CertificatesContent />;
-
-      case "contact":
-        return <ContactContent />;
-
-      default:
-        return null;
+    if (tab === "terminal") {
+      setOpenTerminal(true);
+      return;
     }
+
+    setActiveTab(tab);
+
+    refs[tab]?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 text-white">
+    <div className="bg-gray-950 text-white">
 
-      {/* CONTENT */}
-      <div className="flex-1 overflow-y-auto p-4">
+      {/* LANDING SECTIONS */}
 
-        {renderContent()}
+      <section ref={refs.about} className="min-h-screen p-6">
+        <AboutContent />
+      </section>
 
-      </div>
+      <section ref={refs.skills} className="min-h-screen p-6">
+        <SkillModal open={true} onClose={() => {}} />
+      </section>
 
-      {/* BOTTOM NAVIGATION */}
-      <div className="grid grid-cols-5 border-t border-gray-700 bg-gray-800">
+      <section ref={refs.projects} className="min-h-screen p-6">
+        <ProjectsContent />
+      </section>
 
-        <NavItem label="About" onClick={() => setActiveTab("about")} />
-        <NavItem label="Skills" onClick={() => setActiveTab("skills")} />
-        <NavItem label="Projects" onClick={() => setActiveTab("projects")} />
-        <NavItem label="Cert" onClick={() => setActiveTab("certificates")} />
-        <NavItem label="Contact" onClick={() => setActiveTab("contact")} />
+      <section ref={refs.certificates} className="min-h-screen p-6">
+        <CertificatesContent />
+      </section>
 
-      </div>
+      <section ref={refs.contact} className="min-h-screen p-6">
+        <ContactContent />
+      </section>
+
+      {/* IOS NAV */}
+      <BottomNavbars active={activeTab} onChange={scrollTo} />
+
+      {/* TERMINAL FULLSCREEN */}
+      {openTerminal && (
+        <TerminalModal
+          open={true}
+          onClose={() => setOpenTerminal(false)}
+          content="Welcome to terminal"
+        />
+      )}
 
     </div>
-  );
-}
-
-function NavItem({
-  label,
-  onClick,
-}: {
-  label: string;
-  onClick: () => void;
-}) {
-
-  return (
-    <button
-      onClick={onClick}
-      className="py-3 text-sm hover:bg-gray-700 transition"
-    >
-      {label}
-    </button>
   );
 }
