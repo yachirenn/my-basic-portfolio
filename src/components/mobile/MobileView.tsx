@@ -1,88 +1,54 @@
 "use client";
 
-import { useRef, useState } from "react";
-import BottomNavbars from "./BottomNavbar";
+import { useState } from "react";
 
-import AboutContent from "@/components/common/FolderWindows/AboutModal";
-import SkillModal from "@/components/common/FolderWindows/SkillModal";
-import ProjectsContent from "@/components/common/FolderWindows/AboutModal";
-import CertificatesContent from "@/components/common/FolderWindows/AboutModal";
-import ContactContent from "@/components/common/FolderWindows/AboutModal";
+import AboutContent from "@/components/content/AboutContent";
+import SkillsContent from "@/components/content/SkillsContent";
+import ProjectsContent from "@/components/content/ProjectContent";
+import CertificatesContent from "@/components/content/CertificatesContent";
+import ContactContent from "@/components/content/ContactContent";
 
-import TerminalModal from "@/components/TerminalWindow/TerminalModal";
+import BottomNavbar from "@/components/mobile/BottomNavbar";
 
-type Tab =
-  | "about"
-  | "skills"
-  | "projects"
-  | "certificates"
-  | "contact"
-  | "terminal";
+export default function MobileView() {
 
-export default function MobileLayout() {
+  const [activeTab, setActiveTabs] = useState("about");
 
-  const [activeTab, setActiveTab] = useState<Tab>("about");
-  const [openTerminal, setOpenTerminal] = useState(false);
+  const renderContent = () => {
+    switch (activeTab) {
+      case "about":
+        return <AboutContent />;
 
-  const refs = {
-    about: useRef<HTMLDivElement>(null),
-    skills: useRef<HTMLDivElement>(null),
-    projects: useRef<HTMLDivElement>(null),
-    certificates: useRef<HTMLDivElement>(null),
-    contact: useRef<HTMLDivElement>(null),
-  };
+      case "skills":
+        return <SkillsContent />;
 
-  const scrollTo = (tab: Tab) => {
+      case "projects":
+        return <ProjectsContent />;
 
-    if (tab === "terminal") {
-      setOpenTerminal(true);
-      return;
+      case "certificates":
+        return <CertificatesContent />;
+
+      case "contact":
+        return <ContactContent />;
+
+      default:
+        return <AboutContent />;
     }
-
-    setActiveTab(tab);
-
-    refs[tab]?.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   };
 
   return (
-    <div className="bg-gray-950 text-white">
+    <div className="bg-gray-950 text-white pb-32 min-h-screen flex flex-col">
 
-      {/* LANDING SECTIONS */}
+      {/* CONTENT */}
+      <div className="flex-1 p-6">
+        {renderContent()}
+      </div>
 
-      <section ref={refs.about} className="min-h-screen p-6">
-        <AboutContent />
-      </section>
-
-      <section ref={refs.skills} className="min-h-screen p-6">
-        <SkillModal open={true} onClose={() => {}} />
-      </section>
-
-      <section ref={refs.projects} className="min-h-screen p-6">
-        <ProjectsContent />
-      </section>
-
-      <section ref={refs.certificates} className="min-h-screen p-6">
-        <CertificatesContent />
-      </section>
-
-      <section ref={refs.contact} className="min-h-screen p-6">
-        <ContactContent />
-      </section>
-
-      {/* IOS NAV */}
-      <BottomNavbars active={activeTab} onChange={scrollTo} />
-
-      {/* TERMINAL FULLSCREEN */}
-      {openTerminal && (
-        <TerminalModal
-          open={true}
-          onClose={() => setOpenTerminal(false)}
-          content="Welcome to terminal"
-        />
-      )}
+      {/* NAVBAR */}
+      <BottomNavbar
+        active={activeTab}
+        onChange={(tab) => setActiveTabs(tab)}
+      />
 
     </div>
   );

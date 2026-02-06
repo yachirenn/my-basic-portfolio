@@ -1,10 +1,9 @@
-import CodeBlock from "@/components/hooks/useCodeBlock";
-import { bioCode } from "@/constants/About";
+import AboutContent from "@/components/content/AboutContent";
 
 export default function AboutModal() {
   return (
     <div className="overflow-y-auto">
-      <CodeBlock code={bioCode} language="javascript" autoTyping={true} typingSpeed={10} />
+      <AboutContent />
     </div>
   );
 }
