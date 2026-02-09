@@ -27,7 +27,7 @@ const tabs: Tabs[] = [
 export default function BottomNavbars({ active, onChange} : Props) {
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-      <div className="flex gap-1 px-1 py-2 bg-gray-900/35 backdrop-blur-lg border border-gray-400 rounded-full shadow-xl">
+      <div className="flex gap-1 px-2.5 py-2 bg-gray-900/35 backdrop-blur-lg border border-gray-400 rounded-full shadow-xl">
         {tabs.map((tabs) => (
           <button
             key={tabs}
