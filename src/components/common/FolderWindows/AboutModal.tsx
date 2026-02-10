@@ -2,8 +2,8 @@ import AboutContent from "@/components/content/AboutContent";
 
 export default function AboutModal() {
   return (
-    <WindowFrane className="overflow-y-auto">
+    <div className="overflow-y-auto h-full">
       <AboutContent />
-    </WindowFrane>
+    </div>
   );
 }

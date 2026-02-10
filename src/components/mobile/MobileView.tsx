@@ -1,53 +1,44 @@
 "use client";
 
-import { useState } from "react";
-
 import AboutContent from "@/components/content/AboutContent";
 import SkillsContent from "@/components/content/SkillsContent";
 import ProjectsContent from "@/components/content/ProjectContent";
 import CertificatesContent from "@/components/content/CertificatesContent";
 import ContactContent from "@/components/content/ContactContent";
 
-import BottomNavbar from "@/components/mobile/BottomNavbar";
+import BottomNavbar from "./BottomNavbar";
+import { useState } from "react";
 
 export default function MobileView() {
 
-  const [activeTab, setActiveTabs] = useState("about");
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case "about":
-        return <AboutContent />;
-
-      case "skills":
-        return <SkillsContent />;
-
-      case "projects":
-        return <ProjectsContent />;
-
-      case "certificates":
-        return <CertificatesContent />;
-
-      case "contact":
-        return <ContactContent />;
-
-      default:
-        return <AboutContent />;
-    }
-  };
+  const [activeTab, setActiveTab] = useState("about");
 
   return (
-    <div className="bg-gray-950 text-white pb-32 min-h-screen flex flex-col">
+    <div className="bg-gray-950 text-white pb-24">
 
-      {/* CONTENT */}
-      <div className="flex-1 p-6">
-        {renderContent()}
-      </div>
+      <section className="min-h-screen p-6">
+        <AboutContent />
+      </section>
 
-      {/* NAVBAR */}
+      <section className="min-h-screen p-6">
+        <SkillsContent />
+      </section>
+
+      <section className="min-h-screen p-6">
+        <ProjectsContent />
+      </section>
+
+      <section className="min-h-screen p-6">
+        <CertificatesContent />
+      </section>
+
+      <section className="min-h-screen p-6">
+        <ContactContent />
+      </section>
+
       <BottomNavbar
         active={activeTab}
-        onChange={(tab) => setActiveTabs(tab)}
+        onChange={(tab) => setActiveTab(tab)}
       />
 
     </div>

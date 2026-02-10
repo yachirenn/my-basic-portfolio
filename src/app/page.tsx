@@ -11,21 +11,11 @@ export default function HomePage() {
   return (
     <ResponsiveLayout
       desktop={
-        <WindowsProvider>
-          <DesktopLayout>
-            <DesktopGrid />
-            <WindowsContainer />
-          </DesktopLayout>
-        </WindowsProvider>
+null
       }
 
       tablet={
-        <WindowsProvider>
-          <DesktopLayout>
-            <DesktopGrid />
-            <WindowsContainer />
-          </DesktopLayout>
-        </WindowsProvider>
+null
       }
 
       mobile={
