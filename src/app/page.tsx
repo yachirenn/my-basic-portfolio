@@ -1,29 +1,39 @@
 "use client";
 
+import ResponsiveLayout from "@/components/layout/responsiveLayout";
+
 import DesktopLayout from "@/components/desktop/DesktopLayout";
 import DesktopGrid from "@/components/desktop/DesktopGrid";
 import WindowsContainer from "@/components/container/WindowsContainer";
 import { WindowsProvider } from "@/components/container/WindowsContext";
-import ResponsiveLayout from "@/components/layout/responsiveLayout";
-import MobileLayout from "@/components/mobile/MobileView";
+
+import MobileView from "@/components/mobile/MobileView";
 
 export default function HomePage() {
+
   return (
     <ResponsiveLayout
+
       desktop={
-null
+        <WindowsProvider>
+          <DesktopLayout>
+            <DesktopGrid />
+            <WindowsContainer />
+          </DesktopLayout>
+        </WindowsProvider>
       }
 
       tablet={
-null
+        <WindowsProvider>
+          <DesktopLayout>
+            <DesktopGrid />
+            <WindowsContainer />
+          </DesktopLayout>
+        </WindowsProvider>
       }
 
-      mobile={
-        <div className="p-4">
-          {/* MOBILE VIEW (isi nanti sesuai desain mobile) */}
-          <MobileLayout />
-        </div>
-      }
+      mobile={<MobileView />}
+
     />
   );
 }

@@ -14,20 +14,34 @@ export default function ResponsiveLayout({
   mobile
 }: Props) {
 
-  const [width, setWidth] = useState(0);
+  const [screen, setScreen] = useState<"desktop" | "tablet" | "mobile">("desktop");
 
   useEffect(() => {
-    setWidth(window.innerWidth);
 
-    const resize = () => setWidth(window.innerWidth);
+    const updateScreen = () => {
 
-    window.addEventListener("resize", resize);
+      const width = window.innerWidth;
 
-    return () => window.removeEventListener("resize", resize);
+      if (width < 768) {
+        setScreen("mobile");
+      } else if (width < 1024) {
+        setScreen("tablet");
+      } else {
+        setScreen("desktop");
+      }
+
+    };
+
+    updateScreen();
+
+    window.addEventListener("resize", updateScreen);
+
+    return () => window.removeEventListener("resize", updateScreen);
+
   }, []);
 
-  if(width < 768) return <>{mobile}</>;
-  if(width < 1024) return <>{tablet}</>;
+  if (screen === "mobile") return <>{mobile}</>;
+  if (screen === "tablet") return <>{tablet}</>;
 
   return <>{desktop}</>;
 }
