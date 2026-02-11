@@ -4,10 +4,10 @@ import { useRef, useState } from "react";
 
 import AboutSection from "./sections/AboutSection";
 
-import SkillsContent from "@/components/content/SkillsContent";
-import ProjectsContent from "@/components/content/ProjectContent";
-import CertificatesContent from "@/components/content/CertificatesContent";
-import ContactContent from "@/components/content/ContactContent";
+import SkillSection from "./sections/SkillSection";
+// import ProjectsSection from "./sections/ProjectSection";
+// import CertificatesSection from "./sections/CertificatesSection";
+// import ContactSection from "./sections/ContactSection";
 
 import BottomNavbar from "./BottomNavbar";
 import TerminalModal from "@/components/TerminalWindow/TerminalModal";
@@ -59,22 +59,22 @@ export default function MobileView() {
 
       {/* SKILLS */}
       <section ref={refs.skills} className="min-h-screen p-6">
-        <SkillsContent />
+        <SkillSection />
       </section>
 
       {/* PROJECTS */}
       <section ref={refs.projects} className="min-h-screen p-6">
-        <ProjectsContent />
+        {/* <ProjectsContent /> */}
       </section>
 
       {/* CERTIFICATES */}
       <section ref={refs.certificates} className="min-h-screen p-6">
-        <CertificatesContent />
+        {/* <CertificatesContent /> */}
       </section>
 
       {/* CONTACT */}
       <section ref={refs.contact} className="min-h-screen p-6">
-        <ContactContent />
+        {/* <ContactContent /> */}
       </section>
 
       <BottomNavbar active={active} onChange={scrollTo} />
