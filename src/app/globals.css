@@ -177,6 +177,12 @@ html, body {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.mask-image-gradient {
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

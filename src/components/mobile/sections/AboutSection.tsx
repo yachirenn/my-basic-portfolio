@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function AboutSection() {
   return (
-    <section className="relative min-h-screen px-6 pt-12 pb-10 overflow-hidden">
+    <section className="relative min-h-screen px-6 pt-18 pb-10 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
           initial={{opacity: 0}}
@@ -29,6 +29,10 @@ export default function AboutSection() {
           I enjoy creating digital solutions that are simple yet effective, 
           particularly using JavaScript, and I am eager to continue learning about the latest technologies. 
           I am seeking opportunities to contribute in an environment that fosters creativity and innovation.
+        </p>
+
+        <p className="text-gray-400 pt-6 text-lg font-mono">
+          Curently I am learning about React and REST API.
         </p>
       </div>
     </section>
