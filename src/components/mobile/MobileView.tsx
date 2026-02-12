@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import AboutSection from "./sections/AboutSection";
 
 import SkillSection from "./sections/SkillSection";
-// import ProjectsSection from "./sections/ProjectSection";
+import ProjectSection from "./sections/ProjectSection";
 // import CertificatesSection from "./sections/CertificatesSection";
 // import ContactSection from "./sections/ContactSection";
 
@@ -64,7 +64,7 @@ export default function MobileView() {
 
       {/* PROJECTS */}
       <section ref={refs.projects} className="min-h-screen p-6">
-        {/* <ProjectsContent /> */}
+        <ProjectSection />
       </section>
 
       {/* CERTIFICATES */}
