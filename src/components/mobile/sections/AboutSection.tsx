@@ -1,10 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion";
+import HeroCanvas from "./HeroCanvas";
 
 export default function AboutSection() {
   return (
     <section className="relative min-h-screen px-6 pt-18 pb-10 overflow-hidden">
+      <HeroCanvas />
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
           initial={{opacity: 0}}
