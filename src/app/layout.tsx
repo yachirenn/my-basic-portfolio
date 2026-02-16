@@ -28,7 +28,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${robotoMono.variable} ${robotoSans.variable} antialiased`}
       >
         <main className="app-root">
-          <DesktopUI>
+          <DesktopUI openWindow={function (window: string): void {
+            throw new Error("Function not implemented.");
+            }}>
             <WindowsProvider>
               <div className="app-content">{children}</div>
             </WindowsProvider>

@@ -16,7 +16,9 @@ export default function HomePage() {
 
       desktop={
         <WindowsProvider>
-          <DesktopLayout>
+          <DesktopLayout openWindow={function (window: string): void {
+            throw new Error("Function not implemented.");
+          } }>
             <DesktopGrid />
             <WindowsContainer />
           </DesktopLayout>
@@ -25,7 +27,9 @@ export default function HomePage() {
 
       tablet={
         <WindowsProvider>
-          <DesktopLayout>
+          <DesktopLayout openWindow={function (window: string): void {
+            throw new Error("Function not implemented.");
+          } }>
             <DesktopGrid />
             <WindowsContainer />
           </DesktopLayout>

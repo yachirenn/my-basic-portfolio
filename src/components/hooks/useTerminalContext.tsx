@@ -14,7 +14,7 @@ type TerminalContextType = {
   executeCommand: (input: string) => void;
   navigateHistory: (direction: 'up' | 'down') => void;
   registerCommand: (name: string, fn: CommandFn) => void;
-  virtualFilesystem: Record<string, any[]>;
+  virtualFilesystem: Record<string, any[]>;z
 };
 
 const TerminalContext = createContext<TerminalContextType | undefined>(undefined);

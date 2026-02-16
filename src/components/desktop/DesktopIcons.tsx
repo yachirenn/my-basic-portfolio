@@ -12,7 +12,7 @@ interface DesktopIconsProps {
   icons: IconData[];
 }
 
-const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
+export const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
   const { openWindow } = useWindows();
 
   const handleClick = (windowId: string) => {
