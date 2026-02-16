@@ -10,17 +10,17 @@ export default function HeroPixelGrid() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newActive = Array.from({ length: 40 }, () =>
+      const newActive = Array.from({ length: 65 }, () =>
         Math.floor(Math.random() * rows * cols)
       )
       setActive(newActive)
-    }, 800)
+    }, 500)
     return () => clearInterval(interval)
   }, [])
 
   return (
     <div className="w-full h-full absolute inset-0 flex items-start justify-center opacity-55 pointer-events-none">
-      <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 10px)`}}>
+      <div className="grid gap-1 w-full" style={{ gridTemplateColumns: `repeat(${cols}, 10px)`}}>
         {Array.from({ length: rows * cols }).map((_, i) => {
           const isActive = active.includes(i)
           return (
@@ -36,9 +36,7 @@ export default function HeroPixelGrid() {
             />
           )
         })}
-
       </div>
-
     </div>
   )
 }
