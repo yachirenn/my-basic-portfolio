@@ -1,12 +1,30 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import { useScroll } from "framer-motion"
 import { Home, Github, Mail, Instagram, Linkedin, Terminal } from "lucide-react"
 
 export default function BottomNavbar() {
 
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+  const { scrollY } = useScroll()
+
+  const [visible, setVisible] = useState(true)
+  const [lastY, setLastY] = useState(0)
+
+  useEffect(() => {
+
+    return scrollY.on("change", (y) => {
+
+      if (y > lastY) {
+        setVisible(false) // scroll down
+      } else {
+        setVisible(true) // scroll up
+      }
+
+      setLastY(y)
+    })
+
+  }, [lastY, scrollY])
 
   return (
     <div className="
@@ -22,7 +40,7 @@ export default function BottomNavbar() {
     ">
       
       {/* HOME */}
-      <NavButton onClick={scrollTop}>
+      <NavButton onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
         <Home size={20}/>
       </NavButton>
 
