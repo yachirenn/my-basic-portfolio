@@ -1,54 +1,81 @@
 "use client"
 
-import { motion } from 'framer-motion';
+import { Home, Github, Mail, Instagram, Linkedin, Terminal } from "lucide-react"
 
-type Tabs = 
-  | "about"
-  | "skills"
-  | "projects"
-  | "certificates"
-  | "contact"
-  | "terminal"
+export default function BottomNavbar() {
 
-interface Props {
-  active: Tabs | string;
-  onChange: (tab: Tabs) => void;
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  return (
+    <div className="
+      fixed bottom-4 left-1/2 -translate-x-1/2
+      backdrop-blur-lg
+      bg-transparent
+      border border-white/30
+      shadow-lg
+      rounded-full
+      px-4 py-2
+      flex gap-4
+      z-50
+    ">
+      
+      {/* HOME */}
+      <NavButton onClick={scrollTop}>
+        <Home size={20}/>
+      </NavButton>
+
+      <div data-separator className="w-px h-8 bg-white/30 items-center self-center"></div>
+
+      {/* GITHUB */}
+      <NavButton onClick={() => window.open("https://github.com/yachirenn","_blank")}>
+        <Github size={20}/>
+      </NavButton>
+
+      {/* EMAIL */}
+      <NavButton onClick={() => window.open("mailto:rendysulistyawan11@gmail.com", "_blank")}>
+        <Mail size={20}/>
+      </NavButton>
+
+      {/* INSTAGRAM */}
+      <NavButton onClick={() => window.open("https://instagram.com/yachirennn","_blank")}>
+        <Instagram size={20}/>
+      </NavButton>
+
+      {/* LINKEDIN */}
+      <NavButton onClick={() => window.open("https://linkedin.com/in/rendy-sulistyawan-179b12335","_blank")}>
+        <Linkedin size={20}/>
+      </NavButton>
+
+      {/* TERMINAL */}
+      <NavButton onClick={() => window.dispatchEvent(new Event("open-terminal"))}>
+        <Terminal size={20}/>
+      </NavButton>
+
+    </div>
+  )
 }
 
-const tabs: Tabs[] = [
-  "about",
-  "skills",
-  "projects",
-  "certificates",
-  "contact",
-  "terminal",
-]
 
-export default function BottomNavbars({ active, onChange} : Props) {
+function NavButton({
+  children,
+  onClick
+}: {
+  children: React.ReactNode
+  onClick: () => void
+}) {
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-      <div className="flex gap-1 px-2.5 py-2 bg-gray-900/35 backdrop-blur-lg border border-gray-400 rounded-full shadow-xl">
-        {tabs.map((tabs) => (
-          <button
-            key={tabs}
-            onClick={() => onChange(tabs)}
-            className="relative px-4 py-2 text-sm capitalize"
-          >
-            {/* Active Indicator */}
-            {active === tabs && (
-              <motion.div
-                layoutId="ios-nav-bottom"
-                className="absolute inset-0 bg-green-400 rounded-full pointer-events-none"
-                transition={{type: "spring", stiffness: 400, damping: 30}}
-              />
-            )}
-
-            <span className="relative z-40">
-              {tabs}
-            </span>
-          </button>
-        ))}
-      </div>
-    </div>
+    <button
+      onClick={onClick}
+      className="
+        p-3 rounded-full
+        hover:bg-gray-100
+        active:scale-90
+        transition-all
+      "
+    >
+      {children}
+    </button>
   )
 }

@@ -7,7 +7,7 @@ import AboutSection from "./sections/AboutSection";
 import SkillSection from "./sections/SkillSection";
 import ProjectSection from "./sections/ProjectSection";
 // import CertificatesSection from "./sections/CertificatesSection";
-// import ContactSection from "./sections/ContactSection";
+import ContactSection from "./sections/ContactSection";
 
 import BottomNavbar from "./BottomNavbar";
 import TerminalModal from "@/components/TerminalWindow/TerminalModal";
@@ -49,35 +49,14 @@ export default function MobileView() {
   };
 
   return (
+    <div className="relative flex flex-col gap-16 px-6 py-10">
+      <AboutSection />
+      <SkillSection />
+      <ProjectSection />
+      {/* <CertificatesSection /> */}
+      <ContactSection />
 
-    <div className="bg-gray-950 text-white">
-
-      {/* ABOUT */}
-      <section ref={refs.about} className="min-h-screen p-6">
-        <AboutSection />
-      </section>
-
-      {/* SKILLS */}
-      <section ref={refs.skills} className="min-h-screen p-6">
-        <SkillSection />
-      </section>
-
-      {/* PROJECTS */}
-      <section ref={refs.projects} className="min-h-screen p-6">
-        <ProjectSection />
-      </section>
-
-      {/* CERTIFICATES */}
-      <section ref={refs.certificates} className="min-h-screen p-6">
-        {/* <CertificatesContent /> */}
-      </section>
-
-      {/* CONTACT */}
-      <section ref={refs.contact} className="min-h-screen p-6">
-        {/* <ContactContent /> */}
-      </section>
-
-      <BottomNavbar active={active} onChange={scrollTo} />
+      <BottomNavbar />
 
       {openTerminal && (
         <TerminalModal
