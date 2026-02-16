@@ -1,26 +1,27 @@
-"use client";
+"use client"
 
-import { useEffect } from "react";
+import TerminalModal from "@/components/TerminalWindow/TerminalModal"
+import { useState } from "react"
 
-export default function DesktopLayout({ children, openWindow }: { children: React.ReactNode, openWindow: (window: string) => void }) {
+export default function DesktopLayout({ children }: { children: React.ReactNode }) {
 
-  useEffect(() => {
+  const [activeWindow,setActiveWindow] = useState<string | null>(null)
 
-  const handler = () => {
-    openWindow("terminal") // atau fungsi kamu
+  const openWindow = (name:string) => {
+    setActiveWindow(name)
   }
 
-  window.addEventListener("open-terminal", handler)
-
-  return () => window.removeEventListener("open-terminal", handler)
-
-}, [])
-
   return (
-    <div
-      className="relative w-full h-screen bg-center overflow-hidden"
-    >
+    <>
       {children}
-    </div>
-  );
+
+      {activeWindow === "terminal" && (
+        <TerminalModal 
+          open={true} 
+          onClose={() => setActiveWindow(null)}
+          content="Welcome to terminal"
+        />
+      )}
+    </>
+  )
 }

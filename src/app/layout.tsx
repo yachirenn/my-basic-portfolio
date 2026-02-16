@@ -24,17 +24,13 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={`${robotoMono.variable} ${robotoSans.variable} antialiased`}
-      >
+      <body className={`${robotoMono.variable} ${robotoSans.variable} antialiased`}>
         <main className="app-root">
-          <DesktopUI openWindow={function (window: string): void {
-            throw new Error("Function not implemented.");
-            }}>
-            <WindowsProvider>
+          <WindowsProvider>
+            <DesktopUI>
               <div className="app-content">{children}</div>
-            </WindowsProvider>
-          </DesktopUI>
+            </DesktopUI>
+          </WindowsProvider>
         </main>
       </body>
     </html>
