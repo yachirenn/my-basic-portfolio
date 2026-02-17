@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function AboutSection() {
   return (
-    <div className="relative px-6 pt-18 pb-10 overflow-hidden">
+    <div className="relative pt-18 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <HeroPixelGrid />
       </div>
