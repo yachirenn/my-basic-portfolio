@@ -29,6 +29,9 @@ export const projects: Project[] = [
   {
     id: '1',
     title: 'TKIP-Salsabila 1',
+    imageUrls: [
+      '../images/tkip-sls1.png',
+    ],
     description: 'Official institutional website for a kindergarten school to provide information and digital presence.',
     longDescription:
       'TKIP-Salsabila 1 is an institutional website developed for a kindergarten school as a digital information platform. The website is designed to present the school profile, vision and mission, academic activities, announcements, and contact information in a structured and accessible way. Built using Next.js, Node.js, and MongoDB, this project focuses on performance, scalability, and ease of content management. The project is currently under development and continuously improved to meet institutional needs.',
@@ -36,6 +39,7 @@ export const projects: Project[] = [
     categories: ['web'],
     status: 'in-progress',
     featured: true,
+    githubUrl: 'https://github.com/yachirenn/pixeldev.git',
     startDate: 'Jun 2025',
     highlights: [
       'School profile, vision, and mission information pages',
@@ -47,6 +51,9 @@ export const projects: Project[] = [
   {
     id: '2',
     title: 'To-Do List',
+    imageUrls: [
+      '../images/todolist.png',
+    ],
     description: 'Web-based to-do list application developed as a lecture assignment to manage daily tasks.',
     longDescription:
       'This To-Do List application was created as part of a Software Engineering Component course assignment. The project focuses on implementing basic web development concepts using HTML, CSS, and JavaScript. It allows users to manage daily tasks through a simple and interactive interface while emphasizing clean code structure and usability.',
@@ -68,16 +75,7 @@ export const projects: Project[] = [
     id: '3',
     title: 'Educafy (UXcel)',
     imageUrls: [
-      '/assets/projects/1737340417551_Page_01.png',
-      '/assets/projects/1737340417551_Page_02.png',
-      '/assets/projects/1737340417551_Page_03.png',
-      '/assets/projects/1737340417551_Page_04.png',
-      '/assets/projects/1737340417551_Page_05.png',
-      '/assets/projects/1737340417551_Page_06.png',
-      '/assets/projects/1737340417551_Page_07.png',
-      '/assets/projects/1737340417551_Page_08.png',
-      '/assets/projects/1737340417551_Page_09.png',
-      '/assets/projects/1737340417551_Page_10.png'
+      '../images/educafy.png',
     ],
     description: 'UI/UX mobile application design for an educational learning platform.',
     longDescription:
@@ -86,7 +84,7 @@ export const projects: Project[] = [
     categories: ['other'],
     status: 'completed',
     featured: false,
-    githubUrl: 'https://github.com/',
+    githubUrl: 'https://figma.com/',
     startDate: 'Oct 2025',
     endDate: 'Oct 2025',
     highlights: [
