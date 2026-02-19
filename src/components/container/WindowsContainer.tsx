@@ -1,49 +1,42 @@
 "use client"
 
-import { useWindows } from "./WindowsContext";
-import TerminalModal from "../TerminalWindow/TerminalModal";
-import FolderModal from "@/components/common/FolderModals";
-import AboutContent from "@/components/common/FolderWindows/AboutModal";
-import SkillsContent from "@/components/common/FolderWindows/SkillModal";
-import ProjectsContent from "@/components/common/FolderWindows/AboutModal";
-import CertificatesContent from "@/components/common/FolderWindows/AboutModal";
-import ContactContent from "@/components/common/FolderWindows/AboutModal";
-import TerminalContent from "@/components/common/FolderWindows/AboutModal";
-import { TerminalProvider } from "../TerminalWindow/TerminalContext";
-import TerminalHeader from "../TerminalWindow/TerminalHeader";
-import SkillModal from "@/components/common/FolderWindows/SkillModal";
+import { useWindows } from "./WindowsContext"
+import TerminalModal from "../TerminalWindow/TerminalModal"
+import FolderModal from "@/components/common/FolderModals"
+import AboutContent from "@/components/common/FolderWindows/AboutModal"
+import SkillModal from "@/components/common/FolderWindows/SkillModal"
+import { TerminalProvider } from "../TerminalWindow/TerminalContext"
 
 export default function WindowsContainer() {
-  const { activeWindow, closeWindow } = useWindows();
+
+  const { activeWindow, closeWindow } = useWindows()
 
   return (
-    <>
-      {/* Terminal tetap pakai TerminalModal */}
+    <div className="absolute inset-0 pointer-events-none">
+
+      {/* TERMINAL */}
       {activeWindow === "terminal" && (
         <TerminalProvider>
-          <TerminalHeader onClose={closeWindow} />
           <TerminalModal
-            open={true}
+            open
             onClose={closeWindow}
-            content="Welcome to the terminal!"
+            content=""
           />
         </TerminalProvider>
       )}
 
-      {/* Folder About */}
+      {/* ABOUT */}
       {activeWindow === "about" && (
-        <FolderModal open={activeWindow === "about"} onClose={closeWindow} title="About">
+        <FolderModal open onClose={closeWindow} title="About">
           <AboutContent />
         </FolderModal>
       )}
+
+      {/* SKILLS */}
       {activeWindow === "skills" && (
-        <SkillModal open={true} onClose={closeWindow} />
+        <SkillModal open onClose={closeWindow} />
       )}
-      {activeWindow === "contact" && (
-        <FolderModal open={activeWindow === "contact"} onClose={closeWindow} title="Contact">
-          <ContactContent />
-        </FolderModal>
-      )}
-    </>
-  );
+
+    </div>
+  )
 }

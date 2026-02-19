@@ -8,8 +8,7 @@ export default function DesktopGrid() {
     { id: "2", label: "Skills", icon: "📁", windowId: "skills" },
     { id: "3", label: "Certificates", icon: "📁", windowId: "certificates" },
     { id: "4", label: "Projects", icon: "📁", windowId: "projects" },
-    { id: "5", label: "Contact", icon: "📁", windowId: "contact" },
-    { id: "6", label: "Terminal", icon: "📁", windowId: "terminal" },
+    { id: "5", label: "Terminal", icon: "📁", windowId: "terminal" },
   ];
 
   return (
