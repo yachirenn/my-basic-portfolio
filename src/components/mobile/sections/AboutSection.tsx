@@ -14,7 +14,7 @@ export default function AboutSection() {
       <div className="relative z-40">
 
         <span className="relative flex shrink-0 overflow-hidden size-24 md:size-32 border rounded-full shadow-lg bottom-8">
-          <img className="aspect-square w-full h-full object-cover" src="/images/acheroninfinity.png" alt="yachirenn's photo" />
+          <img className="aspect-square w-60 h-60 object-cover" src="/images/hellayhh.jpeg" alt="yachirenn's photo" />
         </span>
 
         <h1 className="text-4xl font-bold pb4">Hi! I'm Renn</h1>
