@@ -69,10 +69,6 @@ export default function BottomNavbar() {
           <Linkedin size={20}/>
         </NavButton>
 
-        <NavButton onClick={() => window.dispatchEvent(new Event("open-terminal"))}>
-          <Terminal size={20}/>
-        </NavButton>
-
       </div>
     </motion.div>
   )

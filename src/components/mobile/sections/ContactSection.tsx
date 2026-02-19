@@ -10,11 +10,11 @@ export default function ContactSection() {
       whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
       viewport={{ once: true }}
     >
-      <div className="border rounded-xl p-10 relative overflow-hidden">
+      <div className="border border-accent/30 rounded-xl p-10 relative bg-accent-foreground">
 
         {/* FLOAT LABEL */}
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 border bg-primary z-10 rounded-xl px-4 py-1">
-          <span className="text-background text-sm font-medium">
+          <span className="text-background text-xl font-medium">
             Contact
           </span>
         </div>
