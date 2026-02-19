@@ -4,9 +4,9 @@ import { useRef, useState } from "react";
 
 import AboutSection from "./sections/AboutSection";
 
+import EduSection from "./sections/EduSection";
 import SkillSection from "./sections/SkillSection";
 import ProjectSection from "./sections/ProjectSection";
-// import CertificatesSection from "./sections/CertificatesSection";
 import ContactSection from "./sections/ContactSection";
 
 import BottomNavbar from "./BottomNavbar";
@@ -49,23 +49,25 @@ export default function MobileView() {
   };
 
   return (
-    <div className="relative flex flex-col gap-16 px-6 py-10">
-      <AboutSection />
-      <SkillSection />
-      <ProjectSection />
-      {/* <CertificatesSection /> */}
-      <ContactSection />
+    <div className="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-6">
+      <div className="min-h-dvh flex flex-col gap-14 relative">
+        <AboutSection />
+        <EduSection />
+        <SkillSection />
+        <ProjectSection />
+        <ContactSection />
 
-      <BottomNavbar />
+        <BottomNavbar />
 
-      {openTerminal && (
-        <TerminalModal
-          open={true}
-          onClose={() => setOpenTerminal(false)}
-          content="Welcome to terminal"
-        />
-      )}
+        {openTerminal && (
+          <TerminalModal
+            open={true}
+            onClose={() => setOpenTerminal(false)}
+            content="Welcome to terminal"
+          />
+        )}
 
+      </div>
     </div>
   );
 }

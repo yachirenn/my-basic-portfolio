@@ -1,39 +1,59 @@
+"use client"
+
+import HeroPixelGrid from "@/components/ui/pixelgrid"
+import { motion } from "framer-motion"
+
 export default function ContactSection() {
   return (
-    <section className="flex flex-col gap-8">
-      <h1 className="text-4xl font-bold text-center">Get in Touch</h1>
+    <motion.div
+      initial={{ opacity: 0, filter: "blur(6px)", y: 20 }}
+      whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      viewport={{ once: true }}
+    >
+      <div className="border rounded-xl p-10 relative overflow-hidden">
 
-      <div className="p-4 bg-gray-800 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-colors duration-300">
-        <p className="text-white text-lg text-center">
-          Feel free to reach out to me for any inquiries, collaborations, or just to say hello! You can contact me through the following channels:
-        </p>
+        {/* FLOAT LABEL */}
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 border bg-primary z-10 rounded-xl px-4 py-1">
+          <span className="text-background text-sm font-medium">
+            Contact
+          </span>
+        </div>
+
+        {/* TOP BACKGROUND CANVAS */}
+        <div className="absolute inset-0 top-0 left-0 right-0 h-1/2 rounded-xl overflow-hidden">
+          <div
+            className="h-full w-full"
+            style={{
+              maskImage: "linear-gradient(to bottom, black, transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black, transparent)",
+            }}
+          >
+            {/* background animation / canvas */}
+            <HeroPixelGrid />
+          </div>
+        </div>
+
+        {/* CONTENT */}
+        <div className="relative flex flex-col items-center gap-4 text-center">
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tighter">
+            Get in Touch
+          </h2>
+
+          <p className="mx-auto max-w-lg text-muted-foreground text-balance">
+            Want to chat? Just shoot me a dm{" "}
+            <a
+              href="https://www.instagram.com/yachirennn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+            >
+              with a direct question on Instagram
+            </a>{" "}
+            and I'll respond whenever I can. I will ignore all soliciting.
+          </p>
+        </div>
       </div>
-
-      <ul className="list-disc list-inside text-white text-lg">
-        <li>Email: <a href="mailto:rendysulistyawan11@gmail.com">rendysulistyawan11@gmail.com</a>
-          <span className="text-blue-500 hover:underline">
-            (Send me an email)
-          </span>
-        </li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/in/rendysulistyawan" target="_blank" rel="noopener noreferrer">linkedin.com/in/rendysulistyawan</a>
-          <span className="text-blue-500 hover:underline">
-            (Connect with me on LinkedIn)
-          </span>
-        </li>
-        <li>GitHub: <a href="https://github.com/yachirenn" target="_blank" rel="noopener noreferrer">github.com/yachirenn</a>
-          <span className="text-blue-500 hover:underline">
-            (View my GitHub profile)
-          </span>
-        </li>
-        <li>Twitter: <a href="https://twitter.com/rndzmusic_" target="_blank" rel="noopener noreferrer">@rndzmusic_</a>
-          <span className="text-blue-500 hover:underline">
-            (Follow me on Twitter)
-          </span>
-        </li>
-      </ul>
-      <p className="text-white text-lg">
-        I'm always open to new opportunities and collaborations, so don't hesitate to get in touch!
-      </p>
-    </section>
-  );
+    </motion.div>
+  )
 }
