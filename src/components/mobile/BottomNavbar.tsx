@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Home, Github, Mail, Instagram, Linkedin, Terminal } from "lucide-react"
+import { Home, Github, Mail, Instagram, Linkedin } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function BottomNavbar() {
