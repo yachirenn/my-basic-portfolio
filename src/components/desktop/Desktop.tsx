@@ -2,6 +2,7 @@
 import DesktopGrid from "./DesktopGrid";
 import WindowsContainer from "../container/WindowsContainer";
 import DesktopIcons from "@/components/desktop/DesktopIcons";
+import Taskbar from "../layout/Taskbar";
 
 export default function Desktop() {
   return (
@@ -9,6 +10,7 @@ export default function Desktop() {
       <DesktopIcons icons={[]} />
       <WindowsContainer />
       <DesktopGrid />
+      <Taskbar />
     </div>
   );
 }

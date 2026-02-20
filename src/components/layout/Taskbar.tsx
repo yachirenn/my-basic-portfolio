@@ -1,5 +1,6 @@
-import React from 'react';
-import styles from '@/assets/css/Taskbar.module.css';
+import React from "react";
+import styles from "@/assets/css/Taskbar.module.css";
+import { useWindows } from "../container/WindowsContext";
 
 interface TaskbarButton {
   id: string;
@@ -22,11 +23,14 @@ export const Taskbar: React.FC<TaskbarProps> = ({
   showVolume = true,
   showNetwork = true,
 }) => {
-  const [time, setTime] = React.useState<string>(new Date().toLocaleTimeString());
+  const [time, setTime] = React.useState<string>(
+    new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+  );
+  const { activeWindow, closeWindow } = useWindows();
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      setTime(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -40,7 +44,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({
           {buttons.map((btn) => (
             <button
               key={btn.id}
-              className={`${styles.appButton} ${btn.isActive ? styles.active : ''}`}
+              className={`${styles.appButton} ${btn.isActive ? styles.active : ""}`}
               onClick={btn.onClick}
               title={btn.label}
             >
@@ -48,6 +52,17 @@ export const Taskbar: React.FC<TaskbarProps> = ({
               <span className={styles.label}>{btn.label}</span>
             </button>
           ))}
+
+          {/* Active Window */}
+          {activeWindow && (
+            <button
+              className={`${styles.appButton} ${styles.active}`}
+              onClick={closeWindow}
+              title={activeWindow}
+            >
+              <span className={styles.label}>{activeWindow}</span>
+            </button>
+          )}
         </div>
       </div>
 

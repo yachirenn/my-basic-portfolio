@@ -11,31 +11,24 @@ export default function WindowsContainer() {
 
   const { activeWindow, closeWindow } = useWindows()
 
+  const windowsMap : Record<string, React.ReactNode> = {
+    terminal: (
+      <TerminalProvider>
+        <TerminalModal open onClose={closeWindow} />
+      </TerminalProvider>
+    ),
+    about: (
+      <FolderModal open onClose={closeWindow} title="About">
+        <AboutContent />
+      </FolderModal>
+    ),
+    skills: <SkillModal open onClose={closeWindow} />
+  }
+
+
   return (
     <div className="absolute inset-0 pointer-events-none">
-
-      {/* TERMINAL */}
-      {activeWindow === "terminal" && (
-        <TerminalProvider>
-          <TerminalModal
-            open
-            onClose={closeWindow}
-          />
-        </TerminalProvider>
-      )}
-
-      {/* ABOUT */}
-      {activeWindow === "about" && (
-        <FolderModal open onClose={closeWindow} title="About">
-          <AboutContent />
-        </FolderModal>
-      )}
-
-      {/* SKILLS */}
-      {activeWindow === "skills" && (
-        <SkillModal open onClose={closeWindow} />
-      )}
-
+      {activeWindow && windowsMap[activeWindow]}
     </div>
   )
 }
