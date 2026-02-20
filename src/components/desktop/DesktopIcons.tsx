@@ -1,6 +1,8 @@
 "use client";
+
 import { useWindows } from "../container/WindowsContext";
 import { IconData } from "./DesktopIconType";
+import { useRouter } from "next/navigation";
 
 interface DesktopIconsProps {
   icons: IconData[];
@@ -8,18 +10,18 @@ interface DesktopIconsProps {
 
 export const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
   const { openWindow } = useWindows();
+  const router = useRouter();
 
   const handleClick = (windowId: string) => {
-    if(windowId === "certificates") {
-      window.location.href = "/certificate";
+    if (windowId === "certificates") {
+      router.push("/certificates"); 
       return;
     } else if (windowId === "projects") {
-      window.location.href = "/projects";
+      router.push("/projects"); 
       return;
     }
-
     openWindow(windowId);
-  }
+  };
 
   return (
     <div className="grid grid-cols-4 gap-8">
