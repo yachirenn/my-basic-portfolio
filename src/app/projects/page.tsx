@@ -31,7 +31,9 @@ export default function ProjectPage() {
             >
               {/* Image/assets Picture */}
               <div className="aspect-video bg-black/25">
-                <img src={project.githubUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                {project.imageUrls && project.imageUrls.length > 0 && (
+                  <img src={project.imageUrls[0]} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                )}
               </div>
               
               {/* Info */}

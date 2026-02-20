@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useState, useCallback } from "react";
-import { TerminalLine } from "@/components/lib/types/terimnal";
+import { TerminalLine } from "@/components/lib/types/terminal";
 import { runCommand } from "@/components/TerminalWindow/TerminalCommand";
 
 export interface TerminalContentType {

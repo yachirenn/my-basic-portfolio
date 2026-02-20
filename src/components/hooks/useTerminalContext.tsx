@@ -2,7 +2,7 @@ import React, {createContext, useContext, useState, useRef, useEffect} from "rea
 import { parseFilesystem, resolvePath } from "@/utils/filesystemUtils";
 import initialFilesystem from "../lib/initialFilesystem";
 import { defaultCommands } from "@/constants/commands";
-import { TerminalLine } from "@/components/lib/types/terimnal";
+import { TerminalLine } from "@/components/lib/types/terminal";
 
 type CommandFn = (args: string[]) => void;
 

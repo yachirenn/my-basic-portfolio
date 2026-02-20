@@ -113,16 +113,16 @@ export default function ProjectModal({ projects, onClose }: Props) {
             <div className="p-6 overflow-y-auto space-y-6">
               {/* IMAGE */}
               <div className="relative rounded-lg overflow-hidden bg-black/30">
-                {projects.githubUrl ? (
+                {projects.imageUrls && projects.imageUrls.length > 0 ? (
                   <>
                     <img
-                      src={projects.githubUrl}
+                      src={projects.imageUrls[0]}
                       alt={projects.title}
                       className="w-full h-64 object-contain cursor-pointer hover:opacity-90"
                       onClick={(e) => {
-                        if(!projects.githubUrl) return;
+                        if(!projects.imageUrls) return;
                         e.stopPropagation();
-                        setEnlargedImage(projects.githubUrl);
+                        setEnlargedImage(projects.imageUrls[0]);
                         resetImageControls();
                       }}
                     />

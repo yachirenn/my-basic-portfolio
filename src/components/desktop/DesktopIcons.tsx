@@ -14,17 +14,17 @@ export const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
 
   const handleClick = (windowId: string) => {
     if (windowId === "certificates") {
-      router.push("/certificates"); 
+      router.push("/certificates");
       return;
     } else if (windowId === "projects") {
-      router.push("/projects"); 
+      router.push("/projects");
       return;
     }
     openWindow(windowId);
   };
 
   return (
-    <div className="grid grid-cols-4 gap-8">
+    <div className="grid grid-cols-4 gap-8 relative z-50 pointer-events-auto">
       {icons.map((icon) => (
         <div
           key={icon.id}

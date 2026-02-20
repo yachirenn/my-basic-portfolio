@@ -1,4 +1,4 @@
-import { TerminalLine, TerminalLineType } from "@/components/lib/types/terimnal";
+import { TerminalLine, TerminalLineType } from "@/components/lib/types/terminal";
 import { personalInfo } from "@/constants/personalInfo";
 
 import React from "react";

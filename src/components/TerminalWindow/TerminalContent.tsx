@@ -1,14 +1,6 @@
 "use client";
 import { useContext, KeyboardEvent } from "react";
 import { TerminalContext } from "@/components/TerminalWindow/TerminalContext";
-import { useState, useEffect } from "react";
-
-const fulltext = `
-Hello I'm Rendy Sulistyawan, commonly known as Rendy.
-I am a student majoring in System Information, Network, and Application at SMKN 2 YOGYAKARTA
-with a particular interest in Web Development.
-I enjoy creating...!
-`;
 
 export default function TerminalContent() {
   const terminal = useContext(TerminalContext);
@@ -36,13 +28,29 @@ export default function TerminalContent() {
         return "text-green-400";
       case "info":
         return "text-blue-400";
+      case "clear":
+        return ""; // clear tidak perlu output
+      case "/about":
+        return "text-yellow-400";
+      case "/projects":
+        return "text-purple-400";
       default:
         return "text-gray-200";
     }
   };
 
   return (
-    <div className="font-mono text-sm text-gray-200 w-full h-full">
+    <div className="font-mono text-sm text-gray-200 w-full h-full p-2 overflow-y-auto">
+      {/* Output history */}
+      {history.map((line) =>
+        line.type === "clear" ? null : (
+          <div key={line.id} className={getLineClass(line.type)}>
+            {line.output}
+          </div>
+        )
+      )}
+
+      {/* Input bar */}
       <div className="flex items-center">
         <span className="text-green-400">yachirenn@portfolio:~$&nbsp;</span>
         <input
