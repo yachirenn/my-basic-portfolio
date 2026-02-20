@@ -1,6 +1,6 @@
 import { TerminalLine, TerminalLineType } from "@/components/lib/types/terimnal";
 import { personalInfo } from "@/constants/personalInfo";
-import { navigationItems } from "@/constants/icons";
+
 import React from "react";
 
 export type CommandFn = (args: string[], helpers: {

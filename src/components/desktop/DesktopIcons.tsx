@@ -1,12 +1,6 @@
 "use client";
 import { useWindows } from "../container/WindowsContext";
-
-interface IconData {
-  id: string;
-  label: string | React.ReactNode;
-  icon: string;
-  windowId: string;
-}
+import { IconData } from "./DesktopIconType";
 
 interface DesktopIconsProps {
   icons: IconData[];

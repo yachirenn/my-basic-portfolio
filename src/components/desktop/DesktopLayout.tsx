@@ -1,27 +1,26 @@
-"use client"
+"use client";
 
-import TerminalModal from "@/components/TerminalWindow/TerminalModal"
-import { useState } from "react"
+import { WindowsProvider } from "@/components/container/WindowsContext";
+import Desktop from "./Desktop";
+import Taskbar from "@/components/layout/Taskbar";
+import WindowsContainer from "@/components/container/WindowsContainer";
 
 export default function DesktopLayout({ children }: { children: React.ReactNode }) {
-
-  const [activeWindow,setActiveWindow] = useState<string | null>(null)
-
-  const openWindow = (name:string) => {
-    setActiveWindow(name)
-  }
-
   return (
-    <>
-      {children}
+    <WindowsProvider>
+      <div className="w-screen h-screen relative bg-cover bg-center">
+        {/* Konten utama desktop */}
+        <Desktop />
 
-      {activeWindow === "terminal" && (
-        <TerminalModal 
-          open={true} 
-          onClose={() => setActiveWindow(null)}
-          content="Welcome to terminal"
-        />
-      )}
-    </>
-  )
+        {/* WindowsContainer untuk render window aktif */}
+        <WindowsContainer />
+
+        {/* Taskbar di bawah */}
+        <Taskbar />
+
+        {/* Children tambahan (opsional) */}
+        {children}
+      </div>
+    </WindowsProvider>
+  );
 }
