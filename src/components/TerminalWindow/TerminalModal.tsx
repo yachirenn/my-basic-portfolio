@@ -1,36 +1,36 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "motion/react"
+import TerminalHeader from "../TerminalWindow/TerminalHeader"
+import TerminalContent from "../TerminalWindow/TerminalContent"
+import { TerminalProvider } from "../TerminalWindow/TerminalContext"
 import { Rnd } from "react-rnd"
-import TerminalHeader from "./TerminalHeader"
-import TerminalContent from "./TerminalContent"
-import { TerminalProvider } from "@/components/TerminalWindow/TerminalContext"
+import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState } from "react"
 
-interface TerminalModalProps {
+interface Props {
   open: boolean
   onClose: () => void
 }
 
-export default function TerminalModal({ open, onClose }: TerminalModalProps) {
+export default function TerminalModal({ open, onClose }: Props) {
 
-  const [defaultPos, setDefaultPos] = useState({
-    x: 100,
-    y: 100,
-    width: 800,
-    height: 500
-  })
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setDefaultPos({
-        x: window.innerWidth / 2 - 400,
-        y: window.innerHeight / 2 - 250,
-        width: 800,
-        height: 500
-      })
+    setMounted(true)
+
+    if (open) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
     }
-  }, [])
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [open])
+
+  if (!mounted) return null
 
   return (
     <AnimatePresence>
@@ -38,38 +38,67 @@ export default function TerminalModal({ open, onClose }: TerminalModalProps) {
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 bg-black/40 z-40"
+            className="fixed inset-0 bg-black/50 z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
 
-          {/* Center Wrapper */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
+          {/* Window */}
+          <motion.div
+            className="fixed z-50 pointer-events-auto"
+            initial={{ opacity: 0, scale: 0.9, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+          >
+            <Rnd
+              style={{ overflow: "hidden" }}
+              default={{
+                x: window.innerWidth / 2 - 420,
+                y: window.innerHeight / 2 - 310,
+                width: 800,
+                height: 600,
+              }}
+              minWidth={600}
+              minHeight={400}
+              bounds="window"
+              dragHandleClassName="terminal-drag-handle"
+              enableResizing={{
+                top: true,
+                right: true,
+                bottom: true,
+                left: true,
+                topRight: true,
+                bottomRight: true,
+                bottomLeft: true,
+                topLeft: true,
+              }}
+              resizeHandleWrapperClass="rnd-resize-wrapper"
+              resizeHandleStyles={{
+                top: { cursor: "ns-resize" },
+                right: { cursor: "ew-resize" },
+                bottom: { cursor: "ns-resize" },
+                left: { cursor: "ew-resize" },
+                topRight: { cursor: "nesw-resize" },
+                topLeft: { cursor: "nwse-resize" },
+                bottomLeft: { cursor: "nesw-resize" },
+                bottomRight: { cursor: "nwse-resize" },
+              }}
             >
-              <Rnd
-                default={defaultPos}
-                minWidth={600}
-                minHeight={400}
-                bounds="window"
-                dragHandleClassName="terminal-drag-handle"
-              >
-                <div className="flex flex-col h-full bg-terminal-bg rounded-xl shadow-2xl overflow-hidden">
-                  <TerminalProvider>
-                    <TerminalHeader onClose={onClose} />
-                    <div className="flex-1 overflow-y-auto font-mono text-base text-gray-200 leading-tight p-4">
-                      <TerminalContent />
-                    </div>
-                  </TerminalProvider>
-                </div>
-              </Rnd>
-            </motion.div>
-          </div>
+              <div className="flex flex-col w-full h-full bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl overflow-hidden">
+
+                <TerminalProvider>
+                  <TerminalHeader onClose={onClose} />
+
+                  <div className="flex-1 overflow-y-auto overscroll-contain font-mono text-base text-gray-200 leading-tight scroll-smooth p-4">
+                    <TerminalContent />
+                  </div>
+                </TerminalProvider>
+
+              </div>
+            </Rnd>
+          </motion.div>
         </>
       )}
     </AnimatePresence>

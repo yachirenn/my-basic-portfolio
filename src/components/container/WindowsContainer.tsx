@@ -20,7 +20,6 @@ export default function WindowsContainer() {
           <TerminalModal
             open
             onClose={closeWindow}
-            content=""
           />
         </TerminalProvider>
       )}
