@@ -1,16 +1,14 @@
-"use client"
+"use client";
+
 import DesktopGrid from "./DesktopGrid";
-import WindowsContainer from "../container/WindowsContainer";
-import DesktopIcons from "@/components/desktop/DesktopIcons";
-import Taskbar from "../layout/Taskbar";
+import DesktopIcons from "./DesktopIcons";
+import { icons } from "@/constants/icons";
 
 export default function Desktop() {
   return (
-    <div className="w-screen h-screen relative bg-cover bg-center">
-      <DesktopIcons icons={[]} />
-      <WindowsContainer />
+    <div className="relative w-full h-full">
       <DesktopGrid />
-      <Taskbar />
+      <DesktopIcons icons={icons} />
     </div>
   );
 }

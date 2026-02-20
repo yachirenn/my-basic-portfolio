@@ -26,7 +26,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({
   const [time, setTime] = React.useState<string>(
     new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
   );
-  const { activeWindow, closeWindow } = useWindows();
+  const windowsContext = useWindows();
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -54,13 +54,13 @@ export const Taskbar: React.FC<TaskbarProps> = ({
           ))}
 
           {/* Active Window */}
-          {activeWindow && (
+          {windowsContext && (
             <button
               className={`${styles.appButton} ${styles.active}`}
-              onClick={closeWindow}
-              title={activeWindow}
+              onClick={() => {}}
+              title="Window"
             >
-              <span className={styles.label}>{activeWindow}</span>
+              <span className={styles.label}>Window</span>
             </button>
           )}
         </div>

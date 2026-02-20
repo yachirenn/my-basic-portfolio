@@ -1,35 +1,63 @@
 "use client";
+
 import { createContext, useContext, useState } from "react";
 
-interface WindowsContextType {
-  activeWindow: string | null;
-  openWindow: (name: string) => void;
-  closeWindow: () => void;
+export interface WindowInstance {
+  id: string;
+  type: string;
+  zIndex: number;
 }
 
-const WindowsContext = createContext<WindowsContextType | undefined>(undefined);
+interface WindowsContextType {
+  windows: WindowInstance[];
+  openWindow: (type: string) => void;
+  closeWindow: (id: string) => void;
+  focusWindow: (id: string) => void;
+}
 
-export const WindowsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [activeWindow, setActiveWindow] = useState<string | null>(null);
+const WindowsContext = createContext<WindowsContextType | null>(null);
 
-  const openWindow = (name: string) => {
-    console.log("Opening window:", name);
-    setActiveWindow(name);
+export function WindowsProvider({ children }: { children: React.ReactNode }) {
+  const [windows, setWindows] = useState<WindowInstance[]>([]);
+  const [topZ, setTopZ] = useState(100);
+
+  const openWindow = (type: string) => {
+    const id = `${type}-${Date.now()}`;
+    const newZ = topZ + 1;
+
+    setWindows((prev) => [...prev, { id, type, zIndex: newZ }]);
+    setTopZ(newZ);
   };
 
-  const closeWindow = () => {
-    setActiveWindow(null);
+  const closeWindow = (id: string) => {
+    setWindows((prev) => prev.filter((w) => w.id !== id));
+  };
+
+  const focusWindow = (id: string) => {
+    const newZ = topZ + 1;
+
+    setWindows((prev) =>
+      prev.map((w) =>
+        w.id === id ? { ...w, zIndex: newZ } : w
+      )
+    );
+
+    setTopZ(newZ);
   };
 
   return (
-    <WindowsContext.Provider value={{ activeWindow, openWindow, closeWindow }}>
+    <WindowsContext.Provider
+      value={{ windows, openWindow, closeWindow, focusWindow }}
+    >
       {children}
     </WindowsContext.Provider>
   );
-};
+}
 
-export const useWindows = () => {
-  const ctx = useContext(WindowsContext);
-  if (!ctx) throw new Error("useWindows must be used within WindowsProvider");
-  return ctx;
-};
+export function useWindows() {
+  const context = useContext(WindowsContext);
+  if (!context) {
+    throw new Error("useWindows must be used within WindowsProvider");
+  }
+  return context;
+}

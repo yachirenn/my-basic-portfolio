@@ -1,7 +1,7 @@
 "use client";
 
 import { useWindows } from "../container/WindowsContext";
-import { IconData } from "./DesktopIconType";
+import { IconData } from "@/constants/icons";
 import { useRouter } from "next/navigation";
 
 interface DesktopIconsProps {
@@ -12,24 +12,22 @@ export const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
   const { openWindow } = useWindows();
   const router = useRouter();
 
-  const handleClick = (windowId: string) => {
-    if (windowId === "certificates") {
-      router.push("/certificates");
-      return;
-    } else if (windowId === "projects") {
-      router.push("/projects");
+  const handleClick = (icon: IconData) => {
+    if (icon.route) {
+      router.push(icon.route);
       return;
     }
-    openWindow(windowId);
+
+    openWindow(icon.windowId);
   };
 
   return (
-    <div className="grid grid-cols-4 gap-8 relative z-50 pointer-events-auto">
+    <div className="relative z-10 grid grid-cols-4 gap-8 p-10 pointer-events-auto">
       {icons.map((icon) => (
         <div
           key={icon.id}
           className="flex flex-col items-center cursor-pointer hover:scale-105 transition-transform"
-          onClick={() => handleClick(icon.windowId)}
+          onClick={() => handleClick(icon)}
         >
           <span className="text-4xl">{icon.icon}</span>
           <span className="mt-2 text-sm text-white">{icon.label}</span>

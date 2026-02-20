@@ -8,26 +8,24 @@ import { usePathname } from "next/navigation";
 
 export default function DesktopLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-
-  // cek apakah sedang di halaman root (desktop)
   const isDesktop = pathname === "/";
 
   return (
     <WindowsProvider>
-      <div className="w-screen h-screen relative bg-cover bg-center">
+      <div className="relative w-screen h-screen overflow-hidden bg-cover bg-center">
         {isDesktop ? (
           <>
-            {/* Konten utama desktop */}
-            <Desktop />
+            <div className="absolute inset-0 z-0">
+              <Desktop />
+            </div>
 
-            {/* WindowsContainer untuk render window aktif */}
-            <WindowsContainer />
+            <div className="absolute inset-0 z-40 pointer-events-none">
+              <WindowsContainer />
+            </div>
 
-            {/* Taskbar di bawah */}
             <Taskbar />
           </>
         ) : (
-          // kalau bukan di "/", render children (halaman lain)
           <div className="p-8">{children}</div>
         )}
       </div>
