@@ -57,16 +57,16 @@ export const TerminalProvider: React.FC<{
       const [cmd, ...args] = trimmed.split(" ");
       const commandFn = commands[cmd];
 
-      // Add input line to terminal
-      setHistory(prev => [
+      // Add user input line
+      setHistory((prev) => [
         ...prev,
-        createLine(trimmed, "output", trimmed)
+        createLine(trimmed, "input", trimmed),
       ]);
 
       if (!commandFn) {
-        setHistory(prev => [
+        setHistory((prev) => [
           ...prev,
-          createLine(`Command not found: ${cmd}`, "output")
+          createLine(`Command not found: ${cmd}`, "error"),
         ]);
         setCurrentInput("");
         return;
@@ -81,28 +81,29 @@ export const TerminalProvider: React.FC<{
 
         case "output":
         case "success":
-          setHistory(prev => [
+          setHistory((prev) => [
             ...prev,
-            createLine(result.content, result.type)
+            createLine(result.content, result.type),
           ]);
           break;
 
         case "navigate":
-          setHistory(prev => [
+          setHistory((prev) => [
             ...prev,
-            createLine(result.message, "success")
+            createLine(result.message, "success"),
           ]);
           router.push(result.path);
           break;
 
         case "external":
-          setHistory(prev => [
+          setHistory((prev) => [
             ...prev,
-            createLine(result.message, "success")
+            createLine(result.message, "success"),
           ]);
           window.open(result.url, "_blank");
           break;
       }
+
       setCurrentInput("");
     },
     [router]

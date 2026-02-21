@@ -1,4 +1,4 @@
-export type TerminalLineType = 'command' | 'output' | 'error' | 'success' | 'info' | 'clear' | '/about' | '/projects';
+export type TerminalLineType = 'input' | 'output' | 'error' | 'success' | 'info' | 'clear' | 'help';
 
 export interface TerminalLine {
   id: string;
