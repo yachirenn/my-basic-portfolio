@@ -1,5 +1,9 @@
 import { personalInfo } from "@/constants/personalInfo";
+<<<<<<< HEAD
 import { navigation } from "@/constants/navigation";
+=======
+import { navigationItems } from "@/constants/navigation";
+>>>>>>> 291c6b20b48eb38f5d73115375c139c9ff47071c
 
 /* ============================= */
 /* ========= TYPES ============= */
@@ -26,7 +30,11 @@ export const commands: Record<string, CommandFn> = {
     content:
       "Available commands:\n\n" +
       "Navigation:\n" +
+<<<<<<< HEAD
       navigation
+=======
+      navigationItems
+>>>>>>> 291c6b20b48eb38f5d73115375c139c9ff47071c
         .map((item) => `  ${item.command} - ${item.label}`)
         .join("\n") +
       "\n\nSystem Commands:\n" +
