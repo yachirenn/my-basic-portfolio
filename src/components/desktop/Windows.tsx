@@ -22,7 +22,7 @@ export default function Windows({ window }: WindowProps) {
   const renderContent = () => {
     switch (window.type) {
       case "terminal":
-        return <TerminalModal open={true} onClose={() => closeWindow(window.id)} />;
+        return <TerminalModal windowId={window.id} />;
       case "about":
         return (
           <FolderModal title="About" open={true} onClose={() => closeWindow(window.id)}>

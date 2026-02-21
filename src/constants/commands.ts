@@ -1,138 +1,131 @@
-import { TerminalLine, TerminalLineType } from "@/components/lib/types/terminal";
 import { personalInfo } from "@/constants/personalInfo";
+import { navigationItems } from "@/constants/navigation";
 
-import React from "react";
+/* ============================= */
+/* ========= TYPES ============= */
+/* ============================= */
 
-export type CommandFn = (args: string[], helpers: {
-  addLine: Function;
-  clearHistory: Function;
-  history: TerminalLine[];
-  setCurrentDir: Function;
-  currentDir: string;
-  virtualFilesystem: any;
-}) => void;
+export type CommandResult =
+  | { type: "output"; content: string }
+  | { type: "success"; content: string }
+  | { type: "clear" }
+  | { type: "external"; url: string; message: string }
+  | { type: "navigate"; path: string; message: string };
 
+export type CommandFn = (args: string[]) => CommandResult;
 
-export const defaultCommands: Record<string, CommandFn> = {
-  help: (_, { addLine }) => {
-    addLine({
-      output: 'Available commands:\n\n' +
-        'Navigation:\n' +
-        navigationItems.map(item =>
-          `  ${item.command} - ${item.label}`
-        ).join('\n') +
-        '\n\nSystem Commands:\n' +
-        '  clear                  - Clear terminal screen\n' +
-        '  history                - Show command history\n' +
-        '  date                   - Show current date and time\n' +
-        '  echo <message>         - Print message to screen\n' +
-        '\nExternal Links:\n' +
-        '  github                 - Open GitHub profile\n' +
-        '  linkedin               - Open LinkedIn profile\n' +
-        '  email                  - Open email client\n' +
-        '\nFun Commands:\n' +
-        '  ascii                  - Show ASCII art\n' +
-        '  quote                  - Get an inspirational quote',
-      type: "output" as TerminalLineType,
-    });
-  },
+/* ============================= */
+/* ===== COMMAND REGISTRY ====== */
+/* ============================= */
 
-  clear: (_, { clearHistory }) => {
-    clearHistory();
-  },
+export const commands: Record<string, CommandFn> = {
+  /* ---------- HELP ---------- */
 
-  history: (_, { history, addLine }) => {
-    const commands = history.filter(line => line.command).slice(-10);
-    addLine({
-      output: commands.length > 0
-        ? `Recent command:\n${commands.map((line, index) => ` ${index + 1}. ${line.command}`).join('\n')}`
-        : "No command history available.",
-      type: "output" as TerminalLineType,
-    });
-  },
+  help: () => ({
+    type: "output",
+    content:
+      "Available commands:\n\n" +
+      "Navigation:\n" +
+      navigationItems
+        .map((item) => `  ${item.command} - ${item.label}`)
+        .join("\n") +
+      "\n\nSystem Commands:\n" +
+      "  clear\n" +
+      "  history\n" +
+      "  date\n" +
+      "  echo <message>\n" +
+      "\nExternal Links:\n" +
+      "  github\n" +
+      "  linkedin\n" +
+      "  email\n" +
+      "\nFun Commands:\n" +
+      "  ascii\n" +
+      "  quote",
+  }),
 
-  date: (_, { addLine }) => {
-    addLine({
-      output: new Date().toLocaleString(),
-      type: "output" as TerminalLineType,
-    });
-  },
+  /* ---------- CLEAR ---------- */
 
-  whoami: (_, { addLine }) => {
-    window.location.href = "/";
-    addLine({
-      output: "Navigating to home page...",
-      type: "success" as TerminalLineType,
-    });
-  },
+  clear: () => ({
+    type: "clear",
+  }),
 
-  "cat about.md": (_, { addLine }) => {
-    window.location.href = "/about";
-    addLine({
-      output: "Loading about page...",
-      type: "success" as TerminalLineType,
-    });
-  },
+  /* ---------- DATE ---------- */
 
-  "ls projects/": (_, { addLine }) => {
-    window.location.href = "/projects";
-    addLine({
-      output: "Listing projects...",
-      type: "success" as TerminalLineType,
-    });
-  },
+  date: () => ({
+    type: "output",
+    content: new Date().toLocaleString(),
+  }),
 
-  "which skills": (_, { addLine }) => {
-    window.location.href = "/skills";
-    addLine({
-      output: "Displaying skills matrix...",
-      type: "success" as TerminalLineType,
-    });
-  },
+  /* ---------- ECHO ---------- */
 
-  "find certificates/": (_, { addLine }) => {
-    window.location.href = "/certificates";
-    addLine({
-      output: "Fetching certificates...",
-      type: "success" as TerminalLineType,
-    });
-  },
+  echo: (args) => ({
+    type: "output",
+    content: args.join(" "),
+  }),
 
-  "curl contact.json": (_, { addLine }) => {
-    window.location.href = "/contact";
-    addLine({
-      output: "Fetching contact information...",
-      type: "success" as TerminalLineType,
-    });
-  },
+  /* ---------- ROUTER NAVIGATION ---------- */
 
-  github: (_, { addLine }) => {
-    window.open(personalInfo.Github, "_blank");
-    addLine({
-      output: "Opening GitHub profile in new tab...",
-      type: "success" as TerminalLineType,
-    });
-  },
+  projects: () => ({
+    type: "navigate",
+    path: "/projects",
+    message: "Navigating to /projects ...",
+  }),
 
-  linkedin: (_, { addLine }) => {
-    window.open(personalInfo.Linkedin, "_blank");
-    addLine({
-      output: "Opening LinkedIn profile in new tab...",
-      type: "success" as TerminalLineType,
-    });
-  },
+  certificates: () => ({
+    type: "navigate",
+    path: "/certificates",
+    message: "Navigating to /certificates ...",
+  }),
 
-  email: (_, { addLine }) => {
-    window.location.href = `mailto:${personalInfo.email}`;
-    addLine({
-      output: "Opening email client...",
-      type: "success" as TerminalLineType,
-    });
-  },
+  whoami: () => ({
+    type: "navigate",
+    path: "/",
+    message: "Navigating to home page...",
+  }),
 
-  ascii: (_, { addLine }) => {
-    addLine({
-      output: `
+  about: () => ({
+    type: "navigate",
+    path: "/about",
+    message: "Loading about page...",
+  }),
+
+  skills: () => ({
+    type: "navigate",
+    path: "/skills",
+    message: "Displaying skills matrix...",
+  }),
+
+  contact: () => ({
+    type: "navigate",
+    path: "/contact",
+    message: "Fetching contact information...",
+  }),
+
+  /* ---------- EXTERNAL LINKS ---------- */
+
+  github: () => ({
+    type: "external",
+    url: personalInfo.github,
+    message: "Opening GitHub profile...",
+  }),
+
+  linkedin: () => ({
+    type: "external",
+    url: personalInfo.linkedin,
+    message: "Opening LinkedIn profile...",
+  }),
+
+  email: () => ({
+    type: "external",
+    url: `mailto:${personalInfo.email}`,
+    message: "Opening email client...",
+  }),
+
+  /* ---------- ASCII ---------- */
+
+  ascii: () => ({
+    type: "output",
+    content: `
 ╔═════════════════════════════════════╗
 ║       Ini adalah My Kisah           ║
 ║                                     ║
@@ -142,24 +135,25 @@ export const defaultCommands: Record<string, CommandFn> = {
 ║                                     ║
 ║   "Tolong jangan claim istri saya!" ║
 ╚═════════════════════════════════════╝
-      `,
-      type: "output" as TerminalLineType,
-    });
-  },
+`,
+  }),
 
-  quote: (_, { addLine }) => {
+  /* ---------- QUOTE ---------- */
+
+  quote: () => {
     const quotes = [
       "Teknologi adalah upaya manusia untuk menulis ulang hukum alam...",
       "Kematian bukanlah kegagalan manusia terhadap hukum alam...",
-      "Manusia bukan hanya makhluk individu, tapi juga bagian dari masyarakat...",
-      "Kita membangun peradaban di atas keyakinan bahwa hukum alam bisa direvisi...",
-      "Kita menyebutnya 'inovasi' ketika mencoba membekukan waktu...",
+      "Manusia bukan hanya makhluk individu...",
+      "Kita membangun peradaban di atas keyakinan...",
+      "Kita menyebutnya inovasi...",
       "Kita adalah cara alam mengenali dirinya sendiri...",
-      "Kita tidak pernah benar-benar 'menang' melawan hukum alam..."
+      "Kita tidak pernah benar-benar menang...",
     ];
-    addLine({
-      output: quotes[Math.floor(Math.random() * quotes.length)],
-      type: "output" as TerminalLineType,
-    });
-  }
+
+    return {
+      type: "output",
+      content: quotes[Math.floor(Math.random() * quotes.length)],
+    };
+  },
 };
