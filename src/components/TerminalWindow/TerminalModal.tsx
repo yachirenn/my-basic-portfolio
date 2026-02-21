@@ -3,7 +3,7 @@
 import { Rnd } from "react-rnd";
 import { useEffect, useState } from "react";
 import TerminalHeader from "./TerminalHeader";
-import TerminalContent from "./TerminalContent";
+import TerminalContent from "./TerminalView";
 import { TerminalProvider } from "./TerminalContext";
 import { useWindows } from "@/components/container/WindowsContext";
 
@@ -66,7 +66,7 @@ export default function TerminalModal({ windowId }: Props) {
         dragHandleClassName="terminal-drag-handle"
         className="absolute z-50"
       >
-        <div className="flex flex-col w-full h-full bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl overflow-hidden border border-gray-700">
+        <div className="flex flex-col w-full h-full bg-linear-to-br from-[#0b1020] to-[#050812] rounded-xl shadow-2xl overflow-hidden border border-gray-700/30">
           <TerminalProvider>
             <TerminalHeader onClose={() => closeWindow(windowId)} />
             <div className="flex-1 overflow-y-auto p-4">
