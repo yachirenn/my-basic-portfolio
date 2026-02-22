@@ -30,7 +30,6 @@ export const commands: Record<string, CommandFn> = {
       ).join('\n') +
       '\n\nSystem Commands:\n' +
       '  clear                  - Clear terminal screen\n' +
-      '  history                - Show command history\n' +
       '  date                   - Show current date and time\n' +
       '  echo <message>         - Print message to screen\n' +
       '\nExternal Links:\n' +
@@ -39,7 +38,6 @@ export const commands: Record<string, CommandFn> = {
       '  email                  - Open email client\n' +
       '\nFun Commands:\n' +
       '  ascii                  - Show ASCII art\n' +
-      '  joke                   - Get a programming joke\n' +
       '  quote                  - Get an inspirational quote',
   }),
 
