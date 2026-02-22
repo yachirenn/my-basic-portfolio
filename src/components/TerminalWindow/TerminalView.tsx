@@ -55,7 +55,7 @@ export default function TerminalView() {
   const prompt = `${personalInfo.name.toLowerCase().replace(' ', '')}@portfolio:~$`
 
   return (
-    <div className="font-mono text-sm text-gray-200 w-full h-full p-3 overflow-y-auto">
+    <div className="w-full h-full overflow-y-auto font-mono text-sm text-gray-200" onClick={() => setTerminalFocused(true)}>
       {/* Output history */}
       {history.map((line) => (
         <div key={line.id} className={`whitespace-pre-wrap ${getLineClass(line.type)}`}>
@@ -71,7 +71,7 @@ export default function TerminalView() {
       ))}
 
       {/* Input bar */}
-      <div className="flex items-center mt-1">
+      <form className="flex items-center" onSubmit={(e) => { e.preventDefault(); executeCommand(currentInput) }}>
         <span className="text-green-400">yachirenn@portfolio:~$&nbsp;</span>
         <input
           type="text"
@@ -80,10 +80,12 @@ export default function TerminalView() {
           onKeyDown={handleKeyDown}
           className="flex-1 bg-transparent outline-none text-gray-200 caret-green-400"
           autoFocus
+          spellCheck={false}
+          autoComplete="off"
         />
-      </div>
+      </form>
 
-      <div ref={bottomRef} />
+      {/* <div ref={bottomRef} /> */}
     </div>
   )
 }

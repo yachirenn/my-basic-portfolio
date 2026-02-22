@@ -6,9 +6,9 @@ export const personalInfo = {
   bio: 'Passionate frontend developer who loves building a user interface.',
   location: 'Yogyakarta, Indonesia',
   email: 'rendysulistyawan11@gmail.com',
-  github: 'https://github.com/yachirennn',
-  linkedin: 'https://linkedin.com/in/rendysulistyawan',
-  Instagram: 'https://instagram.com/yachirenn',
+  github: 'https://github.com/yachirenn',
+  linkedin: 'https://linkedin.com/in/rendy-sulistyawan-179b12335',
+  Instagram: 'https://instagram.com/yachirennn',
 };
 
 export const terminalPrompt = `${personalInfo.name.toLowerCase().replace(' ', '')}@portfolio:~$`;

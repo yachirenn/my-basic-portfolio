@@ -23,23 +23,24 @@ export const commands: Record<string, CommandFn> = {
 
   help: () => ({
     type: "output",
-    content:
-      "Available commands:\n\n" +
-      "Navigation:\n" +
-      navigation
-        .map((item) => `  ${item.command} - ${item.label}`)
-        .join("\n") +
-      "\n\nSystem Commands:\n" +
-      "  clear\n" +
-      "  date\n" +
-      "  echo <message>\n" +
-      "\nExternal Links:\n" +
-      "  github\n" +
-      "  linkedin\n" +
-      "  email\n" +
-      "\nFun Commands:\n" +
-      "  ascii\n" +
-      "  quote",
+    content: 'Available commands:\n\n' +
+      'Navigation:\n' +
+      navigation.map(item => 
+        `  ${item.command.padEnd(18)} - ${item.command}`
+      ).join('\n') +
+      '\n\nSystem Commands:\n' +
+      '  clear                  - Clear terminal screen\n' +
+      '  history                - Show command history\n' +
+      '  date                   - Show current date and time\n' +
+      '  echo <message>         - Print message to screen\n' +
+      '\nExternal Links:\n' +
+      '  github                 - Open GitHub profile\n' +
+      '  linkedin               - Open LinkedIn profile\n' +
+      '  email                  - Open email client\n' +
+      '\nFun Commands:\n' +
+      '  ascii                  - Show ASCII art\n' +
+      '  joke                   - Get a programming joke\n' +
+      '  quote                  - Get an inspirational quote',
   }),
 
   /* ---------- CLEAR ---------- */

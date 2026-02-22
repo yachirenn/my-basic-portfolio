@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState, useCallback } from "react";
+import { createContext, useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TerminalLine, TerminalLineType } from "@/components/lib/types/terminal";
 import { commands, CommandResult } from "@/constants/commands";
@@ -29,6 +29,17 @@ export const TerminalProvider: React.FC<{
   const [isTerminalFocused, setTerminalFocused] = useState(false);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+
+  useEffect(() => {
+    setHistory([
+      createLine("Welcome to my Terminal v.1.0!", "info"),
+      createLine(
+        "System initialized successfully. Type $help to see available commands.",
+        "output"
+      ),
+      createLine("---", "output"),
+    ]);
+  }, [])
 
   const createLine = (
     output: string,
