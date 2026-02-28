@@ -84,21 +84,19 @@ export const skillCategories: SkillCategory[] = [
     name: 'Frontend Development',
     icon: '',
     skills: [
-      { name: 'HTML', level: 95, category: 'markup', yearsOfExperience: 1 },
-      { name: 'CSS', level: 70, category: 'markup styling', yearsOfExperience: 1 },
-      { name: 'Bootstrap', level: 10, category: 'styling', yearsOfExperience: 1 }
+      { name: 'HTML', level: 95, category: 'markup', yearsOfExperience: 3 },
+      { name: 'CSS', level: 70, category: 'markup styling', yearsOfExperience: 3 },
+      { name: 'Tailwind CSS', level: 70, category: 'styling', yearsOfExperience: 1 }
     ]
   },
   {
     name: 'Backend Development',
     icon: '',
     skills: [
-      { name: 'Node.js', level: 80, category: 'runtime', yearsOfExperience: 1 },
-      { name: 'JavaScript', level: 80, category: 'language', yearsOfExperience: 1 },
-      { name: 'Express.js', level: 70, category: 'framework', yearsOfExperience: 1 },
-      { name: 'MySQL', level: 70, category: 'database', yearsOfExperience: 1 },
-      { name: 'MongoDB', level: 50, category: 'database', yearsOfExperience: 1 },
-      { name: 'Redis', level: 30, category: 'caching', yearsOfExperience: 1 }
+      { name: 'Node.js', level: 70, category: 'runtime', yearsOfExperience: 1 },
+      { name: 'JavaScript', level: 80, category: 'language', yearsOfExperience: 2 },
+      { name: 'PHP', level: 55, category: 'language', yearsOfExperience: 1.5 },
+      { name: 'MySQL', level: 70, category: 'database', yearsOfExperience: 1.5 },
     ]
   },
   {
@@ -106,10 +104,8 @@ export const skillCategories: SkillCategory[] = [
     icon: '',
     skills: [
       { name: 'Git', level: 85, category: 'version-control', yearsOfExperience: 1 },
-      { name: 'Postman', level: 70, category: 'api-testing', yearsOfExperience: 1 },
-      { name: 'Docker', level: 50, category: 'containerization', yearsOfExperience: 1 },
-      { name: 'GCP', level: 50, category: 'cloud', yearsOfExperience: 1 },
-      { name: 'Linux', level: 40, category: 'os', yearsOfExperience: 1 }
+      { name: 'Postman', level: 35, category: 'api-testing', yearsOfExperience: .2 },
+      { name: 'Linux', level: 40, category: 'os', yearsOfExperience: 3 }
     ]
   },
   {
