@@ -22,7 +22,7 @@ export const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
   };
 
   return (
-    <div className="relative z-10 grid grid-cols-4 gap-8 p-10 pointer-events-auto">
+    <div className="absolute top-6 left-6 grid grid-flow-col grid-rows-6 gap-8 pointer-events-auto">
       {icons.map((icon) => (
         <div
           key={icon.id}
