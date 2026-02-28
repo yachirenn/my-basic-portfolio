@@ -1,8 +1,8 @@
 export const navigation = [
-  { label: "Home", command: "whoami", path: "/" },
-  { label: "About", command: "about", path: "/about" },
+  { label: "About", command: "about", path: "about" },
+  { label: "Skills", command: "skills", path: "skills" },
+  { label: "Certificates", command: "certificates", path: "/certificates" },
   { label: "Projects", command: "projects", path: "/projects" },
-  { label: "Contact", command: "contact", path: "/contact" },
 ];
 
 export const external_link = {

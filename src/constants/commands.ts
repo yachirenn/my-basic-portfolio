@@ -10,7 +10,8 @@ export type CommandResult =
   | { type: "success"; content: string }
   | { type: "clear" }
   | { type: "external"; url: string; message: string }
-  | { type: "navigate"; path: string; message: string };
+  | { type: "navigate"; path: string; message: string }
+  | { type: "window"; window: string; message: string };
 
 export type CommandFn = (args: string[]) => CommandResult;
 
@@ -75,29 +76,18 @@ export const commands: Record<string, CommandFn> = {
     message: "Navigating to /certificates ...",
   }),
 
-  whoami: () => ({
-    type: "navigate",
-    path: "/",
-    message: "Navigating to home page...",
-  }),
-
   about: () => ({
-    type: "navigate",
-    path: "/about",
-    message: "Loading about page...",
+    type: "window",
+    window: "about",
+    message: "Opening About window..."
   }),
 
   skills: () => ({
-    type: "navigate",
-    path: "/skills",
-    message: "Displaying skills matrix...",
+    type: "window",
+    window: "skills",
+    message: "Opening Skills window..."
   }),
 
-  contact: () => ({
-    type: "navigate",
-    path: "/contact",
-    message: "Fetching contact information...",
-  }),
 
   /* ---------- EXTERNAL LINKS ---------- */
 
@@ -124,16 +114,16 @@ export const commands: Record<string, CommandFn> = {
   ascii: () => ({
     type: "output",
     content: `
-╔═════════════════════════════════════╗
-║       Ini adalah My Kisah           ║
-║                                     ║
-║        Elaina is My Wife            ║
-║        Elaina is Beautifull         ║
-║        Elaina is My Motivasion      ║
-║                                     ║
-║   "Tolong jangan claim istri saya!" ║
-╚═════════════════════════════════════╝
-`,
+      ╔=====================================╗
+      ║         Ini adalah My Kisah         ║
+      ║                                     ║
+      ║         Elaina is My Wife           ║
+      ║        Elaina is Beautifull         ║
+      ║       Elaina is My Motivasion       ║
+      ║                                     ║
+      ║  "Tolong jangan claim istri saya!"  ║
+      ╚=====================================╝
+    `,
   }),
 
   /* ---------- QUOTE ---------- */

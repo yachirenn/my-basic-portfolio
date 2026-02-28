@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useState, useCallback, useEffect } from "react";
+import { useWindows } from "../container/WindowsContext";
 import { useRouter } from "next/navigation";
 import { TerminalLine, TerminalLineType } from "@/components/lib/types/terminal";
 import { commands, CommandResult } from "@/constants/commands";
@@ -23,6 +24,7 @@ export const TerminalProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const router = useRouter();
+  const { openWindow } = useWindows();
 
   const [history, setHistory] = useState<TerminalLine[]>([]);
   const [currentInput, setCurrentInput] = useState("");
@@ -112,6 +114,14 @@ export const TerminalProvider: React.FC<{
             createLine(result.message, "success"),
           ]);
           window.open(result.url, "_blank");
+          break;
+
+        case "window":
+          setHistory((prev) => [
+            ...prev,
+            createLine(result.message, "success"),
+          ]);
+          openWindow(result.window);
           break;
       }
 
