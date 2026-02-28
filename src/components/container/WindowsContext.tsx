@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from "react";
 
 export interface WindowInstance {
   id: string;
-  type: string;
+  type: "terminal" | "about" | "skills";
   zIndex: number;
 }
 
@@ -25,7 +25,7 @@ export function WindowsProvider({ children }: { children: React.ReactNode }) {
     const id = `${type}-${Date.now()}`;
     const newZ = topZ + 1;
 
-    setWindows((prev) => [...prev, { id, type, zIndex: newZ }]);
+    setWindows(prev => [...prev, { id, type: type as WindowInstance["type"], zIndex: newZ }]);
     setTopZ(newZ);
   };
 

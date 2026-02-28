@@ -9,3 +9,18 @@ export const external_link = {
   github: "https://github.com/yachirenn",
   linkedin: "https://linkedin.com/in/rendy-sulistyawan-179b12335",
 };
+
+export const windowsMeta = {
+  about: {
+    label: "About Me",
+    icon: "👤",
+  },
+  skills: {
+    label: "Skills",
+    icon: "⚡",
+  },
+  terminal: {
+    label: "Terminal",
+    icon: "💻",
+  }
+}
