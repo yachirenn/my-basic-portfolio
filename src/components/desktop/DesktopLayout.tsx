@@ -6,7 +6,12 @@ import Taskbar from "@/components/layout/Taskbar";
 import WindowsContainer from "@/components/container/WindowsContainer";
 import { usePathname } from "next/navigation";
 
-export default function DesktopLayout({ children }: { children: React.ReactNode }) {
+interface DesktopLayoutProps {
+  children: React.ReactNode;
+  openWindow?: (windows: string) => void;
+}
+
+export default function DesktopLayout({ children, openWindow }: DesktopLayoutProps) {
   const pathname = usePathname();
   const isDesktop = pathname === "/";
 
