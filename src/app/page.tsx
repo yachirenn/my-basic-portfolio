@@ -36,7 +36,9 @@ export default function HomePage() {
         </WindowsProvider>
       }
 
-      mobile={<MobileView />}
+      mobile={<MobileView open={false} on={function (open: boolean): void {
+        throw new Error("Function not implemented.");
+      } } />}
 
     />
   );

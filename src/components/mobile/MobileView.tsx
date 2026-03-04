@@ -11,6 +11,7 @@ import ContactSection from "./sections/ContactSection";
 
 import BottomNavbar from "./BottomNavbar";
 import TerminalModal from "@/components/TerminalWindow/TerminalModal";
+import { on } from "node:cluster";
 
 type Tab =
   | "about"
@@ -20,7 +21,7 @@ type Tab =
   | "contact"
   | "terminal";
 
-export default function MobileView() {
+export default function MobileView({ open, on }: { open: boolean; on: (open: boolean) => void }) {
 
   const [active, setActive] = useState<Tab>("about");
   const [openTerminal, setOpenTerminal] = useState(false);
@@ -61,7 +62,8 @@ export default function MobileView() {
 
         {openTerminal && (
           <TerminalModal
-            open={true}
+            windowId="terminal"
+            open={openTerminal}
             onClose={() => setOpenTerminal(false)}
             content="Welcome to terminal"
           />

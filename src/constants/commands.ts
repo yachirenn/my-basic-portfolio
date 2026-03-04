@@ -1,5 +1,6 @@
 import { personalInfo } from "@/constants/personalInfo";
 import { navigation } from "@/constants/navigation";
+import { TerminalLine } from "@/components/lib/types/terminal";
 
 /* ============================= */
 /* ========= TYPES ============= */
@@ -13,7 +14,17 @@ export type CommandResult =
   | { type: "navigate"; path: string; message: string }
   | { type: "window"; window: string; message: string };
 
-export type CommandFn = (args: string[]) => CommandResult;
+export type CommandFn = (
+  args: string[],
+  context: {
+    addLine: (line: TerminalLine) => void;
+    clearHistory: () => void;
+    history: TerminalLine[];
+    setCurrentDir: (dir: string) => void;
+    currentDir: string;
+    virtualFilesystem: Record<string, any[]>;
+  }
+) => CommandResult;
 
 /* ============================= */
 /* ===== COMMAND REGISTRY ====== */

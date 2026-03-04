@@ -1,7 +1,7 @@
 "use client";
 
 import { Rnd } from "react-rnd";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import TerminalHeader from "./TerminalHeader";
 import TerminalContent from "./TerminalView";
 import { TerminalProvider } from "./TerminalContext";
@@ -9,6 +9,9 @@ import { useWindows } from "@/components/container/WindowsContext";
 
 interface Props {
   windowId: string;
+  open: boolean;
+  onClose: () => void;
+  content: React.ReactNode;
 }
 
 export default function TerminalModal({ windowId }: Props) {
@@ -34,7 +37,7 @@ export default function TerminalModal({ windowId }: Props) {
     });
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || !open) return null;
 
   return (
     <>

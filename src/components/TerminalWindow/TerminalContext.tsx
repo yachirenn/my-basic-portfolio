@@ -1,10 +1,12 @@
 "use client";
 
-import { createContext, useState, useCallback, useEffect } from "react";
+import { createContext, useState, useCallback, useEffect, useRef } from "react";
 import { useWindows } from "../container/WindowsContext";
 import { useRouter } from "next/navigation";
 import { TerminalLine, TerminalLineType } from "@/components/lib/types/terminal";
-import { commands, CommandResult } from "@/constants/commands";
+import { commands, CommandResult, CommandFn } from "@/constants/commands";
+import { parseFilesystem } from "@/components/lib/filesystemUtils";
+import { initialFilesystem } from "@/components/lib/initialFilesystem";
 
 export interface TerminalContentType {
   history: TerminalLine[];
@@ -20,9 +22,7 @@ export interface TerminalContentType {
 export const TerminalContext =
   createContext<TerminalContentType | undefined>(undefined);
 
-export const TerminalProvider: React.FC<{
-  children: React.ReactNode;
-}> = ({ children }) => {
+export const TerminalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const router = useRouter();
   const { openWindow } = useWindows();
 
@@ -31,6 +31,9 @@ export const TerminalProvider: React.FC<{
   const [isTerminalFocused, setTerminalFocused] = useState(false);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [currentDir, setCurrentDir] = useState("/");
+
+  const virtualFilesystem = useRef(parseFilesystem(initialFilesystem)).current;
 
   useEffect(() => {
     setHistory([
@@ -41,7 +44,7 @@ export const TerminalProvider: React.FC<{
       ),
       createLine("---", "output"),
     ]);
-  }, [])
+  }, []);
 
   const createLine = (
     output: string,
@@ -55,6 +58,10 @@ export const TerminalProvider: React.FC<{
     command,
   });
 
+  const addLine = (line: TerminalLine) => {
+    setHistory(prev => [...prev, line]);
+  };
+
   /* ============================= */
   /* ===== EXECUTE COMMAND ======= */
   /* ============================= */
@@ -64,28 +71,29 @@ export const TerminalProvider: React.FC<{
       const trimmed = input.trim();
       if (!trimmed) return;
 
-      setCommandHistory((prev) => [...prev, trimmed]);
+      setCommandHistory(prev => [...prev, trimmed]);
       setHistoryIndex(-1);
 
       const [cmd, ...args] = trimmed.split(" ");
-      const commandFn = commands[cmd];
+      const commandFn: CommandFn | undefined = commands[cmd];
 
-      // Add user input line
-      setHistory((prev) => [
-        ...prev,
-        createLine(trimmed, "input", trimmed),
-      ]);
+      // Tambahkan input user ke history
+      addLine(createLine(trimmed, "input", trimmed));
 
       if (!commandFn) {
-        setHistory((prev) => [
-          ...prev,
-          createLine(`Command not found: ${cmd}`, "error"),
-        ]);
+        addLine(createLine(`Command not found: ${cmd}`, "error"));
         setCurrentInput("");
         return;
       }
 
-      const result = commandFn(args);
+      const result: CommandResult = commandFn(args, {
+        addLine,
+        clearHistory: () => setHistory([]),
+        history,
+        setCurrentDir,
+        currentDir,
+        virtualFilesystem,
+      });
 
       switch (result.type) {
         case "clear":
@@ -94,40 +102,28 @@ export const TerminalProvider: React.FC<{
 
         case "output":
         case "success":
-          setHistory((prev) => [
-            ...prev,
-            createLine(result.content, result.type),
-          ]);
+          addLine(createLine(result.content, result.type));
           break;
 
         case "navigate":
-          setHistory((prev) => [
-            ...prev,
-            createLine(result.message, "success"),
-          ]);
+          addLine(createLine(result.message, "success"));
           router.push(result.path);
           break;
 
         case "external":
-          setHistory((prev) => [
-            ...prev,
-            createLine(result.message, "success"),
-          ]);
+          addLine(createLine(result.message, "success"));
           window.open(result.url, "_blank");
           break;
 
         case "window":
-          setHistory((prev) => [
-            ...prev,
-            createLine(result.message, "success"),
-          ]);
+          addLine(createLine(result.message, "success"));
           openWindow(result.window);
           break;
       }
 
       setCurrentInput("");
     },
-    [router]
+    [router, currentDir, history, virtualFilesystem]
   );
 
   /* ============================= */
